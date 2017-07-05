@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.chenyuelun.myapp.cotroler.activity.MainActivity">
+    <FrameLayout
+        android:id="@+id/fl_main"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+
+    <RadioGroup
+        android:id="@+id/rg_main"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/appwallcellbackground"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+        android:id="@+id/rb_main_store"
+        style="@style/MyRadioButtonStyle"
+        android:text="商店" />
+
+        <RadioButton
+            android:id="@+id/rb_main_magazine"
+            style="@style/MyRadioButtonStyle"
+            android:text="杂志" />
+
+        <RadioButton
+            android:id="@+id/rb_main_biggun"
+            style="@style/MyRadioButtonStyle"
+            android:text="达人" />
+
+        <RadioButton
+            android:id="@+id/rb_main_share"
+            style="@style/MyRadioButtonStyle"
+            android:text="分享" />
+
+    </RadioGroup>
+</LinearLayout>

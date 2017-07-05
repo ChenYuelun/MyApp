@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:minHeight="50dp"
+    android:gravity="center_vertical"
+    android:background="#15171a"
+    android:orientation="horizontal">
+
+    <!--搜索-->
+    <ImageView
+
+        android:visibility="gone"
+        android:id="@+id/iv_title_search"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/abc_ic_search_api_mtrl_alpha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!--返回-->
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/iv_title_back"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/ease_mm_title_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!--标题-->
+    <TextView
+
+        android:id="@+id/tv_title"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="#ffffff"
+        tool:text="商店"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content" />
+
+    <!--购物车-->
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/iv_title_cart"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/actionbar_navigation_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!--列表-->
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/iv_title_menu"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/actionbar_navigation_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+</LinearLayout>
