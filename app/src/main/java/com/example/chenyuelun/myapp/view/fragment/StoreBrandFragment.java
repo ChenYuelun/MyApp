@@ -1,4 +1,4 @@
-package com.example.chenyuelun.myapp.cotroler.fragment;
+package com.example.chenyuelun.myapp.view.fragment;
 
 import android.widget.TextView;
 
@@ -11,19 +11,22 @@ import butterknife.BindView;
  * Created by chenyuelun on 2017/7/5.
  */
 
-public class StoreTypeFragment extends BaseFragment {
-    @BindView(R.id.tv_test)
-    TextView tvTest;
+public class StoreBrandFragment extends BaseFragment {
+
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_type_store;
+        return 0;
+
+    }
+
+    @Override
+    protected void setData(String response) {
 
     }
 
     @Override
     public void initData() {
-        tvTest.setText("StoreTypeFragment");
     }
 
 }

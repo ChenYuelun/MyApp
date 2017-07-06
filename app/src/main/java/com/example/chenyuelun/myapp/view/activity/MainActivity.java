@@ -1,4 +1,4 @@
-package com.example.chenyuelun.myapp.cotroler.activity;
+package com.example.chenyuelun.myapp.view.activity;
 
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentTransaction;
@@ -7,10 +7,10 @@ import android.widget.RadioGroup;
 import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseActivity;
 import com.example.chenyuelun.myapp.base.BaseFragment;
-import com.example.chenyuelun.myapp.cotroler.fragment.BigGunFragment;
-import com.example.chenyuelun.myapp.cotroler.fragment.MagazineFragment;
-import com.example.chenyuelun.myapp.cotroler.fragment.ShareFragment;
-import com.example.chenyuelun.myapp.cotroler.fragment.StoreFragment;
+import com.example.chenyuelun.myapp.view.fragment.BigGunFragment;
+import com.example.chenyuelun.myapp.view.fragment.MagazineFragment;
+import com.example.chenyuelun.myapp.view.fragment.ShareFragment;
+import com.example.chenyuelun.myapp.view.fragment.StoreFragment;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.chenyuelun.myapp.cotroler.fragment;
+package com.example.chenyuelun.myapp.view.fragment;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -31,6 +31,11 @@ public class MagazineFragment extends BaseFragment {
     @Override
     public int getLayoutId() {
         return R.layout.fragment_magazine;
+    }
+
+    @Override
+    protected void setData(String response) {
+
     }
 
     @Override

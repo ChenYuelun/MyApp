@@ -1,6 +1,7 @@
-package com.example.chenyuelun.myapp.cotroler.fragment;
+package com.example.chenyuelun.myapp.view.fragment;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,7 +9,7 @@ import android.widget.TextView;
 
 import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseFragment;
-import com.example.chenyuelun.myapp.cotroler.adapter.StoreFragmentAdapter;
+import com.example.chenyuelun.myapp.view.adapter.StoreFragmentAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +35,18 @@ public class StoreFragment extends BaseFragment {
     TabLayout tabview;
     @BindView(R.id.vp_main)
     ViewPager vpMain;
-    private List<BaseFragment> fragmentPagers = null;
+    private List<Fragment> fragmentPagers = null;
     private StoreFragmentAdapter adapter;
 
 
     @Override
     public int getLayoutId() {
         return R.layout.fragment_store;
+    }
+
+    @Override
+    protected void setData(String response) {
+
     }
 
     @Override

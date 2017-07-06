@@ -1,4 +1,4 @@
-package com.example.chenyuelun.myapp.cotroler.fragment;
+package com.example.chenyuelun.myapp.view.fragment;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -28,6 +28,11 @@ public class ShareFragment extends BaseFragment {
     @Override
     public int getLayoutId() {
         return R.layout.fragment_share;
+    }
+
+    @Override
+    protected void setData(String response) {
+
     }
 
     @Override

@@ -1,10 +1,8 @@
-package com.example.chenyuelun.myapp.cotroler.adapter;
+package com.example.chenyuelun.myapp.view.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
-import com.example.chenyuelun.myapp.base.BaseFragment;
 
 import java.util.List;
 
@@ -13,14 +11,14 @@ import java.util.List;
  */
 
 public class StoreFragmentAdapter extends FragmentPagerAdapter {
-    private final List<BaseFragment> pagers;
+    private final List<Fragment> pagers;
     String[] titles = {"分类", "品牌", "首页","专题", "礼物"};
     @Override
     public CharSequence getPageTitle(int position) {
         return titles[position];
     }
 
-    public StoreFragmentAdapter(FragmentManager fm, List<BaseFragment> fragmentPagers) {
+    public StoreFragmentAdapter(FragmentManager fm, List<Fragment> fragmentPagers) {
         super(fm);
         this.pagers =fragmentPagers;
     }
