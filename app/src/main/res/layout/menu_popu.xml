@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80000000"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/rg_popu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rb_default_popu"
+            style="@style/RadioButton_PopuWiondow"
+            android:text="默认推荐" />
+
+        <RadioButton
+            android:id="@+id/rb_most_popu"
+            style="@style/RadioButton_PopuWiondow"
+            android:text="最多推荐" />
+
+        <RadioButton
+            android:id="@+id/rb_welcome_popu"
+            style="@style/RadioButton_PopuWiondow"
+            android:text="最受欢迎" />
+
+        <RadioButton
+            android:id="@+id/rb_new_popu"
+            style="@style/RadioButton_PopuWiondow"
+            android:text="最新推荐" />
+
+        <RadioButton
+            android:id="@+id/rb_join_popu"
+            style="@style/RadioButton_PopuWiondow"
+            android:text="最新加入" />
+
+
+    </RadioGroup>
+
+
+</LinearLayout>

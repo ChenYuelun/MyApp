@@ -1,4 +1,4 @@
-package com.example.chenyuelun.myapp.view.fragment;
+package com.example.chenyuelun.myapp.view.fragment.store;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;

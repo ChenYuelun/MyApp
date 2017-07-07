@@ -10,11 +10,13 @@
         android:scaleType="fitXY" />
 
     <TextView
+        android:gravity="center"
+        android:background="#44cccccc"
         android:id="@+id/tv_topicInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:lines="1"
         android:textColor="#ffffff"
-        android:textSize="12sp" />
+        android:textSize="15sp" />
 </RelativeLayout>

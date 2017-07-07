@@ -1,4 +1,4 @@
-package com.example.chenyuelun.myapp.view.fragment;
+package com.example.chenyuelun.myapp.view.fragment.store;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -59,11 +59,13 @@ public class StoreTypeFragment extends BaseFragment {
             public void onItemClick(StoreTypeBean.DataBean.ItemsBean itemsBean) {
 
                 MainActivity mainActivity = (MainActivity) getActivity();
-
                 StoreTypeDetailsFragment storeTypeDetailsFragment = new StoreTypeDetailsFragment(itemsBean.getCat_id());
+
                 mainActivity.addFragment(storeTypeDetailsFragment);
                 mainActivity.switchFragment(5);
                 UiUtils.showToast(itemsBean.getCat_name());
+
+
             }
         });
 

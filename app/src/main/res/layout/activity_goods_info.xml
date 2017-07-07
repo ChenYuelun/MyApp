@@ -8,34 +8,14 @@
     android:orientation="vertical"
     tools:context="com.example.chenyuelun.myapp.view.activity.GoodsInfoActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@android:color/transparent">
 
-        <ImageView
-            android:id="@+id/iv_goodsinfo_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:background="@drawable/ic_back_gray" />
-
-        <ImageView
-            android:id="@+id/iv_goodsinfo_cart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/ic_cart_gray" />
-
-    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
+
 
 
         <ScrollView
@@ -252,11 +232,11 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@drawable/rb_bg_goods_selector"
+                        android:background="@drawable/rb_bg_selector"
                         android:button="@null"
                         android:gravity="center"
                         android:text="商品详情"
-                        android:textColor="@drawable/rb_goods_textcolor_selector"
+                        android:textColor="@drawable/rb_textcolor_selector"
                         android:textSize="12sp" />
 
                     <RadioButton
@@ -264,11 +244,11 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@drawable/rb_bg_goods_selector"
+                        android:background="@drawable/rb_bg_selector"
                         android:button="@null"
                         android:gravity="center"
                         android:text="购物须知"
-                        android:textColor="@drawable/rb_goods_textcolor_selector"
+                        android:textColor="@drawable/rb_textcolor_selector"
                         android:textSize="12sp" />
                 </RadioGroup>
 
@@ -448,6 +428,31 @@
 
 
         </ScrollView>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/transparent">
+
+            <ImageView
+                android:id="@+id/iv_goodsinfo_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/ic_back_gray" />
+
+            <ImageView
+                android:id="@+id/iv_goodsinfo_cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/ic_cart_gray" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

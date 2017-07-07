@@ -1,4 +1,4 @@
-package com.example.chenyuelun.myapp.view.fragment;
+package com.example.chenyuelun.myapp.view.fragment.store;
 
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
@@ -72,6 +72,9 @@ public class StoreTypeDetailsFragment extends BaseFragment {
                 refresh.finishRefresh();
             }
             goodsDetailsAdapter.refresh(this.datas);
+        }else {
+            refresh.finishRefreshLoadMore();
+            UiUtils.showToast("没有更多了哦");
         }
 
 

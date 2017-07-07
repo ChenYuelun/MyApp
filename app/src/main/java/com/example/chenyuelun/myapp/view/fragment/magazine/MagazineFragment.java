@@ -1,4 +1,4 @@
-package com.example.chenyuelun.myapp.view.fragment;
+package com.example.chenyuelun.myapp.view.fragment.magazine;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;

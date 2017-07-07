@@ -1,4 +1,4 @@
-package com.example.chenyuelun.myapp.view.fragment;
+package com.example.chenyuelun.myapp.view.fragment.share;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -13,7 +13,7 @@ import butterknife.BindView;
  * Created by chenyuelun on 2017/7/5.
  */
 
-public class SelfFragment extends BaseFragment {
+public class ShareFragment extends BaseFragment {
     @BindView(R.id.iv_title_search)
     ImageView ivTitleSearch;
     @BindView(R.id.iv_title_back)
@@ -27,7 +27,7 @@ public class SelfFragment extends BaseFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_self;
+        return R.layout.fragment_share;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class SelfFragment extends BaseFragment {
 
     @Override
     public void initTitle() {
-        tvTitle.setText("个人");
+        tvTitle.setText("分享");
         ivTitleSearch.setVisibility(View.VISIBLE);
         ivTitleMenu.setVisibility(View.VISIBLE);
     }

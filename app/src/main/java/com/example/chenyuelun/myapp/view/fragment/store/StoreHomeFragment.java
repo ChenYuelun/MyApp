@@ -1,4 +1,4 @@
-package com.example.chenyuelun.myapp.view.fragment;
+package com.example.chenyuelun.myapp.view.fragment.store;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;

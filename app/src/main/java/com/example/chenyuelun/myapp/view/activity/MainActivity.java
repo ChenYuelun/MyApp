@@ -3,16 +3,17 @@ package com.example.chenyuelun.myapp.view.activity;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
+import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 
 import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseActivity;
 import com.example.chenyuelun.myapp.base.BaseFragment;
-import com.example.chenyuelun.myapp.view.fragment.BigGunFragment;
-import com.example.chenyuelun.myapp.view.fragment.MagazineFragment;
-import com.example.chenyuelun.myapp.view.fragment.SelfFragment;
-import com.example.chenyuelun.myapp.view.fragment.ShareFragment;
-import com.example.chenyuelun.myapp.view.fragment.StoreFragment;
+import com.example.chenyuelun.myapp.view.fragment.daren.DaRenFragment;
+import com.example.chenyuelun.myapp.view.fragment.magazine.MagazineFragment;
+import com.example.chenyuelun.myapp.view.fragment.self.SelfFragment;
+import com.example.chenyuelun.myapp.view.fragment.share.ShareFragment;
+import com.example.chenyuelun.myapp.view.fragment.store.StoreFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class MainActivity extends BaseActivity {
         fragments = new ArrayList<>();
         fragments.add(new StoreFragment());
         fragments.add(new MagazineFragment());
-        fragments.add(new BigGunFragment());
+        fragments.add(new DaRenFragment());
         fragments.add(new ShareFragment());
         fragments.add(new SelfFragment());
     }
@@ -72,7 +73,11 @@ public class MainActivity extends BaseActivity {
         public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
             switch (checkedId) {
                 case R.id.rb_main_store:
-                    position = 0;
+                    if(fragments.size() == 6) {
+                        position = 5;
+                    }else {
+                        position = 0;
+                    }
                     break;
                 case R.id.rb_main_magazine:
                     position = 1;
@@ -92,16 +97,25 @@ public class MainActivity extends BaseActivity {
             switchFragment(position);
         }
     }
-
+    private int tempPosition;
     public void switchFragment(int position) {
+        if(position == 5) {
+            tempPosition = 0;
+        }else {
+            tempPosition = position;
+        }
+
         this.position = position;
         currentFragment = fragments.get(position);
         if (currentFragment != preFragment) {
+
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
             if (!currentFragment.isAdded()) {
                 if (preFragment != null) {
                     ft.hide(preFragment);
                 }
+
                 ft.add(R.id.fl_main, currentFragment);
             } else {
                 ft.hide(preFragment);
@@ -115,13 +129,17 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK) {
-
-            if(position != 0) {
-                rgMain.check(R.id.rb_main_store);
-                position = 0;
-                switchFragment(position);
+            PopupWindow popuWindow = ((DaRenFragment) fragments.get(2)).getPopuWindow();
+            if(popuWindow != null && popuWindow.isShowing()) {
+                popuWindow.dismiss();
                 return true;
             }
+            if(position == 5) {
+                switchFragment(tempPosition);
+                fragments.remove(5);
+                return true;
+            }
+
 
         }
         return super.onKeyDown(keyCode, event);

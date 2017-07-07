@@ -61,11 +61,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/rb_bg_goods_selector"
+            android:background="@drawable/rb_bg_selector"
             android:button="@null"
             android:gravity="center"
             android:text="品牌故事"
-            android:textColor="@drawable/rb_goods_textcolor_selector"
+            android:textColor="@drawable/rb_textcolor_selector"
             android:textSize="12sp" />
 
         <RadioButton
@@ -73,11 +73,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/rb_bg_goods_selector"
+            android:background="@drawable/rb_bg_selector"
             android:button="@null"
             android:gravity="center"
             android:text="品牌产品"
-            android:textColor="@drawable/rb_goods_textcolor_selector"
+            android:textColor="@drawable/rb_textcolor_selector"
             android:textSize="12sp" />
     </RadioGroup>
 
