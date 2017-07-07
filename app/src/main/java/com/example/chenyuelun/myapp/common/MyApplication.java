@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 
+import com.example.chenyuelun.myapp.utils.SpUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -37,6 +38,8 @@ public class MyApplication extends Application {
                 .build();
 
         OkHttpUtils.initClient(okHttpClient);
+
+        SpUtils.getSpUtils().init(context,"liangcang");
     }
 
     public static Context getContext() {

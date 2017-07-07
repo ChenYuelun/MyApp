@@ -8,6 +8,7 @@
     <include layout="@layout/layout_title"/>
 
     <LinearLayout
+        android:id="@+id/ll_price_select"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:background="#ffffff"
@@ -16,6 +17,7 @@
 
 
         <TextView
+            android:id="@+id/tv_price_select"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
             android:text="价格筛选"

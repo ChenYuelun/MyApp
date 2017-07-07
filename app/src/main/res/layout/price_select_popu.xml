@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/rg_popu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rb_all_popu"
+            style="@style/RadioButton_PopuWiondow2"
+            android:text="全部" />
+
+        <RadioButton
+            android:id="@+id/rb_200_popu"
+            style="@style/RadioButton_PopuWiondow2"
+            android:text="0-200" />
+
+        <RadioButton
+            android:id="@+id/rb_500_popu"
+            style="@style/RadioButton_PopuWiondow2"
+            android:text="201-500" />
+
+        <RadioButton
+            android:id="@+id/rb_1000_popu"
+            style="@style/RadioButton_PopuWiondow2"
+            android:text="501-1000" />
+
+        <RadioButton
+        android:id="@+id/rb_3000_popu"
+        style="@style/RadioButton_PopuWiondow2"
+        android:text="1000-3000" />
+
+        <RadioButton
+            android:id="@+id/rb_more_popu"
+            style="@style/RadioButton_PopuWiondow2"
+            android:text="3001-5000" />
+
+
+    </RadioGroup>
+
+</LinearLayout>

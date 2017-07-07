@@ -15,7 +15,7 @@
 
         android:visibility="gone"
         android:id="@+id/iv_title_search"
-        android:src="@drawable/abc_ic_search_api_mtrl_alpha"
+        android:background="@drawable/abc_ic_search_api_mtrl_alpha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -23,7 +23,7 @@
     <ImageView
         android:visibility="gone"
         android:id="@+id/iv_title_back"
-        android:src="@drawable/ease_mm_title_back"
+        android:background="@drawable/ease_mm_title_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -43,7 +43,7 @@
     <ImageView
         android:visibility="gone"
         android:id="@+id/iv_title_cart"
-        android:src="@drawable/actionbar_navigation_cart"
+        android:background="@drawable/actionbar_navigation_cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -51,14 +51,14 @@
     <ImageView
         android:visibility="gone"
         android:id="@+id/iv_title_menu"
-        android:src="@drawable/actionbar_navigation_menu"
+        android:background="@drawable/actionbar_navigation_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <ImageView
         android:visibility="gone"
         android:id="@+id/iv_title_faver"
-        android:src="@drawable/topic_nofavour"
+        android:background="@drawable/topic_nofavour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -66,7 +66,7 @@
     <ImageView
         android:visibility="gone"
         android:id="@+id/iv_title_share"
-        android:src="@drawable/ic_share_shopgood"
+        android:background="@drawable/ic_share_shopgood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

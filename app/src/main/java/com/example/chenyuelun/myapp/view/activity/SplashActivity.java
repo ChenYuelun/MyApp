@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.chenyuelun.myapp.R;
+import com.example.chenyuelun.myapp.utils.SpUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,11 +24,13 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-        Glide.with(this).load(R.drawable.loading_start).into(ivSplash);
+
 
         if(isFirstOpenApp()) {
-
+            startActivity(new Intent(SplashActivity.this, GuideActivity.class));
+            finish();
         }else {
+            Glide.with(this).load(R.drawable.loading_start).into(ivSplash);
            countDown();
         }
 
@@ -38,8 +41,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                startActivity(new Intent(SplashActivity.this, GuideActivity.class));
-                finish();
+
             }
 
             @Override
@@ -51,12 +53,17 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private boolean isFirstOpenApp() {
-        return false;
+
+        return (boolean)SpUtils.getSpUtils().get(SpUtils.FIRST_OPEN,true);
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        timer.cancel();
+        if(timer != null) {
+            timer.cancel();
+        }
+
     }
 }

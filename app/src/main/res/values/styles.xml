@@ -67,14 +67,22 @@
 
     </style>
 
-    <style name="RadioButton_PopuWiondow">
+    <style name="RadioButton_PopuWiondow" parent="RadioButton_PopuWiondow_Base">
+        <item name="android:textColor">@drawable/rb_textcolor_selector</item>
+        <item name="android:background">@drawable/rb_bg_selector</item>
+    </style>
+    <style name="RadioButton_PopuWiondow2" parent="RadioButton_PopuWiondow_Base">
+        <item name="android:textColor">@drawable/rb_textcolor_selector2</item>
+        <item name="android:background">@drawable/rb_bg_selector2</item>
+    </style>
 
+
+
+    <style name="RadioButton_PopuWiondow_Base">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dp</item>
-        <item name="android:background">@drawable/rb_bg_selector</item>
         <item name="android:button">@null</item>
         <item name="android:paddingLeft">20dp</item>
-        <item name="android:textColor">@drawable/rb_textcolor_selector</item>
         <item name="android:textSize">14sp</item>
     </style>
 

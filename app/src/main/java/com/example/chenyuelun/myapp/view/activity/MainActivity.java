@@ -129,9 +129,10 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK) {
-            PopupWindow popuWindow = ((DaRenFragment) fragments.get(2)).getPopuWindow();
+            DaRenFragment daRenFragment = (DaRenFragment) fragments.get(2);
+            PopupWindow popuWindow = daRenFragment.getPopuWindow();
             if(popuWindow != null && popuWindow.isShowing()) {
-                popuWindow.dismiss();
+                daRenFragment.showOrCloseMenu();
                 return true;
             }
             if(position == 5) {

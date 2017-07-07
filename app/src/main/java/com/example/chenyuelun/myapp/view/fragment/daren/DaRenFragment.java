@@ -131,16 +131,26 @@ public class DaRenFragment extends BaseFragment {
             }
         });
 
+        daRenAdapter.setOnItemClickListener(new DaRenAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DaRenBean.DataBean.ItemsBean itemsBean) {
+
+            }
+        });
+
     }
 
-    private void showOrCloseMenu() {
+    public void showOrCloseMenu() {
         if(popupWindow == null) {
             createMenuView();
         }
         if(popupWindow.isShowing()) {
             popupWindow.dismiss();
+            ivTitleMenu.setBackgroundResource(R.drawable.actionbar_navigation_menu);
         }else {
             popupWindow.showAsDropDown(tvTitle,0,40);
+            ivTitleMenu.setBackgroundResource(R.drawable.close);
+
         }
     }
 

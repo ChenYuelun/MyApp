@@ -27,6 +27,7 @@ public class DaRenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final Context context;
 
     private List<DaRenBean.DataBean.ItemsBean> datas = new ArrayList<>();
+    private OnItemClickListener listener;
 
     public DaRenAdapter(Context context) {
         this.context = context;
@@ -67,6 +68,14 @@ public class DaRenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener != null) {
+                        listener.onItemClick(datas.get(getLayoutPosition()));
+                    }
+                }
+            });
         }
 
         public void setData(DaRenBean.DataBean.ItemsBean itemsBean) {
@@ -80,5 +89,12 @@ public class DaRenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             tvUsername.setText(itemsBean.getUsername());
             tvDuty.setText(itemsBean.getDuty());
         }
+    }
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(DaRenBean.DataBean.ItemsBean itemsBean);
     }
 }
