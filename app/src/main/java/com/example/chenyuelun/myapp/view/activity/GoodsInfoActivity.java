@@ -27,6 +27,7 @@ import com.example.chenyuelun.myapp.base.BaseActivity;
 import com.example.chenyuelun.myapp.common.AppUrl;
 import com.example.chenyuelun.myapp.modle.bean.GoodsInfosBean;
 import com.example.chenyuelun.myapp.utils.HttpUtils;
+import com.example.chenyuelun.myapp.utils.UiUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
 
@@ -280,5 +281,19 @@ public class GoodsInfoActivity extends BaseActivity {
         });
 
         rgSelectShow.check(R.id.rb_goods_info);
+
+        ivGoodsinfoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        ivGoodsinfoCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UiUtils.showToast("购物车");
+            }
+        });
     }
 }

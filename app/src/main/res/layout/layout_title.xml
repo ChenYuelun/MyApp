@@ -57,6 +57,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/iv_title_faver"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/topic_nofavour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/iv_title_share"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_share_shopgood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 
 
 </LinearLayout>

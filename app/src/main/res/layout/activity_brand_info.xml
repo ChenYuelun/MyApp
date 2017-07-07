@@ -11,6 +11,7 @@
     <include layout="@layout/layout_title" />
 
     <RelativeLayout
+        android:background="@drawable/brand_bg"
         android:layout_width="match_parent"
         android:layout_height="200dp">
 

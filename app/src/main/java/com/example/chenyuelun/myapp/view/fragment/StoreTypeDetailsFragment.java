@@ -15,6 +15,7 @@ import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseFragment;
 import com.example.chenyuelun.myapp.common.AppUrl;
 import com.example.chenyuelun.myapp.modle.bean.GoodsDetailsBean;
+import com.example.chenyuelun.myapp.utils.UiUtils;
 import com.example.chenyuelun.myapp.view.activity.GoodsInfoActivity;
 import com.example.chenyuelun.myapp.view.activity.MainActivity;
 import com.example.chenyuelun.myapp.view.adapter.GoodsDetailsAdapter;
@@ -138,8 +139,16 @@ public class StoreTypeDetailsFragment extends BaseFragment {
         ivTitleBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                UiUtils.showToast("返回");
                 MainActivity mainActivity = (MainActivity) getActivity();
                 mainActivity.switchFragment(0);
+            }
+        });
+
+        ivTitleCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UiUtils.showToast("购物车");
             }
         });
     }

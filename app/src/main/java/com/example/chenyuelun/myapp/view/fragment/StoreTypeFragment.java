@@ -74,6 +74,10 @@ public class StoreTypeFragment extends BaseFragment {
                 getDataFromNet(AppUrl.STORE_TYPE_URL);
             }
         });
+
+
+
+
     }
 
 

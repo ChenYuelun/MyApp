@@ -23,7 +23,8 @@
         <activity
             android:name=".view.activity.GoodsInfoActivity"
             android:theme="@style/Anim_GoodsInfoEnterAndOut" />
-        <activity android:name=".view.activity.BrandInfoActivity"></activity>
+        <activity android:name=".view.activity.BrandInfoActivity" />
+        <activity android:name=".view.activity.WebActivity"></activity>
     </application>
 
 </manifest>

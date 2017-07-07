@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseFragment;
+import com.example.chenyuelun.myapp.utils.UiUtils;
 import com.example.chenyuelun.myapp.view.adapter.StoreFragmentAdapter;
 
 import java.util.ArrayList;
@@ -74,5 +75,21 @@ public class StoreFragment extends BaseFragment {
         ivTitleCart.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void initListener() {
+        super.initListener();
+        ivTitleSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UiUtils.showToast("搜索商品");
+            }
+        });
 
+        ivTitleCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UiUtils.showToast("购物车");
+            }
+        });
+    }
 }

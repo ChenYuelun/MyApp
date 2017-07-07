@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseActivity;
 import com.example.chenyuelun.myapp.common.AppUrl;
@@ -93,6 +94,7 @@ public class BrandInfoActivity extends BaseActivity {
             public void onResponse(String response, int id) {
                 Log.e("TAG", "品牌信息请求成功" + response);
                 processData(response);
+                refresh.finishRefresh();
             }
 
             @Override
@@ -122,6 +124,8 @@ public class BrandInfoActivity extends BaseActivity {
     @Override
     public void initTitle() {
         super.initTitle();
+        tvTitle.setText("品牌产品");
+        ivTitleBack.setVisibility(View.VISIBLE);
 
     }
 
@@ -153,6 +157,21 @@ public class BrandInfoActivity extends BaseActivity {
                 Intent intent = new Intent(BrandInfoActivity.this, GoodsInfoActivity.class);
                 intent.putExtra("goodsId", goods_id);
                 startActivity(intent);
+            }
+        });
+
+
+        refresh.setMaterialRefreshListener(new MaterialRefreshListener() {
+            @Override
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+                getDataFromNet();
+            }
+        });
+
+        ivTitleBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
