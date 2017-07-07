@@ -34,9 +34,9 @@ public class GoodsDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.context = context;
     }
 
-    public void refresh(GoodsDetailsBean detailsBean) {
+    public void refresh(List<GoodsDetailsBean.DataBean.ItemsBean> datas) {
         this.datas.clear();
-        this.datas.addAll(detailsBean.getData().getItems());
+        this.datas.addAll(datas);
         notifyDataSetChanged();
     }
 

@@ -87,8 +87,11 @@ public abstract class BaseFragment extends Fragment {
         return "";
     }
 
-
     public abstract int getLayoutId();
+
+    public void getDataFromNet(String url){
+        loadingView.getNewData(url);
+    }
 
 
 }
