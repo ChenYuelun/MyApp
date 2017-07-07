@@ -46,7 +46,7 @@ public class GoodsInfoActivity extends BaseActivity {
     ImageView ivGoodsinfoCart;
     @BindView(R.id.banner)
     Banner banner;
-    @BindView(R.id.tv_brandname1)
+    @BindView(R.id.tv_brandname)
     TextView tvBrandname1;
     @BindView(R.id.tv_goodsname)
     TextView tvGoodsname;

@@ -2,6 +2,7 @@ package com.example.chenyuelun.myapp.view.fragment;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
@@ -11,12 +12,12 @@ import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseFragment;
 import com.example.chenyuelun.myapp.common.AppUrl;
 import com.example.chenyuelun.myapp.modle.bean.BrandBean;
+import com.example.chenyuelun.myapp.view.activity.BrandInfoActivity;
 import com.example.chenyuelun.myapp.view.adapter.BrandListAdapter;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.Unbinder;
 
 /**
  * Created by chenyuelun on 2017/7/5.
@@ -29,7 +30,6 @@ public class StoreBrandFragment extends BaseFragment {
     ListView lvBrand;
     @BindView(R.id.refresh)
     MaterialRefreshLayout refresh;
-    Unbinder unbinder;
     private BrandListAdapter brandListAdapter;
     private List<BrandBean.DataBean.ItemsBean> datas;
     private boolean isGetMore =false;
@@ -82,11 +82,15 @@ public class StoreBrandFragment extends BaseFragment {
             }
         });
 
-
-        lvBrand.setOnClickListener(new View.OnClickListener() {
+        lvBrand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), BrandInfoActivity.class);
+                BrandBean.DataBean.ItemsBean itemsBean = datas.get(position);
+                intent.putExtra("brand_id",itemsBean.getBrand_id());
+                intent.putExtra("brand_name",itemsBean.getBrand_name());
+                intent.putExtra("brand_logo",itemsBean.getBrand_logo());
+
                 startActivity(intent);
             }
         });
@@ -94,17 +98,17 @@ public class StoreBrandFragment extends BaseFragment {
 
     private void getMoreData() {
         isGetMore = true;
-        getDataFromNet(AppUrl.getBrandUrl(++moreDataPager));
+        getDataFromNet(AppUrl.getBrandListUrl(++moreDataPager));
     }
 
     private void refreshData() {
         isGetMore = false;
-        getDataFromNet(AppUrl.getBrandUrl(1));
+        getDataFromNet(AppUrl.getBrandListUrl(1));
     }
 
     @Override
     public String getUrl() {
-        return AppUrl.getBrandUrl(1);
+        return AppUrl.getBrandListUrl(1);
     }
 
 

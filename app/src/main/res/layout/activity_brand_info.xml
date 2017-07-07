@@ -1,9 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.chenyuelun.myapp.view.fragment.BrandInfoActivity">
+    android:background="#1e2125"
+    android:orientation="vertical"
+    tools:context="com.example.chenyuelun.myapp.view.activity.BrandInfoActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/layout_title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <ImageView
+            android:id="@+id/iv_brand_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_brand_logo"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerInParent="true" />
+
+            <TextView
+                android:id="@+id/tv_brand_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="10dp"
+                android:textColor="#ffffff"
+                tools:text="brand_name" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_brand"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#2c2f34"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_brand_story"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/rb_bg_goods_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="品牌故事"
+            android:textColor="@drawable/rb_goods_textcolor_selector"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/rb_brand_goods"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/rb_bg_goods_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="品牌产品"
+            android:textColor="@drawable/rb_goods_textcolor_selector"
+            android:textSize="12sp" />
+    </RadioGroup>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/fresh_recyclerview" />
+
+        <TextView
+            android:id="@+id/tv_brand_story"
+            style="@style/GoodsInfoTextViewStyle"
+            android:layout_marginTop="20dp"
+            android:textAllCaps="false"
+            android:visibility="gone"
+            tools:text="品牌故事" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

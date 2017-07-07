@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.chenyuelun.myapp.R;
-import com.example.chenyuelun.myapp.modle.bean.GoodsDetailsBean;
+import com.example.chenyuelun.myapp.modle.bean.BrandInfosBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,35 +21,30 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by chenyuelun on 2017/7/6.
+ * Created by chenyuelun on 2017/7/7.
  */
 
-public class GoodsDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class BrandInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
     private final Context context;
 
-    private List<GoodsDetailsBean.DataBean.ItemsBean> datas = new ArrayList<>();
+    private List<BrandInfosBean.DataBean.ItemsBean> datas = new ArrayList<>();
     private OnItemClickListener listener;
 
-    public GoodsDetailsAdapter(Context context) {
+    public BrandInfoAdapter(Context context) {
         this.context = context;
-    }
-
-    public void refresh(List<GoodsDetailsBean.DataBean.ItemsBean> datas) {
-        this.datas.clear();
-        this.datas.addAll(datas);
-        notifyDataSetChanged();
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_details_good_store, parent, false);
-        return new ViewHolder(view);
+        return new ViewHoder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ViewHolder viewHolder = (ViewHolder) holder;
-        viewHolder.setData(position);
+        ViewHoder viewHoder = (ViewHoder) holder;
+        viewHoder.setData(position);
     }
 
     @Override
@@ -57,9 +52,13 @@ public class GoodsDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return datas == null ? 0 : datas.size();
     }
 
+    public void refresh(List<BrandInfosBean.DataBean.ItemsBean> items) {
+        this.datas.clear();
+        this.datas.addAll(items);
+        notifyDataSetChanged();
+    }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-
+    class ViewHoder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv_goods)
         ImageView ivGoods;
         @BindView(R.id.tv_goods_name)
@@ -72,10 +71,9 @@ public class GoodsDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         TextView tvDiscountPrice;
         @BindView(R.id.tv_price)
         TextView tvPrice;
-
-        public ViewHolder(View itemView) {
+        public ViewHoder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            ButterKnife.bind(this,itemView);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -87,7 +85,7 @@ public class GoodsDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
 
         public void setData(int position) {
-            GoodsDetailsBean.DataBean.ItemsBean itemsBean = datas.get(position);
+            BrandInfosBean.DataBean.ItemsBean itemsBean = datas.get(position);
             Glide.with(context).load(itemsBean.getGoods_image()).into(ivGoods);
             tvGoodsName.setText(itemsBean.getGoods_name());
             tvBrandName.setText(itemsBean.getBrand_info().getBrand_name());
@@ -102,15 +100,15 @@ public class GoodsDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 tvDiscountPrice.setText("￥" + itemsBean.getPrice());
                 tvPrice.setVisibility(View.GONE);
             }
-
         }
     }
+
 
     public void setOnItemClickListener(OnItemClickListener listener){
         this.listener = listener;
     }
 
     public interface OnItemClickListener{
-        void onItemClick(int position, GoodsDetailsBean.DataBean.ItemsBean itemsBean);
+        void onItemClick(int position,BrandInfosBean.DataBean.ItemsBean itemsBean);
     }
 }

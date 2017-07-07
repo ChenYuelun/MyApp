@@ -237,18 +237,23 @@ public class AppUrl {
 
 
 
-    //品牌
-    public static final String BRAND_URL ="http://mobile.iliangcang.com/brand/brandList?app_key=Android&count=20&page=1&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0";
+    //品牌列表
+    public static final String BRANDLIST_URL ="http://mobile.iliangcang.com/brand/brandList?app_key=Android&count=20&page=1&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0";
     //分页
-    public static final String BRAND_HEAD ="http://mobile.iliangcang.com/brand/brandList?app_key=Android&count=20&page=";
-    public static final String BRAND_FOOT = "&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0";
+    public static final String BRANDLIST_HEAD ="http://mobile.iliangcang.com/brand/brandList?app_key=Android&count=20&page=";
+    public static final String BRANDLIST_FOOT = "&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0";
 
-    public static String getBrandUrl(int page){
-        return BRAND_HEAD + page + BRAND_FOOT;
+    public static String getBrandListUrl(int page){
+        return BRANDLIST_HEAD + page + BRANDLIST_FOOT;
     }
 
 
-
+    //品牌详情
+    public static final String BRAND_INFO_HEAD = "http://mobile.iliangcang.com/brand/brandShopList?app_key=Android&brand_id=";
+    public static final String BRAND_INFO_FOOT = "&count=20&page=1&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0";
+    public static String getBrandInfoUrl(int brand_id){
+        return  BRAND_INFO_HEAD + brand_id + BRAND_INFO_FOOT;
+    }
 
 
 

@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseFragment;
 import com.example.chenyuelun.myapp.common.AppUrl;
@@ -21,8 +23,10 @@ import butterknife.BindView;
 
 public class StoreTypeFragment extends BaseFragment {
 
-    @BindView(R.id.rv_type_store)
+    @BindView(R.id.recyclerview)
     RecyclerView rvTypeStore;
+    @BindView(R.id.refresh)
+    MaterialRefreshLayout refresh;
     private StoreTypeAdapter storeTypeAdapter;
 
     @Override
@@ -36,13 +40,14 @@ public class StoreTypeFragment extends BaseFragment {
         Log.e("TAG", "StoreTypeFragment:response" + response);
         StoreTypeBean storeTypeBean = JSON.parseObject(response, StoreTypeBean.class);
         storeTypeAdapter.refresh(storeTypeBean);
+        refresh.finishRefresh();
     }
 
     @Override
     public void initData() {
         storeTypeAdapter = new StoreTypeAdapter(getActivity());
         rvTypeStore.setAdapter(storeTypeAdapter);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         rvTypeStore.setLayoutManager(gridLayoutManager);
     }
 
@@ -61,11 +66,20 @@ public class StoreTypeFragment extends BaseFragment {
                 UiUtils.showToast(itemsBean.getCat_name());
             }
         });
-    }
 
+
+        refresh.setMaterialRefreshListener(new MaterialRefreshListener() {
+            @Override
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+                getDataFromNet(AppUrl.STORE_TYPE_URL);
+            }
+        });
+    }
 
 
     public String getUrl() {
         return AppUrl.STORE_TYPE_URL;
     }
+
+
 }

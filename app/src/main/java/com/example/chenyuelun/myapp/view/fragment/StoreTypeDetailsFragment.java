@@ -41,7 +41,7 @@ public class StoreTypeDetailsFragment extends BaseFragment {
     ImageView ivTitleCart;
     @BindView(R.id.iv_title_menu)
     ImageView ivTitleMenu;
-    @BindView(R.id.rv_details_store)
+    @BindView(R.id.recyclerview)
     RecyclerView rvDetailsStore;
     @BindView(R.id.refresh)
     com.cjj.MaterialRefreshLayout refresh;

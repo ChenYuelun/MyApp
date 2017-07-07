@@ -55,7 +55,7 @@
                     android:layout_height="400dp" />
 
                 <TextView
-                    android:id="@+id/tv_brandname1"
+                    android:id="@+id/tv_brandname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/banner"
@@ -68,7 +68,7 @@
                 <TextView
                     android:id="@+id/tv_goodsname"
                     style="@style/GoodsInfoTextViewStyle"
-                    android:layout_below="@id/tv_brandname1"
+                    android:layout_below="@id/tv_brandname"
                     android:layout_marginTop="10dp"
                     android:lines="1"
                     tools:text="【独家首发】乐可丽舒漱口水" />
