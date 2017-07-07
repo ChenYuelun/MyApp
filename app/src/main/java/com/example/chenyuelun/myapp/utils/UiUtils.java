@@ -3,6 +3,7 @@ package com.example.chenyuelun.myapp.utils;
 import android.content.Context;
 import android.os.Process;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.chenyuelun.myapp.common.MyApplication;
 
@@ -27,5 +28,14 @@ public class UiUtils {
            MyApplication.getHandler().post(runnable);
        }
 
+    }
+
+    public static void showToast(final String msg){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getContext(),msg,Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

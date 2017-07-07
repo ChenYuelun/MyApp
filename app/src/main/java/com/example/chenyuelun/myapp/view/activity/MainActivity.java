@@ -2,6 +2,7 @@ package com.example.chenyuelun.myapp.view.activity;
 
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.widget.RadioGroup;
 
 import com.example.chenyuelun.myapp.R;
@@ -9,6 +10,7 @@ import com.example.chenyuelun.myapp.base.BaseActivity;
 import com.example.chenyuelun.myapp.base.BaseFragment;
 import com.example.chenyuelun.myapp.view.fragment.BigGunFragment;
 import com.example.chenyuelun.myapp.view.fragment.MagazineFragment;
+import com.example.chenyuelun.myapp.view.fragment.SelfFragment;
 import com.example.chenyuelun.myapp.view.fragment.ShareFragment;
 import com.example.chenyuelun.myapp.view.fragment.StoreFragment;
 
@@ -25,6 +27,7 @@ public class MainActivity extends BaseActivity {
     private List<BaseFragment> fragments;
     private BaseFragment preFragment = null;
     private int position = 0;
+    private BaseFragment currentFragment;
 
     @Override
     public void initData() {
@@ -37,6 +40,7 @@ public class MainActivity extends BaseActivity {
         fragments.add(new MagazineFragment());
         fragments.add(new BigGunFragment());
         fragments.add(new ShareFragment());
+        fragments.add(new SelfFragment());
     }
 
     @Override
@@ -49,6 +53,17 @@ public class MainActivity extends BaseActivity {
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
+    }
+
+    public BaseFragment getcurrentFragment() {
+        return currentFragment;
+    }
+
+    public void addFragment(BaseFragment baseFragment) {
+        if(fragments.size() == 6) {
+            fragments.remove(5);
+        }
+        fragments.add(baseFragment);
     }
 
 
@@ -68,27 +83,48 @@ public class MainActivity extends BaseActivity {
                 case R.id.rb_main_share:
                     position = 3;
                     break;
+                case R.id.rb_main_myselef:
+                    position = 4;
+                    break;
             }
 
-            BaseFragment currentFragment = fragments.get(position);
-            switchFragment(currentFragment);
+
+            switchFragment(position);
         }
     }
 
-    private void switchFragment(BaseFragment currentFragment) {
+    public void switchFragment(int position) {
+        this.position = position;
+        currentFragment = fragments.get(position);
         if (currentFragment != preFragment) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             if (!currentFragment.isAdded()) {
                 if (preFragment != null) {
                     ft.hide(preFragment);
                 }
-                ft.add(R.id.fl_main,currentFragment);
-            }else {
+                ft.add(R.id.fl_main, currentFragment);
+            } else {
                 ft.hide(preFragment);
                 ft.show(currentFragment);
             }
             ft.commit();
             preFragment = currentFragment;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+
+            if(position != 0) {
+                rgMain.check(R.id.rb_main_store);
+                position = 0;
+                switchFragment(position);
+                return true;
+            }
+
+        }
+        return super.onKeyDown(keyCode, event);
+
     }
 }

@@ -35,7 +35,7 @@ public abstract class BaseFragment extends Fragment {
 
             @Override
             protected String getUrl() {
-                return getDataUrl();
+                return getCart_id();
             }
 
             @Override
@@ -83,10 +83,12 @@ public abstract class BaseFragment extends Fragment {
     }
 
 
-    public String getDataUrl() {
+    public String getCart_id() {
         return "";
     }
 
 
     public abstract int getLayoutId();
+
+
 }

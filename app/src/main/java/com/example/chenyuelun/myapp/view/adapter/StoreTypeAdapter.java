@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.modle.bean.StoreTypeBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,16 +25,17 @@ public class StoreTypeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     private Context context;
-    private StoreTypeBean typeBean;
-    List<StoreTypeBean.DataBean.ItemsBean> items;
+    List<StoreTypeBean.DataBean.ItemsBean> items = new ArrayList<>();
+    private OnItemClickListener listener;
 
-    public StoreTypeAdapter(Context context,StoreTypeBean typeBean) {
+    public StoreTypeAdapter(Context context) {
         this.context = context;
-        items = typeBean.getData().getItems();
+
     }
 
     public void refresh(StoreTypeBean typeBean) {
-        this.typeBean = typeBean;
+        items.clear();
+        items.addAll(typeBean.getData().getItems());
         notifyDataSetChanged();
     }
 
@@ -60,6 +62,14 @@ public class StoreTypeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener != null) {
+                        listener.onItemClick(items.get(getLayoutPosition()));
+                    }
+                }
+            });
         }
 
         public void setData(int position) {
@@ -67,6 +77,14 @@ public class StoreTypeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             String new_cover_img = itemsBean.getNew_cover_img();
             Glide.with(context).load(new_cover_img).into(ivItemType);
         }
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(StoreTypeBean.DataBean.ItemsBean itemsBean);
     }
 
 }
