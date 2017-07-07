@@ -35,7 +35,7 @@ public abstract class BaseFragment extends Fragment {
 
             @Override
             protected String getUrl() {
-                return getCart_id();
+                return BaseFragment.this.getUrl();
             }
 
             @Override
@@ -45,9 +45,6 @@ public abstract class BaseFragment extends Fragment {
                 return view;
             }
         };
-
-
-
 
         return loadingView;
 
@@ -68,6 +65,12 @@ public abstract class BaseFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
     public void initListener() {
 
     }
@@ -83,7 +86,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
 
-    public String getCart_id() {
+    public String getUrl() {
         return "";
     }
 

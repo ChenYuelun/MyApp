@@ -18,32 +18,31 @@ public class HttpUtils {
         return httpUtils;
     }
 
-    public void get(String url,OnHttpListener listener){
-        this.listener = listener;
+    public static void get(String url, final OnHttpListener listener){
+
         OkHttpUtils
                 .get()
                 .url(url)
                 .build()
-                .execute(new StringCallBack());
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        if(listener != null) {
+                            listener.onError(call,e,id);
+                        }
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        if(listener != null) {
+                            listener.onResponse(response,id);
+                        }
+                    }
+                });
     }
 
-    public class StringCallBack extends StringCallback{
 
-        @Override
-        public void onError(Call call, Exception e, int id) {
-            if(listener != null) {
-                listener.onError(call,e,id);
-            }
-        }
 
-        @Override
-        public void onResponse(String response, int id) {
-            if(listener != null) {
-                listener.onResponse(response,id);
-            }
-        }
-    }
-    public OnHttpListener listener;
 
     public interface OnHttpListener{
         void onResponse(String response, int id);

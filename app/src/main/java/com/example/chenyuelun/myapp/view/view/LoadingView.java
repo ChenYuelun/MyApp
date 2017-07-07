@@ -84,7 +84,7 @@ public abstract class LoadingView extends FrameLayout {
             showSafeView();
             return;
         }
-        HttpUtils.getInstance().get(url, new HttpUtils.OnHttpListener() {
+        HttpUtils.get(url, new HttpUtils.OnHttpListener() {
             @Override
             public void onResponse(String response, int id) {
                 Log.e("TAG", "网络请求成功");
@@ -105,16 +105,15 @@ public abstract class LoadingView extends FrameLayout {
 
     public void getNewData(String url){
 
-        HttpUtils.getInstance().get(url, new HttpUtils.OnHttpListener() {
+        HttpUtils.get(url, new HttpUtils.OnHttpListener() {
             @Override
             public void onResponse(String response, int id) {
-                Log.e("TAG", "网络请求成功");
                 setSeccessData(response);
             }
 
             @Override
             public void onError(Call call, Exception e, int id) {
-                Log.e("TAG", "网络请求失败");
+                Log.e("TAG", "网络请求失败"+e.getMessage());
             }
         });
     }

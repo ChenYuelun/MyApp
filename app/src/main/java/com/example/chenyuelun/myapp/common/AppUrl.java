@@ -162,18 +162,7 @@ public class AppUrl {
     public static final String YISHU214_HEAD = "app_key=Android&cat_code=0214&count=10&coverId=1&page=";
     public static final String YISHU214_FOOT ="&sig=6E1DEF1DAFF84909ECD98F32FE6CDAD5%7C536890620070968&v=1.0";
 
-
-
-
-
-
-    //商品详情url == head + 商品id + foot
-    public static final String GOODSINFO_HEAD = "http://mobile.iliangcang.com/goods/goodsDetail?app_key=Android&goods_id=";
-    public static final String GOODSINFO_FOOT = "&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0";
-
-
-
-
+    //根据数据商品类别的Cart_id 和 页码获取相应的url
     public static String getTypeGoodsUrl(String CartId,int pager){
         String detailsUrl = "";
         int cat_id = Integer.parseInt(CartId);
@@ -236,11 +225,52 @@ public class AppUrl {
             case SHUMA :
                 detailsUrl =  SHUMA69_HEAD + pager + SHUMA69_FOOT;
                 break;
-
-
-
         }
         return AppUrl.TYPE_BASE_UEL +detailsUrl;
     }
+
+
+
+    //商品详情url == head + 商品id + foot
+    public static final String GOODSINFO_HEAD = "http://mobile.iliangcang.com/goods/goodsDetail?app_key=Android&goods_id=";
+    public static final String GOODSINFO_FOOT = "&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0";
+
+
+
+    //品牌
+    public static final String BRAND_URL ="http://mobile.iliangcang.com/brand/brandList?app_key=Android&count=20&page=1&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0";
+    //分页
+    public static final String BRAND_HEAD ="http://mobile.iliangcang.com/brand/brandList?app_key=Android&count=20&page=";
+    public static final String BRAND_FOOT = "&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0";
+
+    public static String getBrandUrl(int page){
+        return BRAND_HEAD + page + BRAND_FOOT;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

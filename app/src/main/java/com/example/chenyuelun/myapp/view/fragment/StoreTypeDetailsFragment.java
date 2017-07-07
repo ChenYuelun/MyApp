@@ -99,7 +99,7 @@ public class StoreTypeDetailsFragment extends BaseFragment {
         return R.layout.fragment_details_type_store;
     }
 
-    public String getCart_id() {
+    public String getUrl() {
         return AppUrl.getTypeGoodsUrl(cart_id, 1);
     }
 

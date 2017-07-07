@@ -2,6 +2,7 @@ package com.example.chenyuelun.myapp.view.fragment;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.example.chenyuelun.myapp.R;
@@ -32,7 +33,7 @@ public class StoreTypeFragment extends BaseFragment {
 
     @Override
     protected void setData(String response) {
-//        Log.e("TAG", "StoreTypeFragment:response" + response);
+        Log.e("TAG", "StoreTypeFragment:response" + response);
         StoreTypeBean storeTypeBean = JSON.parseObject(response, StoreTypeBean.class);
         storeTypeAdapter.refresh(storeTypeBean);
     }
@@ -53,16 +54,7 @@ public class StoreTypeFragment extends BaseFragment {
             public void onItemClick(StoreTypeBean.DataBean.ItemsBean itemsBean) {
 
                 MainActivity mainActivity = (MainActivity) getActivity();
-//                BaseFragment currentFragment = mainActivity.getcurrentFragment();
-//                FragmentTransaction ft = mainActivity.getSupportFragmentManager().beginTransaction();
-//
-//                ft.setCustomAnimations(R.anim.fragment_left_in,R.anim.fragment_left_out);
-//                ft.hide(currentFragment);
-//                StoreTypeDetailsFragment storeTypeDetailsFragment = new StoreTypeDetailsFragment(detailsUrl);
-//                ft.setCustomAnimations(R.anim.fragment_right_in,R.anim.fragment_right_out);
-//                ft.add(R.id.fl_main,storeTypeDetailsFragment);
-//
-//                ft.commit();
+
                 StoreTypeDetailsFragment storeTypeDetailsFragment = new StoreTypeDetailsFragment(itemsBean.getCat_id());
                 mainActivity.addFragment(storeTypeDetailsFragment);
                 mainActivity.switchFragment(5);
@@ -73,7 +65,7 @@ public class StoreTypeFragment extends BaseFragment {
 
 
 
-    public String getCart_id() {
+    public String getUrl() {
         return AppUrl.STORE_TYPE_URL;
     }
 }
