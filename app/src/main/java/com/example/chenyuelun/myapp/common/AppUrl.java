@@ -456,4 +456,8 @@ public class AppUrl {
         return url;
     }
 
+
+    //杂志 良仓
+    public static final String MAGAZINE_LIANGCANG_URL = "http://mobile.iliangcang.com/topic/magazineList?app_key=Android&author_id=1&sig=2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
+
 }

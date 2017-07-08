@@ -12,6 +12,7 @@
     android:paddingRight="20dp">
 
     <TextView
+        android:textAllCaps="false"
         android:id="@+id/tv_title_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,16 +39,26 @@
         android:visibility="gone" />
 
     <!--标题-->
-    <TextView
 
-        android:id="@+id/tv_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+    <LinearLayout
         android:gravity="center"
-        android:textColor="#ffffff"
-        android:textSize="16sp"
-        tool:text="商店" />
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:lines="1"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            tool:text="商店" />
+    </LinearLayout>
+
 
     <!--购物车-->
     <ImageView

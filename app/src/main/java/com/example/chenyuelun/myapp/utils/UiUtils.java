@@ -74,7 +74,12 @@ public class UiUtils {
     }
 
     public static void loadImage(Context context, String url, ImageView view, int default_image) {
-        Drawable drawable = context.getResources().getDrawable(default_image);
-        Picasso.with(context).load(url).error(drawable).placeholder(drawable).into(view);
+        if(default_image == 0) {
+            Picasso.with(context).load(url).into(view);
+        }else {
+            Drawable drawable = context.getResources().getDrawable(default_image);
+            Picasso.with(context).load(url).error(drawable).placeholder(drawable).into(view);
+        }
+
     }
 }
