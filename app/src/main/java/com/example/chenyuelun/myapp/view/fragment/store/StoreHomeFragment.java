@@ -68,13 +68,13 @@ public class StoreHomeFragment extends BaseFragment {
         super.initListener();
         homeAdapteer.setOnItemClickListener(new HomeAdapter.OnItemClickListener() {
             @Override
-            public void onItemClicked(String topic_url, String Topic_name, String content_id) {
+            public void onItemClicked(String topic_url, String topic_name, String content_id) {
                 if(TextUtils.isEmpty(topic_url)) {
                     return;
                 }
                 Intent intent = new Intent(getActivity(),WebActivity.class);
                 intent.putExtra("topic_url",topic_url);
-                intent.putExtra("Topic_name",Topic_name);
+                intent.putExtra("topic_name",topic_name);
 
                 startActivity(intent);
             }

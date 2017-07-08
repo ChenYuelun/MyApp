@@ -1,10 +1,12 @@
 package com.example.chenyuelun.myapp.view.fragment.magazine;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +16,7 @@ import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseFragment;
 import com.example.chenyuelun.myapp.common.AppUrl;
 import com.example.chenyuelun.myapp.modle.bean.MagazineInfoBean;
+import com.example.chenyuelun.myapp.view.activity.WebActivity;
 import com.example.chenyuelun.myapp.view.adapter.MagazineAdapter;
 
 import org.json.JSONArray;
@@ -83,6 +86,7 @@ public class MagazineFragment extends BaseFragment {
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         tvTitle.setCompoundDrawables(null, null, drawable, null);
         tvTitleDate.setVisibility(View.VISIBLE);
+        tvTitleDate.setMovementMethod(ScrollingMovementMethod.getInstance());
     }
 
     @Override
@@ -93,19 +97,27 @@ public class MagazineFragment extends BaseFragment {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 int position = gridLayoutManager.findFirstVisibleItemPosition();
-                if(position == 0) {
+                if (position == 0) {
                     tvTitleDate.setText("Today");
-                }else {
+                } else {
                     String date = infoBeanList.get(position).getDate();
                     tvTitleDate.setText(date);
                 }
-
-
             }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+
+        magazineAdapter.setOnItemClickListener(new MagazineAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(String topic_url,String topic_name) {
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("topic_url",topic_url);
+                intent.putExtra("topic_name",topic_name);
+                startActivity(intent);
             }
         });
     }
@@ -140,7 +152,7 @@ public class MagazineFragment extends BaseFragment {
                             infoBean.setCover_img_new(cover_img_new);
                             String cat_name = obj2.getString("cat_name");
                             infoBean.setCat_name(cat_name);
-                            infoBean.setDate(date.substring(date.indexOf(".")+1, date.length()));
+                            infoBean.setDate(date.substring(date.indexOf(".") + 1, date.length()));
                             datas.add(infoBean);
                         }
                     }
@@ -152,4 +164,5 @@ public class MagazineFragment extends BaseFragment {
         }
         return datas;
     }
+
 }

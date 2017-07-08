@@ -37,7 +37,7 @@ public class WebActivity extends BaseActivity {
     public void initData() {
         Intent intent = getIntent();
         final String topic_url = intent.getStringExtra("topic_url");
-        String topic_name = intent.getStringExtra("Topic_name");
+        String topic_name = intent.getStringExtra("topic_name");
         tvTitle.setText(topic_name);
 
         WebSettings webSettings = webview.getSettings();

@@ -12,6 +12,8 @@
     android:paddingRight="20dp">
 
     <TextView
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false"
         android:textAllCaps="false"
         android:id="@+id/tv_title_date"
         android:layout_width="wrap_content"
