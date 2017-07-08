@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.SplashActivity">
+
+        <activity android:name=".view.activity.SplashActivity" android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,7 +29,8 @@
         <activity
             android:name=".view.activity.MainActivity"
             android:theme="@style/Anim_fade" />
-        <activity android:name=".view.activity.GuideActivity"></activity>
+        <activity android:name=".view.activity.GuideActivity" />
+        <activity android:name=".view.activity.DaRenInfoActivity"></activity>
     </application>
 
 </manifest>

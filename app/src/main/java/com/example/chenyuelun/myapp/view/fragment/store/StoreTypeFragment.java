@@ -1,8 +1,14 @@
 package com.example.chenyuelun.myapp.view.fragment.store;
 
+import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.alibaba.fastjson.JSON;
 import com.cjj.MaterialRefreshLayout;
@@ -11,7 +17,6 @@ import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseFragment;
 import com.example.chenyuelun.myapp.common.AppUrl;
 import com.example.chenyuelun.myapp.modle.bean.StoreTypeBean;
-import com.example.chenyuelun.myapp.utils.UiUtils;
 import com.example.chenyuelun.myapp.view.activity.MainActivity;
 import com.example.chenyuelun.myapp.view.adapter.StoreTypeAdapter;
 
@@ -60,11 +65,7 @@ public class StoreTypeFragment extends BaseFragment {
 
                 MainActivity mainActivity = (MainActivity) getActivity();
                 StoreTypeDetailsFragment storeTypeDetailsFragment = new StoreTypeDetailsFragment(itemsBean.getCat_id());
-
-                mainActivity.addFragment(storeTypeDetailsFragment);
-                mainActivity.switchFragment(5);
-                UiUtils.showToast(itemsBean.getCat_name());
-
+                mainActivity.replaceFragment(storeTypeDetailsFragment);
 
             }
         });
@@ -83,8 +84,79 @@ public class StoreTypeFragment extends BaseFragment {
     }
 
 
+
     public String getUrl() {
         return AppUrl.STORE_TYPE_URL;
+    }
+
+
+    //生命周期
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.e("TAG1", "onAttach");
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.e("TAG1", "onCreate");
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.e("TAG1", "onCreateView");
+        return super.onCreateView(inflater, container, savedInstanceState);
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.e("TAG1", "onActivityCreated");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.e("TAG1", "onStart");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("TAG1", "onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e("TAG1", "onPause");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.e("TAG1", "onStop");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.e("TAG1", "onDestroyView");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e("TAG1", "onDestroy");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.e("TAG1", "onDetach");
     }
 
 

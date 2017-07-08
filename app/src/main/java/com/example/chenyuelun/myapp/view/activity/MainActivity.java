@@ -14,6 +14,7 @@ import com.example.chenyuelun.myapp.view.fragment.magazine.MagazineFragment;
 import com.example.chenyuelun.myapp.view.fragment.self.SelfFragment;
 import com.example.chenyuelun.myapp.view.fragment.share.ShareFragment;
 import com.example.chenyuelun.myapp.view.fragment.store.StoreFragment;
+import com.example.chenyuelun.myapp.view.fragment.store.StoreTypeDetailsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,15 +57,31 @@ public class MainActivity extends BaseActivity {
         return R.layout.activity_main;
     }
 
-    public BaseFragment getcurrentFragment() {
-        return currentFragment;
-    }
 
-    public void addFragment(BaseFragment baseFragment) {
-        if(fragments.size() == 6) {
+    private BaseFragment tempFragment;
+
+    public void replaceFragment(StoreTypeDetailsFragment storeTypeDetailsFragment) {
+        if (fragments.size() == 6) {
             fragments.remove(5);
         }
-        fragments.add(baseFragment);
+        fragments.add(storeTypeDetailsFragment);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.anim.fragment_right_in,R.anim.fragment_left_out);
+        ft.hide(fragments.get(0));
+        ft.add(R.id.fl_main,storeTypeDetailsFragment).commit();
+        preFragment = storeTypeDetailsFragment;
+        tempFragment =preFragment;
+    }
+
+    public void BackFragment() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.anim.fragment_left_in,R.anim.fragment_right_out);
+        ft.remove(fragments.get(5));
+        ft.show(fragments.get(0));
+        ft.commit();
+        fragments.remove(5);
+        preFragment = fragments.get(0);
+        tempFragment = null;
     }
 
 
@@ -73,11 +90,7 @@ public class MainActivity extends BaseActivity {
         public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
             switch (checkedId) {
                 case R.id.rb_main_store:
-                    if(fragments.size() == 6) {
-                        position = 5;
-                    }else {
-                        position = 0;
-                    }
+                    position = 0;
                     break;
                 case R.id.rb_main_magazine:
                     position = 1;
@@ -92,25 +105,20 @@ public class MainActivity extends BaseActivity {
                     position = 4;
                     break;
             }
-
+            if(position == 0 && tempFragment != null ) {
+                position = 5;
+            }
 
             switchFragment(position);
         }
     }
-    private int tempPosition;
-    public void switchFragment(int position) {
-        if(position == 5) {
-            tempPosition = 0;
-        }else {
-            tempPosition = position;
-        }
 
-        this.position = position;
+
+    private void switchFragment(int position) {
         currentFragment = fragments.get(position);
         if (currentFragment != preFragment) {
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-
             if (!currentFragment.isAdded()) {
                 if (preFragment != null) {
                     ft.hide(preFragment);
@@ -128,16 +136,16 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             DaRenFragment daRenFragment = (DaRenFragment) fragments.get(2);
             PopupWindow popuWindow = daRenFragment.getPopuWindow();
-            if(popuWindow != null && popuWindow.isShowing()) {
+            if (popuWindow != null && popuWindow.isShowing()) {
                 daRenFragment.showOrCloseMenu();
                 return true;
             }
-            if(position == 5) {
-                switchFragment(tempPosition);
-                fragments.remove(5);
+
+            if(fragments.size() == 6) {
+                BackFragment();
                 return true;
             }
 
@@ -146,4 +154,6 @@ public class MainActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
 
     }
+
+
 }

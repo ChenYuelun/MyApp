@@ -155,11 +155,12 @@ public class StoreTypeDetailsFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 UiUtils.showToast("返回");
-                if(popupWindow.isShowing()) {
+                if(popupWindow != null &&popupWindow.isShowing()) {
                     popupWindow.dismiss();
                 }
+
                 MainActivity mainActivity = (MainActivity) getActivity();
-                mainActivity.switchFragment(0);
+                mainActivity.BackFragment();
             }
         });
 
@@ -197,7 +198,7 @@ public class StoreTypeDetailsFragment extends BaseFragment {
     private void createPopu() {
         LinearLayout view = (LinearLayout) View.inflate(getActivity(), R.layout.price_select_popu, null);
         RadioGroup rgPopu = (RadioGroup) view.getChildAt(0);
-        popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
 
         rgPopu.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
         rgPopu.check(R.id.rb_all_popu);
@@ -256,6 +257,7 @@ public class StoreTypeDetailsFragment extends BaseFragment {
         }
     }
 
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -265,4 +267,9 @@ public class StoreTypeDetailsFragment extends BaseFragment {
         }
 
     }
+
+
+
+
+
 }

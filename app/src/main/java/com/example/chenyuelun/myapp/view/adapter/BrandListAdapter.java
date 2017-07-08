@@ -7,9 +7,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.modle.bean.BrandBean;
+import com.example.chenyuelun.myapp.utils.UiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +61,8 @@ public class BrandListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         BrandBean.DataBean.ItemsBean itemsBean = datas.get(position);
-        Glide.with(context).load(itemsBean.getBrand_logo()).into(viewHolder.ivBrandIcon);
+       // Glide.with(context).load(itemsBean.getBrand_logo()).into(viewHolder.ivBrandIcon);
+        UiUtils.loadImage(context,itemsBean.getBrand_logo(),viewHolder.ivBrandIcon,R.drawable.brand_logo_empty);
         viewHolder.tvBrandname.setText(itemsBean.getBrand_name());
 
 

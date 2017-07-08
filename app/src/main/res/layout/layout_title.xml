@@ -1,75 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    xmlns:tool="http://schemas.android.com/tools"
-    android:minHeight="50dp"
-    android:gravity="center_vertical"
     android:background="#15171a"
-    android:paddingRight="20dp"
+    android:gravity="center_vertical"
+    android:minHeight="50dp"
+    android:orientation="horizontal"
     android:paddingLeft="20dp"
-    android:orientation="horizontal">
+    android:paddingRight="20dp">
+
+    <TextView
+        android:id="@+id/tv_title_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Today"
+        android:textColor="#6f98c3"
+        android:textSize="15sp"
+        android:visibility="gone" />
 
     <!--搜索-->
     <ImageView
 
-        android:visibility="gone"
         android:id="@+id/iv_title_search"
-        android:background="@drawable/abc_ic_search_api_mtrl_alpha"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/abc_ic_search_api_mtrl_alpha"
+        android:visibility="gone" />
 
     <!--返回-->
     <ImageView
-        android:visibility="gone"
         android:id="@+id/iv_title_back"
-        android:background="@drawable/ease_mm_title_back"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/ease_mm_title_back"
+        android:visibility="gone" />
 
     <!--标题-->
     <TextView
 
         android:id="@+id/tv_title"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:textColor="#ffffff"
-        tool:text="商店"
         android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_height="wrap_content" />
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        tool:text="商店" />
 
     <!--购物车-->
     <ImageView
-        android:visibility="gone"
         android:id="@+id/iv_title_cart"
-        android:background="@drawable/actionbar_navigation_cart"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/actionbar_navigation_cart"
+        android:visibility="gone" />
 
     <!--列表-->
     <ImageView
-        android:visibility="gone"
         android:id="@+id/iv_title_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@drawable/actionbar_navigation_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:visibility="gone" />
 
     <ImageView
-        android:visibility="gone"
         android:id="@+id/iv_title_faver"
-        android:background="@drawable/topic_nofavour"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/topic_nofavour"
+        android:visibility="gone" />
 
 
     <ImageView
-        android:visibility="gone"
         android:id="@+id/iv_title_share"
-        android:background="@drawable/ic_share_shopgood"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_share_shopgood"
+        android:visibility="gone" />
 
 
 </LinearLayout>

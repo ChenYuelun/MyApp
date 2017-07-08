@@ -4,14 +4,14 @@
     android:orientation="vertical"
     android:layout_margin="8dp"
     android:layout_width="match_parent"
-    android:layout_height="240dp">
+    android:layout_height="220dp">
 
     <ImageView
         android:src="@drawable/brand_logo_empty"
         android:scaleType="fitXY"
         android:id="@+id/iv_user"
         android:layout_width="match_parent"
-        android:layout_height="180dp" />
+        android:layout_height="160dp" />
 
     <TextView
         android:textColor="#cacaca"

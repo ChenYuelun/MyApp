@@ -396,4 +396,64 @@ public class AppUrl {
     }
 
 
+    //达人 item 详情
+    public static final String DAREN_INFO_HEAD = "http://mobile.iliangcang.com/user/masterListInfo?app_key=Android&count=10&owner_id=";
+    public static final String DAREN_INFO_FOOT = "&page=1&sig=5715DFAE35D85EA29846D090DBBF8753%7C557744010558468&v=1.0";
+
+    public static String getDaRenInfoUrl(String uid,int page) {
+        return DAREN_INFO_HEAD + uid + "&page=" + page  + DAREN_INFO_FOOT;
+    }
+
+    //达人 item 喜欢
+    public static final String DAREN_LIKE_HEAD = "http://mobile.iliangcang.com/user/masterLike?app_key=Android&count=10&owner_id=";
+    public static final String DAREN_LIKE_FOOT = "&sig=CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0";
+
+    public static String getDareLikeUrl(String uid,int page) {
+        return DAREN_LIKE_HEAD + uid + "&page=" + page + DAREN_LIKE_FOOT;
+    }
+
+    //达人 item 推荐
+    public static final String DAREN_RECOMMEND_HEAD = "http://mobile.iliangcang.com/user/masterListInfo?app_key=Android&count=10&owner_id=";
+    public static final String DAREN_RECOMMEND_FOOT = "&sig=CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0";
+
+    public static String getDarenRecommendUrl(String uid,int page) {
+        return DAREN_RECOMMEND_HEAD + uid + "&page=" + page + DAREN_RECOMMEND_FOOT;
+    }
+
+
+    //达人 item 关注
+    public static final String DAREN_ATTENTION_HEAD = "http://mobile.iliangcang.com/user/masterFollow?app_key=Android&count=12&owner_id=";
+    public static final String DAREN_ATTENTION_FOOT = "&sig=CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0";
+
+    public static String getDarenAttentionUrl(String uid,int page) {
+        return DAREN_ATTENTION_HEAD + uid + "&page=" + page + DAREN_ATTENTION_FOOT;
+    }
+
+    //达人 item 粉丝
+    public static final String DAREN_FANS_HEAD = "http://mobile.iliangcang.com/user/masterFollowed?app_key=Android&count=12&owner_id=";
+    public static final String DAREN_FANS_FOOT = "&sig=CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0";
+
+    public static String getDarenFansUrl(String uid,int page) {
+        return DAREN_FANS_HEAD + uid + "&page=" + page + DAREN_FANS_FOOT;
+    }
+
+    public static final String getDarenUrlForState(int state,String uid,int page){
+        String url = "";
+        switch (state) {
+            case 1 :
+                url = getDareLikeUrl(uid,page);
+                break;
+            case 2 :
+                url = getDarenRecommendUrl(uid,page);
+                break;
+            case 3 :
+                url = getDarenAttentionUrl(uid,page);
+                break;
+            case 4 :
+                url = getDarenFansUrl(uid,page);
+                break;
+        }
+        return url;
+    }
+
 }

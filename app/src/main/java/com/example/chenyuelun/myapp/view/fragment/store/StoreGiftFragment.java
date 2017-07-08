@@ -85,7 +85,6 @@ public class StoreGiftFragment extends BaseFragment {
 
         MainActivity mainActivity = (MainActivity) getActivity();
         StoreTypeDetailsFragment storeTypeDetailsFragment = new StoreTypeDetailsFragment(list_id +"");
-        mainActivity.addFragment(storeTypeDetailsFragment);
-        mainActivity.switchFragment(5);
+        mainActivity.replaceFragment(storeTypeDetailsFragment);
     }
 }

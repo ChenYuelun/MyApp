@@ -1,5 +1,6 @@
 package com.example.chenyuelun.myapp.view.fragment.daren;
 
+import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.example.chenyuelun.myapp.base.BaseFragment;
 import com.example.chenyuelun.myapp.common.AppUrl;
 import com.example.chenyuelun.myapp.modle.bean.DaRenBean;
 import com.example.chenyuelun.myapp.utils.UiUtils;
+import com.example.chenyuelun.myapp.view.activity.DaRenInfoActivity;
 import com.example.chenyuelun.myapp.view.adapter.DaRenAdapter;
 
 import java.util.List;
@@ -134,7 +136,10 @@ public class DaRenFragment extends BaseFragment {
         daRenAdapter.setOnItemClickListener(new DaRenAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DaRenBean.DataBean.ItemsBean itemsBean) {
-
+                String uid = itemsBean.getUid();
+                Intent intent = new Intent(getActivity(), DaRenInfoActivity.class);
+                intent.putExtra("uid",uid);
+                startActivity(intent);
             }
         });
 

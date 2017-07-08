@@ -9,7 +9,6 @@ import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseFragment;
 
 import butterknife.BindView;
-import butterknife.Unbinder;
 
 /**
  * Created by chenyuelun on 2017/7/5.
@@ -26,7 +25,6 @@ public class MagazineFragment extends BaseFragment {
     ImageView ivTitleCart;
     @BindView(R.id.iv_title_menu)
     ImageView ivTitleList;
-    Unbinder unbinder;
 
     @Override
     public int getLayoutId() {
@@ -47,7 +45,7 @@ public class MagazineFragment extends BaseFragment {
     @Override
     public void initTitle() {
         tvTitle.setText("杂志");
-//        Drawable drawable= getResources().getDrawable(R.drawable.abc_spinner,null);
+//        Drawable drawable= getResources().getDrawable(R.drawable,null);
 //        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
 //        tvTitle.setCompoundDrawables(null,null,drawable,null);
     }
