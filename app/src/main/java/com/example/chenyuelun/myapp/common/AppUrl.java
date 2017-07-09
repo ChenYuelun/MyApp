@@ -458,6 +458,13 @@ public class AppUrl {
 
 
     //杂志 良仓
-    public static final String MAGAZINE_LIANGCANG_URL = "http://mobile.iliangcang.com/topic/magazineList?app_key=Android&author_id=1&sig=2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
+    public static final String MGZ_LIANGCANG_URL = "http://mobile.iliangcang.com/topic/magazineList?app_key=Android&author_id=1&sig=2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
+
+
+    //杂志 作者列表
+    public static final String MGZ_AUTHOR_LIST = "http://mobile.iliangcang.com/topic/magazineAuthorList?app_key=Android&sig=2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
+
+    //杂志 作者Item
+    public static final String MGZ_AUTHOR_ITEM="http://mobile.iliangcang.com/topic/magazineList?app_key=Android&author_id=8&sig=2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
 
 }

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.chenyuelun.myapp.common.MyApplication;
 import com.example.chenyuelun.myapp.view.view.FixedSpeedScroller;
+import com.example.chenyuelun.myapp.view.view.MyTransformation;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Field;
@@ -74,9 +75,11 @@ public class UiUtils {
     }
 
     public static void loadImage(Context context, String url, ImageView view, int default_image) {
-        if(default_image == 0) {
+        if (default_image == 0) {
             Picasso.with(context).load(url).into(view);
-        }else {
+        } else if (default_image == 1) {
+            Picasso.with(context).load(url).transform(new MyTransformation()).into(view);
+        } else {
             Drawable drawable = context.getResources().getDrawable(default_image);
             Picasso.with(context).load(url).error(drawable).placeholder(drawable).into(view);
         }

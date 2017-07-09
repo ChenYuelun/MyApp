@@ -1,12 +1,9 @@
-package com.example.chenyuelun.myapp.view.fragment.magazine;
+package com.example.chenyuelun.myapp.view.activity;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,11 +11,10 @@ import android.widget.TextView;
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 import com.example.chenyuelun.myapp.R;
-import com.example.chenyuelun.myapp.base.BaseFragment;
+import com.example.chenyuelun.myapp.base.BaseActivity;
 import com.example.chenyuelun.myapp.common.AppUrl;
 import com.example.chenyuelun.myapp.modle.bean.MagazineInfoBean;
-import com.example.chenyuelun.myapp.view.activity.MagazineListActivity;
-import com.example.chenyuelun.myapp.view.activity.WebActivity;
+import com.example.chenyuelun.myapp.utils.HttpUtils;
 import com.example.chenyuelun.myapp.view.adapter.MagazineAdapter;
 
 import org.json.JSONArray;
@@ -29,12 +25,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import okhttp3.Call;
 
-/**
- * Created by chenyuelun on 2017/7/5.
- */
+public class MagazineAuthorInfoActivity extends BaseActivity {
 
-public class MagazineFragment extends BaseFragment {
+
+    @BindView(R.id.tv_title_date)
+    TextView tvTitleDate;
     @BindView(R.id.iv_title_search)
     ImageView ivTitleSearch;
     @BindView(R.id.iv_title_back)
@@ -44,9 +41,7 @@ public class MagazineFragment extends BaseFragment {
     @BindView(R.id.iv_title_cart)
     ImageView ivTitleCart;
     @BindView(R.id.iv_title_menu)
-    ImageView ivTitleList;
-    @BindView(R.id.tv_title_date)
-    TextView tvTitleDate;
+    ImageView ivTitleMenu;
     @BindView(R.id.iv_title_faver)
     ImageView ivTitleFaver;
     @BindView(R.id.iv_title_share)
@@ -55,95 +50,88 @@ public class MagazineFragment extends BaseFragment {
     RecyclerView recyclerview;
     @BindView(R.id.refresh)
     MaterialRefreshLayout refresh;
-    private List<MagazineInfoBean> infoBeanList;
-    private MagazineAdapter magazineAdapter;
     private GridLayoutManager gridLayoutManager;
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.fragment_magazine;
-    }
-
-    @Override
-    protected void setData(String response) {
-        infoBeanList = processData(response);
-        refresh.finishRefresh();
-        magazineAdapter.refresh(infoBeanList);
-    }
-
+    private MagazineAdapter magazineAdapter;
 
     @Override
     public void initData() {
-        magazineAdapter = new MagazineAdapter(getActivity());
+        magazineAdapter = new MagazineAdapter(this);
         recyclerview.setAdapter(magazineAdapter);
-        gridLayoutManager = new GridLayoutManager(getActivity(), 1);
+        gridLayoutManager = new GridLayoutManager(this, 1);
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         recyclerview.setLayoutManager(gridLayoutManager);
+        getDataFromNet();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void getDataFromNet() {
+        HttpUtils.get(AppUrl.MGZ_AUTHOR_ITEM, new HttpUtils.OnHttpListener() {
+            @Override
+            public void onResponse(String response, int id) {
+                List<MagazineInfoBean> magazineInfoBeen = processData(response);
+                refresh.finishRefresh();
+                if(magazineInfoBeen != null && magazineInfoBeen.size() > 0) {
+                    magazineAdapter.refresh(magazineInfoBeen);
+                }
+            }
+
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+        });
+    }
+
     @Override
     public void initTitle() {
-        tvTitle.setText("杂志");
+        super.initTitle();
+        String author_name = getIntent().getStringExtra("author_name");
+        tvTitle.setText("杂志·" + author_name);
         Drawable drawable = getResources().getDrawable(R.drawable.abc_spinner);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         tvTitle.setCompoundDrawables(null, null, drawable, null);
-        tvTitleDate.setVisibility(View.VISIBLE);
-        tvTitleDate.setMovementMethod(ScrollingMovementMethod.getInstance());
+        ivTitleBack.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void initListener() {
         super.initListener();
-        recyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        ivTitleBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                int position = gridLayoutManager.findFirstVisibleItemPosition();
-                if (position == 0) {
-                    tvTitleDate.setText("Today");
-                } else {
-                    String date = infoBeanList.get(position).getDate();
-                    tvTitleDate.setText(date);
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
-
-        magazineAdapter.setOnItemClickListener(new MagazineAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClicked(String topic_url,String topic_name) {
-                Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("topic_url",topic_url);
-                intent.putExtra("topic_name",topic_name);
-                startActivity(intent);
+            public void onClick(View v) {
+                finish();
             }
         });
 
         tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),MagazineListActivity.class));
+                startActivity(new Intent(MagazineAuthorInfoActivity.this,MagazineListActivity.class));
             }
         });
+
         refresh.setMaterialRefreshListener(new MaterialRefreshListener() {
             @Override
             public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
-                getDataFromNet(AppUrl.MGZ_LIANGCANG_URL);
+                getDataFromNet();
+            }
+        });
+
+
+        magazineAdapter.setOnItemClickListener(new MagazineAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(String topic_url,String topic_name) {
+                Intent intent = new Intent(MagazineAuthorInfoActivity.this, WebActivity.class);
+                intent.putExtra("topic_url",topic_url);
+                intent.putExtra("topic_name",topic_name);
+                startActivity(intent);
             }
         });
     }
 
     @Override
-    public String getUrl() {
-        return AppUrl.MGZ_LIANGCANG_URL;
+    public int getLayoutId() {
+        return R.layout.activity_magazine_author_info;
     }
-
-
     private List<MagazineInfoBean> processData(String json) {
         List<MagazineInfoBean> datas = new ArrayList<>();
         try {
@@ -180,5 +168,4 @@ public class MagazineFragment extends BaseFragment {
         }
         return datas;
     }
-
 }

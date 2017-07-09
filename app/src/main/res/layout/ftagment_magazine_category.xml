@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#dae0e6"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:paddingRight="40dp"
+    android:paddingLeft="40dp"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/fresh_recyclerview"/>
+
+</LinearLayout>
