@@ -10,7 +10,7 @@ import java.util.List;
  * Created by chenyuelun on 2017/7/5.
  */
 
-public class StoreFragmentAdapter extends FragmentPagerAdapter {
+public class StoreFragmentVpAdapter extends FragmentPagerAdapter {
     private final List<Fragment> pagers;
     String[] titles = {"分类", "品牌", "首页","专题", "礼物"};
     @Override
@@ -18,7 +18,7 @@ public class StoreFragmentAdapter extends FragmentPagerAdapter {
         return titles[position];
     }
 
-    public StoreFragmentAdapter(FragmentManager fm, List<Fragment> fragmentPagers) {
+    public StoreFragmentVpAdapter(FragmentManager fm, List<Fragment> fragmentPagers) {
         super(fm);
         this.pagers =fragmentPagers;
     }

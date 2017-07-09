@@ -16,6 +16,7 @@ import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseFragment;
 import com.example.chenyuelun.myapp.common.AppUrl;
 import com.example.chenyuelun.myapp.modle.bean.MagazineInfoBean;
+import com.example.chenyuelun.myapp.view.activity.MagazineListActivity;
 import com.example.chenyuelun.myapp.view.activity.WebActivity;
 import com.example.chenyuelun.myapp.view.adapter.MagazineAdapter;
 
@@ -118,6 +119,13 @@ public class MagazineFragment extends BaseFragment {
                 intent.putExtra("topic_url",topic_url);
                 intent.putExtra("topic_name",topic_name);
                 startActivity(intent);
+            }
+        });
+
+        tvTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),MagazineListActivity.class));
             }
         });
     }

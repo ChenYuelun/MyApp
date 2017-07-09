@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--主界面radioubutton 共有属性抽取-->
     <style name="MyRadioButtonStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
@@ -21,6 +22,7 @@
     </style>
 
 
+       <!--商品页面Fragment TabLayout 样式-->
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">#ffffff</item>
         <item name="tabIndicatorHeight">2dp</item>
@@ -35,7 +37,9 @@
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="Anim_fade" parent="Theme.AppCompat.Light.NoActionBar">
+
+    <!--Acityvity切换动画  左右进出-->
+    <style name="Anim_Left_right" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowAnimationStyle">@style/fade</item>
     </style>
 
@@ -43,11 +47,22 @@
         name="fade" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/fragment_right_in</item>
         <item name="android:activityOpenExitAnimation">@anim/fragment_left_out</item>
-        <item name="android:activityCloseEnterAnimation">@anim/fragment_left_in</item>
-        <item name="android:activityCloseExitAnimation">@anim/fragment_right_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/fragment_right_out</item>
+        <item name="android:activityCloseExitAnimation">@anim/fragment_left_in</item>
     </style>
 
 
+    <!--MagazineActivity 进入动画-->
+    <style name="Anim_TOP" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowAnimationStyle">@style/fade2</item>
+    </style>
+
+    <style
+        name="fade2" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_top_in</item>
+    </style>
+
+    <!--商品详情布局TextView 共性属性抽取-->
     <style name="GoodsInfoTextViewStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -58,8 +73,8 @@
     </style>
 
 
+    <!--横向线  商品详情页面用的比较多-->
     <style name="ViewLine">
-
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">1dp</item>
         <item name="android:layout_weight">1</item>
@@ -67,6 +82,7 @@
 
     </style>
 
+    <!--PopuWindow 布局中RadioButton 属性抽取-->
     <style name="RadioButton_PopuWiondow" parent="RadioButton_PopuWiondow_Base">
         <item name="android:textColor">@drawable/rb_textcolor_selector</item>
         <item name="android:background">@drawable/rb_bg_selector</item>
@@ -85,5 +101,10 @@
         <item name="android:paddingLeft">20dp</item>
         <item name="android:textSize">14sp</item>
     </style>
+
+
+
+
+
 
 </resources>

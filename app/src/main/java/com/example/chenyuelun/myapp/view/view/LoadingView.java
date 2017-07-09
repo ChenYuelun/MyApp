@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -124,7 +125,16 @@ public abstract class LoadingView extends FrameLayout {
 
     protected abstract View getSuccessView();
 
-
-
-
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if(event.getAction() ==MotionEvent.ACTION_DOWN) {
+            if(current_state == STATE_ERROR) {
+                current_state = STATE_LOADING;
+                startShowView();
+                getData();
+                return true;
+            }
+        }
+        return super.onTouchEvent(event);
+    }
 }

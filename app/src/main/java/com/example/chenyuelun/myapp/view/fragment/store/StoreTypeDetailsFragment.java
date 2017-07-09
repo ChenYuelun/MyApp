@@ -147,6 +147,7 @@ public class StoreTypeDetailsFragment extends BaseFragment {
                 intent.putExtra("goodsId", itemsBean.getGoods_id());
                 startActivity(intent);
 
+
             }
         });
 

@@ -3,6 +3,7 @@ package com.example.chenyuelun.myapp.view.activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.RequiresApi;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -30,6 +31,7 @@ public class GuideActivity extends AppCompatActivity {
     private Unbinder bind;
 
     int[] ids = {R.drawable.feature1, R.drawable.feature2, R.drawable.feature3, R.drawable.feature4, R.drawable.feature5};
+    private CountDownTimer timer;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -48,7 +50,18 @@ public class GuideActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 if (position == ids.length - 1) {
-                    btOpen.setVisibility(View.VISIBLE);
+                    timer = new CountDownTimer(1000, 1000) {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            btOpen.setVisibility(View.VISIBLE);
+                        }
+                    }.start();
+
                 }else {
                     btOpen.setVisibility(View.GONE);
                 }
@@ -77,6 +90,8 @@ public class GuideActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         bind.unbind();
+        timer.cancel();
+        timer = null;
     }
 
     class MyPagerAdapter extends PagerAdapter {
@@ -106,4 +121,6 @@ public class GuideActivity extends AppCompatActivity {
             container.removeView((View) object);
         }
     }
+
+
 }

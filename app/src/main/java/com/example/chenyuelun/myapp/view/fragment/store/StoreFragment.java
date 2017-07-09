@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseFragment;
 import com.example.chenyuelun.myapp.utils.UiUtils;
-import com.example.chenyuelun.myapp.view.adapter.StoreFragmentAdapter;
+import com.example.chenyuelun.myapp.view.adapter.StoreFragmentVpAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class StoreFragment extends BaseFragment {
     @BindView(R.id.vp_main)
     ViewPager vpMain;
     private List<Fragment> fragmentPagers = null;
-    private StoreFragmentAdapter adapter;
+    private StoreFragmentVpAdapter adapter;
 
 
     @Override
@@ -54,7 +54,7 @@ public class StoreFragment extends BaseFragment {
     public void initData() {
         initFragmentPagers();
         tabview.setupWithViewPager(vpMain);
-        adapter = new StoreFragmentAdapter(getFragmentManager(), fragmentPagers);
+        adapter = new StoreFragmentVpAdapter(getFragmentManager(), fragmentPagers);
         vpMain.setAdapter(adapter);
     }
 
