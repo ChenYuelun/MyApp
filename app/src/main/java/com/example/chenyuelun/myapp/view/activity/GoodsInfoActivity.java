@@ -1,6 +1,7 @@
 package com.example.chenyuelun.myapp.view.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Build;
 import android.support.annotation.IdRes;
@@ -77,7 +78,7 @@ public class GoodsInfoActivity extends BaseActivity {
     ImageView ivHeading;
     @BindView(R.id.tv_brandname2)
     TextView tvBrandname2;
-    @BindView(R.id.ll_heading)
+    @BindView(R.id.ll_brandinfo)
     LinearLayout llHeading;
     @BindView(R.id.rb_goods_info)
     RadioButton rbGoodsInfo;
@@ -117,6 +118,7 @@ public class GoodsInfoActivity extends BaseActivity {
     TextView tvRecommend;
     @BindView(R.id.ll_like)
     LinearLayout llLike;
+    private GoodsInfosBean.DataBean.ItemsBean goodsinfo;
 
 
     @Override
@@ -149,32 +151,32 @@ public class GoodsInfoActivity extends BaseActivity {
     private void processData(String response) {
         GoodsInfosBean goodsInfosBean = JSON.parseObject(response, GoodsInfosBean.class);
         //banner图片集合
-        GoodsInfosBean.DataBean.ItemsBean items = goodsInfosBean.getData().getItems();
-        List<String> images_item = items.getImages_item();
+        goodsinfo = goodsInfosBean.getData().getItems();
+        List<String> images_item = goodsinfo.getImages_item();
         //设置banner
         initBanner(images_item);
 
         //商品信息
         //商品名称
-        tvGoodsname.setText(items.getGoods_name());
+        tvGoodsname.setText(goodsinfo.getGoods_name());
         //收藏数量
-        tvLikeCount.setText(items.getLike_count());
+        tvLikeCount.setText(goodsinfo.getLike_count());
         //折扣价格 如果有 就设置
-        String discount_price = items.getDiscount_price();
+        String discount_price = goodsinfo.getDiscount_price();
         if (!TextUtils.isEmpty(discount_price)) {
             tvGoodsprice.setText("￥" + discount_price);
-            tvOldprice.setText("￥" + items.getPrice());
+            tvOldprice.setText("￥" + goodsinfo.getPrice());
             tvOldprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         } else {
-            tvGoodsprice.setText("￥" + items.getPrice());
+            tvGoodsprice.setText("￥" + goodsinfo.getPrice());
             tvOldprice.setVisibility(View.GONE);
         }
         //广告语
-        tvPromotionNote.setText(items.getPromotion_note());
+        tvPromotionNote.setText(goodsinfo.getPromotion_note());
         //发货时间
-        tvPreslod.setText(items.getShipping_str());
+        tvPreslod.setText(goodsinfo.getShipping_str());
 
-        List<GoodsInfosBean.DataBean.ItemsBean.GoodsInfoBean> goods_info = items.getGoods_info();
+        List<GoodsInfosBean.DataBean.ItemsBean.GoodsInfoBean> goods_info = goodsinfo.getGoods_info();
 
         //商品详情的图片
         List<String> imageUrls = new ArrayList<>();
@@ -215,13 +217,13 @@ public class GoodsInfoActivity extends BaseActivity {
                 Glide.with(this).load(imageUrls.get(i)).into(imageView);
             }
         }
-        textInfo = textInfo + "\n\n" + items.getGoods_desc();
+        textInfo = textInfo + "\n\n" + goodsinfo.getGoods_desc();
         //文本介绍
         tvTextInfo.setText(textInfo);
 
 
         //品牌信息
-        GoodsInfosBean.DataBean.ItemsBean.BrandInfoBean brand_info = items.getBrand_info();
+        GoodsInfosBean.DataBean.ItemsBean.BrandInfoBean brand_info = goodsinfo.getBrand_info();
         tvBrandname1.setText(brand_info.getBrand_name());
         tvOwnername.setText(brand_info.getBrand_name());
         tvBrandname2.setText(brand_info.getBrand_name());
@@ -229,10 +231,10 @@ public class GoodsInfoActivity extends BaseActivity {
         Glide.with(this).load(brand_info.getBrand_logo()).into(ivHeading);
 
         //购买须知
-        tvGoodsnotice.setText(items.getGood_guide().getContent());
+        tvGoodsnotice.setText(goodsinfo.getGood_guide().getContent());
 
         //良仓推荐
-        tvRecommend.setText(items.getRec_reason());
+        tvRecommend.setText(goodsinfo.getRec_reason());
 
 
     }
@@ -295,5 +297,36 @@ public class GoodsInfoActivity extends BaseActivity {
                 UiUtils.showToast("购物车");
             }
         });
+
+        tvBrandname2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toBrandInfo();
+            }
+        });
+        ivHeading.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toBrandInfo();
+            }
+        });
+
+        tvSelected.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UiUtils.showToast("选择商品");
+            }
+        });
+    }
+
+    private void toBrandInfo() {
+        Intent intent = new Intent(GoodsInfoActivity.this, BrandInfoActivity.class);
+        GoodsInfosBean.DataBean.ItemsBean.BrandInfoBean brand_info = goodsinfo.getBrand_info();
+
+        intent.putExtra("brand_id",Integer.parseInt(brand_info.getBrand_id()));
+        Log.e("TAG", "brand_id");
+        intent.putExtra("brand_name",brand_info.getBrand_name());
+        intent.putExtra("brand_logo",brand_info.getBrand_logo());
+        startActivity(intent);
     }
 }

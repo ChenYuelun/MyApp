@@ -181,8 +181,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-
-                    android:id="@+id/ll_heading"
+                    android:id="@+id/ll_brandinfo"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_below="@id/ll_choicegoods"
@@ -221,7 +220,7 @@
                     android:id="@+id/rg_select_show"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_below="@id/ll_heading"
+                    android:layout_below="@id/ll_brandinfo"
                     android:layout_margin="15dp"
                     android:background="#2c2f34"
                     android:gravity="center_vertical"
