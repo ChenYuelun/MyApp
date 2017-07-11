@@ -1,15 +1,21 @@
 package com.example.chenyuelun.myapp.view.fragment.magazine;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.method.ScrollingMovementMethod;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
@@ -17,6 +23,7 @@ import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseFragment;
 import com.example.chenyuelun.myapp.common.AppUrl;
 import com.example.chenyuelun.myapp.modle.bean.MagazineInfoBean;
+import com.example.chenyuelun.myapp.utils.DensityUtils;
 import com.example.chenyuelun.myapp.view.activity.MagazineListActivity;
 import com.example.chenyuelun.myapp.view.activity.WebActivity;
 import com.example.chenyuelun.myapp.view.adapter.MagazineAdapter;
@@ -35,6 +42,9 @@ import butterknife.BindView;
  */
 
 public class MagazineFragment extends BaseFragment {
+
+    @BindView(R.id.tv_title_date)
+    TextSwitcher tvTitleDate;
     @BindView(R.id.iv_title_search)
     ImageView ivTitleSearch;
     @BindView(R.id.iv_title_back)
@@ -44,13 +54,15 @@ public class MagazineFragment extends BaseFragment {
     @BindView(R.id.iv_title_cart)
     ImageView ivTitleCart;
     @BindView(R.id.iv_title_menu)
-    ImageView ivTitleList;
-    @BindView(R.id.tv_title_date)
-    TextView tvTitleDate;
+    ImageView ivTitleMenu;
     @BindView(R.id.iv_title_faver)
     ImageView ivTitleFaver;
     @BindView(R.id.iv_title_share)
     ImageView ivTitleShare;
+    @BindView(R.id.iv_title_setting)
+    ImageView ivTitleSetting;
+    @BindView(R.id.tv_cart_edit)
+    TextView tvCartEdit;
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
     @BindView(R.id.refresh)
@@ -89,22 +101,46 @@ public class MagazineFragment extends BaseFragment {
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         tvTitle.setCompoundDrawables(null, null, drawable, null);
         tvTitleDate.setVisibility(View.VISIBLE);
-        tvTitleDate.setMovementMethod(ScrollingMovementMethod.getInstance());
+        tvTitleDate.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                TextView textView = new TextView(getActivity());
+                textView.setSingleLine();
+                textView.setTextSize(DensityUtils.sp2px(getActivity(),4));
+                textView.setTextColor(Color.parseColor("#6f98c3"));
+                textView.setEllipsize(TextUtils.TruncateAt.END);
+                textView.setText("Today");
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
+                );
+                lp.gravity = Gravity.CENTER;
+                textView.setLayoutParams(lp);
+                return textView;
+            }
+        });
+
+
+        tvTitleDate.setInAnimation(getActivity(),R.anim.push_up_in);
+        tvTitleDate.setOutAnimation(getActivity(),R.anim.push_up_out);
     }
 
+    private String tempDate = "";
     @Override
     public void initListener() {
         super.initListener();
         recyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
+
                 int position = gridLayoutManager.findFirstVisibleItemPosition();
                 if (position == 0) {
-                    tvTitleDate.setText("Today");
+                    return;
                 } else {
                     String date = infoBeanList.get(position).getDate();
-                    tvTitleDate.setText(date);
+                    if(!date.equals(tempDate)) {
+                        tvTitleDate.setText(date);
+                        tempDate = date;
+                  }
                 }
             }
 
@@ -116,10 +152,10 @@ public class MagazineFragment extends BaseFragment {
 
         magazineAdapter.setOnItemClickListener(new MagazineAdapter.OnItemClickListener() {
             @Override
-            public void onItemClicked(String topic_url,String topic_name) {
+            public void onItemClicked(String topic_url, String topic_name) {
                 Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("topic_url",topic_url);
-                intent.putExtra("topic_name",topic_name);
+                intent.putExtra("topic_url", topic_url);
+                intent.putExtra("topic_name", topic_name);
                 startActivity(intent);
             }
         });
@@ -127,7 +163,7 @@ public class MagazineFragment extends BaseFragment {
         tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),MagazineListActivity.class));
+                startActivity(new Intent(getActivity(), MagazineListActivity.class));
             }
         });
         refresh.setMaterialRefreshListener(new MaterialRefreshListener() {

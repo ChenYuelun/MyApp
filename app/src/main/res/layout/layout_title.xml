@@ -11,16 +11,13 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp">
 
-    <TextView
+    <TextSwitcher
         android:id="@+id/tv_title_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fadeScrollbars="false"
         android:scrollbars="vertical"
-        android:text="Today"
         android:textAllCaps="false"
-        android:textColor="#6f98c3"
-        android:textSize="15sp"
         android:visibility="gone" />
 
     <!--搜索-->
