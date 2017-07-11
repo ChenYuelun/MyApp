@@ -14,6 +14,8 @@ import java.util.Map;
 public class SpUtils {
 
     public static final String FIRST_OPEN = "first_open";
+    public static final String IS_LOGIN = "is_login";
+    public static final String CURRENT_USER = "current_user";
     private static SharedPreferences sp;
 
     private SpUtils() {

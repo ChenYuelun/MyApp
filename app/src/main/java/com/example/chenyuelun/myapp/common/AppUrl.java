@@ -473,5 +473,10 @@ public class AppUrl {
         return MGZ_AUTHOR_HEAD + id + MGZ_AUTHOR_FOOT;
     }
 
+    //登陆接口  需带参数访问
+    public static final String LOGIN_URl = "http://47.93.118.241:8081/P2PInvest/login";
+    //注册接口 需带参数访问
+    public static final String REGISTER_URl = "http://47.93.118.241:8081/P2PInvest/UserRegister";
+
 
 }

@@ -63,9 +63,8 @@
         <activity
             android:name=".view.activity.JoinCartActivity"
             android:theme="@style/AnimDownIn" />
-
-
-
+        <activity android:name=".view.activity.LoginActivity" />
+        <activity android:name=".view.fragment.self.AccountSettingActivity"></activity>
     </application>
 
 </manifest>

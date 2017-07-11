@@ -35,18 +35,10 @@ import butterknife.BindView;
 public class DaRenFragment extends BaseFragment {
     @BindView(R.id.iv_title_search)
     ImageView ivTitleSearch;
-    @BindView(R.id.iv_title_back)
-    ImageView ivTitleBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.iv_title_cart)
-    ImageView ivTitleCart;
     @BindView(R.id.iv_title_menu)
     ImageView ivTitleMenu;
-    @BindView(R.id.iv_title_faver)
-    ImageView ivTitleFaver;
-    @BindView(R.id.iv_title_share)
-    ImageView ivTitleShare;
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
     @BindView(R.id.refresh)
@@ -163,7 +155,6 @@ public class DaRenFragment extends BaseFragment {
             LinearLayout view = (LinearLayout) View.inflate(getActivity(), R.layout.menu_popu, null);
             RadioGroup rgPopu = (RadioGroup) view.getChildAt(0);
             popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-
             rgPopu.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
             rgPopu.check(R.id.rb_default_popu);
             view.setOnClickListener(new View.OnClickListener() {

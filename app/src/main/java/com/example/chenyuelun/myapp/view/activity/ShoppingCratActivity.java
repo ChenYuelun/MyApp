@@ -28,24 +28,12 @@ import butterknife.BindView;
 public class ShoppingCratActivity extends BaseActivity {
 
 
-    @BindView(R.id.tv_title_date)
-    TextView tvTitleDate;
-    @BindView(R.id.iv_title_search)
-    ImageView ivTitleSearch;
+
+
     @BindView(R.id.iv_title_back)
     ImageView ivTitleBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.iv_title_cart)
-    ImageView ivTitleCart;
-    @BindView(R.id.iv_title_menu)
-    ImageView ivTitleMenu;
-    @BindView(R.id.iv_title_faver)
-    ImageView ivTitleFaver;
-    @BindView(R.id.iv_title_share)
-    ImageView ivTitleShare;
-    @BindView(R.id.iv_title_setting)
-    ImageView ivTitleSetting;
     @BindView(R.id.tv_cart_edit)
     TextView tvCartEdit;
     @BindView(R.id.rv_goodsList)

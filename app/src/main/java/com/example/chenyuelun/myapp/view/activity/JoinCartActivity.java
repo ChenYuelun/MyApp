@@ -15,6 +15,7 @@ import com.example.chenyuelun.myapp.base.BaseActivity;
 import com.example.chenyuelun.myapp.common.Modle;
 import com.example.chenyuelun.myapp.modle.bean.CartBean;
 import com.example.chenyuelun.myapp.modle.bean.GoodsInfosBean;
+import com.example.chenyuelun.myapp.utils.SpUtils;
 import com.example.chenyuelun.myapp.utils.UiUtils;
 import com.example.chenyuelun.myapp.view.view.AddSubView;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -184,27 +185,35 @@ public class JoinCartActivity extends BaseActivity {
         btConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CartBean cartBean = new CartBean();
-                cartBean.setGoods_id(goodsInfo.getGoods_id());
-                cartBean.setCount(addSubView.getValue());
-                cartBean.setGoods_name(goodsInfo.getGoods_name());
-                cartBean.setOwner_name(goodsInfo.getOwner_name());
-                cartBean.setPrice(goodsInfo.getPrice());
-                cartBean.setDiscount(goodsInfo.getDiscount_price());
-                cartBean.setImage(TextUtils.isEmpty(attrList_type.get(typeSelectedPos).getImg_path())?goodsInfo.getGoods_image() :attrList_type.get(typeSelectedPos).getImg_path());
-                cartBean.setType_name(sku_info.get(0).getType_name());
-                cartBean.setType(attrList_type.get(typeSelectedPos).getAttr_name());
-                if(sku_info.size()>1) {
-                    cartBean.setSize_name(sku_info.get(1).getType_name());
-                    cartBean.setSize(sizes.get(sizeSlectedPos).getAttr_name());
-                }
-                cartBean.setIsgift(Integer.parseInt(goodsInfo.getIs_gift()));
+                boolean islogin = (boolean) SpUtils.getSpUtils().get(SpUtils.IS_LOGIN, false);
+                if (!islogin) {
+                    UiUtils.showToast("请先登录");
+                    Intent intent = new Intent(JoinCartActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                } else {
 
-                Log.e("TAG", "cartBean" + cartBean.toString());
-                Modle.getInstance().getCartDao().add(cartBean);
-                UiUtils.showToast("已加入购物车");
-                finish();
-                overridePendingTransition(0, R.anim.anim_down_out);
+                    CartBean cartBean = new CartBean();
+                    cartBean.setGoods_id(goodsInfo.getGoods_id());
+                    cartBean.setCount(addSubView.getValue());
+                    cartBean.setGoods_name(goodsInfo.getGoods_name());
+                    cartBean.setOwner_name(goodsInfo.getOwner_name());
+                    cartBean.setPrice(goodsInfo.getPrice());
+                    cartBean.setDiscount(goodsInfo.getDiscount_price());
+                    cartBean.setImage(TextUtils.isEmpty(attrList_type.get(typeSelectedPos).getImg_path()) ? goodsInfo.getGoods_image() : attrList_type.get(typeSelectedPos).getImg_path());
+                    cartBean.setType_name(sku_info.get(0).getType_name());
+                    cartBean.setType(attrList_type.get(typeSelectedPos).getAttr_name());
+                    if (sku_info.size() > 1) {
+                        cartBean.setSize_name(sku_info.get(1).getType_name());
+                        cartBean.setSize(sizes.get(sizeSlectedPos).getAttr_name());
+                    }
+                    cartBean.setIsgift(Integer.parseInt(goodsInfo.getIs_gift()));
+
+                    Log.e("TAG", "cartBean" + cartBean.toString());
+                    Modle.getInstance().getCartDao().add(cartBean);
+                    UiUtils.showToast("已加入购物车");
+                    finish();
+                    overridePendingTransition(0, R.anim.anim_down_out);
+                }
             }
         });
 

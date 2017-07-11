@@ -1,10 +1,12 @@
 package com.example.chenyuelun.myapp.modle.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by chenyuelun on 2017/7/10.
  */
 
-public class UserInfo {
+public class UserInfo implements Serializable {
     private String userName;
     private String info;
     private String phone;

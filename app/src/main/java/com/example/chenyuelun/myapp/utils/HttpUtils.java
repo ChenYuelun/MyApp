@@ -43,10 +43,34 @@ public class HttpUtils {
 
 
 
+    public static  void post(String url, String phone, String password, final OnHttpListener listener){
+        OkHttpUtils
+                .post()
+                .url(url)
+                .addParams("phone", phone)
+                .addParams("password", password)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        listener.onError(call,e,id);
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        listener.onResponse(response,id);
+                    }
+                });
+    }
+
 
     public interface OnHttpListener{
         void onResponse(String response, int id);
         void onError(Call call, Exception e, int id);
     }
+
+
+
+
 
 }

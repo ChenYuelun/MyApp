@@ -29,6 +29,7 @@ import com.example.chenyuelun.myapp.base.BaseActivity;
 import com.example.chenyuelun.myapp.common.AppUrl;
 import com.example.chenyuelun.myapp.modle.bean.GoodsInfosBean;
 import com.example.chenyuelun.myapp.utils.HttpUtils;
+import com.example.chenyuelun.myapp.utils.SpUtils;
 import com.example.chenyuelun.myapp.utils.UiUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
@@ -296,8 +297,16 @@ public class GoodsInfoActivity extends BaseActivity {
         ivGoodsinfoCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UiUtils.showToast("购物车");
-                startActivity(new Intent(GoodsInfoActivity.this,ShoppingCratActivity.class));
+
+                boolean islogin = (boolean) SpUtils.getSpUtils().get(SpUtils.IS_LOGIN, false);
+                if (islogin) {
+                    UiUtils.showToast("购物车");
+                    startActivity(new Intent(GoodsInfoActivity.this, ShoppingCratActivity.class));
+                } else {
+                    UiUtils.showToast("请先登录");
+                    Intent intent = new Intent(GoodsInfoActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -311,13 +320,6 @@ public class GoodsInfoActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 toBrandInfo();
-            }
-        });
-
-        tvSelected.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UiUtils.showToast("选择商品");
             }
         });
 
@@ -353,7 +355,7 @@ public class GoodsInfoActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    //打开加入购物车或直接购买页面
+    //打开品牌详情页面
     private void toBrandInfo() {
         Intent intent = new Intent(GoodsInfoActivity.this, BrandInfoActivity.class);
         GoodsInfosBean.DataBean.ItemsBean.BrandInfoBean brand_info = goodsinfo.getBrand_info();

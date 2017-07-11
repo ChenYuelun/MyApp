@@ -24,9 +24,7 @@ public class AccountTable {
             + COL_QQ +" text,"
             + COL_WEINXIN +" text,"
             + COL_WEIBO +" text,"
-            + COL_DOUBAN +" text,"
-            + COL_PHONE +" text,"
-            + COL_PHONE +" text)"
+            + COL_DOUBAN +" text)"
             ;
 
 

@@ -6,6 +6,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!-- AppCompatEditText默认状态状态设置底线颜色 -->
+        <item name="colorControlNormal">#000000</item>
+        <!-- AppCompatEditText选择的底线颜色 -->
+        <item name="colorControlActivated">#000000</item>
         <item name="android:fitsSystemWindows">true</item>
         <item name="android:windowAnimationStyle">@style/fade</item>
     </style>
@@ -66,6 +70,7 @@
     <style name="AnimDownIn" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowAnimationStyle">@style/fade3</item>
         <item name="android:windowBackground">@color/transparent</item>
+        <item name="colorPrimaryDark">@color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
 
     </style>

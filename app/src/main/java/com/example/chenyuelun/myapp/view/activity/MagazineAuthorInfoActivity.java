@@ -30,8 +30,7 @@ import okhttp3.Call;
 public class MagazineAuthorInfoActivity extends BaseActivity {
 
 
-    @BindView(R.id.tv_title_date)
-    TextView tvTitleDate;
+   
     @BindView(R.id.iv_title_search)
     ImageView ivTitleSearch;
     @BindView(R.id.iv_title_back)

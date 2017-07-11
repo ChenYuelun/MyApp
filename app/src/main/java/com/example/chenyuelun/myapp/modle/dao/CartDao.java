@@ -107,7 +107,10 @@ public class CartDao {
     public CartBean getData(CartBean cartBean) {
         CartBean cartBean1 = new CartBean();
         SQLiteDatabase database = dbHelper.getWritableDatabase();
-        String sql = "select * from " + CartTable.TABLE_NAME + " where " + CartTable.COL_GOODS_ID + "=? and " + CartTable.COL_TYPE + "=? and " + CartTable.COL_SIZE + "=?";
+        String sql = "select * from " + CartTable.TABLE_NAME
+                + " where " + CartTable.COL_GOODS_ID + "=? and "
+                + CartTable.COL_TYPE + "=? and "
+                + CartTable.COL_SIZE + "=?";
         Cursor cursor = database.rawQuery(sql, new String[]{cartBean.getGoods_id(), cartBean.getType(), cartBean.getSize()});
         if (cursor.moveToNext()) {
 

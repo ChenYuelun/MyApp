@@ -2,6 +2,7 @@ package com.example.chenyuelun.myapp.modle.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.chenyuelun.myapp.modle.bean.UserInfo;
@@ -23,6 +24,9 @@ public class AccountDao {
 
     //增 存放用户数据
     public void addUser(UserInfo userInfo){
+        if(getUser(userInfo.getPhone()) != null) {
+            return;
+        }
         SQLiteDatabase database = accountDB.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(AccountTable.COL_PHONE,userInfo.getPhone());
@@ -44,5 +48,25 @@ public class AccountDao {
 
     public void updataUser(UserInfo userInfo){
 
+    }
+
+    //用来验证用户是否存在于数据库
+    public UserInfo getUser(String phone){
+        boolean isHanve = false;
+        SQLiteDatabase database = accountDB.getWritableDatabase();
+        String sql = "select * from " + AccountTable.TABLE_NAME + " where " + AccountTable.COL_PHONE + "=?";
+        Cursor cursor = database.rawQuery(sql, new String[]{phone});
+        UserInfo userInfo = new UserInfo();
+        if(cursor.moveToNext()) {
+            userInfo.setPhone(cursor.getString(cursor.getColumnIndex(AccountTable.COL_PHONE)));
+            userInfo.setUserName(cursor.getString(cursor.getColumnIndex(AccountTable.COL_USERNAME)));
+            userInfo.setInfo(cursor.getString(cursor.getColumnIndex(AccountTable.COL_INFO)));
+            userInfo.setImage(cursor.getString(cursor.getColumnIndex(AccountTable.COL_IMAGE)));
+            userInfo.setQq(cursor.getString(cursor.getColumnIndex(AccountTable.COL_QQ)));
+            userInfo.setWeinxin(cursor.getString(cursor.getColumnIndex(AccountTable.COL_WEINXIN)));
+            userInfo.setWeibo(cursor.getString(cursor.getColumnIndex(AccountTable.COL_WEIBO)));
+            userInfo.setDouban(cursor.getString(cursor.getColumnIndex(AccountTable.COL_DOUBAN)));
+        }
+        return userInfo;
     }
 }

@@ -31,7 +31,6 @@ public class StoreHomeFragment extends BaseFragment {
     RecyclerView recyclerview;
     @BindView(R.id.refresh)
     MaterialRefreshLayout refresh;
-    Unbinder unbinder;
     private HomeAdapter homeAdapteer;
 
     @Override

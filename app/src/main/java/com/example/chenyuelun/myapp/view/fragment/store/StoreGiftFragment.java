@@ -34,7 +34,6 @@ public class StoreGiftFragment extends BaseFragment {
     ImageView ivParent;
     @BindView(R.id.ll_songlitixing)
     LinearLayout llSonglitixing;
-    Unbinder unbinder;
 
     @Override
     public int getLayoutId() {

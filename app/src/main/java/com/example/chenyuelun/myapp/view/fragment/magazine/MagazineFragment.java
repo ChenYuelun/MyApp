@@ -134,13 +134,17 @@ public class MagazineFragment extends BaseFragment {
 
                 int position = gridLayoutManager.findFirstVisibleItemPosition();
                 if (position == 0) {
-                    return;
+                    if (!"Today".equals(tempDate)) {
+                        tvTitleDate.setText("Today");
+                        tempDate = "Today";
+                    }
                 } else {
                     String date = infoBeanList.get(position).getDate();
-                    if(!date.equals(tempDate)) {
+                    //每次设置之后找个临时变量放入当前显示的日期 下次设置之前先判断与当前是否相同  若相同 就不再设置
+                    if (!date.equals(tempDate)) {
                         tvTitleDate.setText(date);
                         tempDate = date;
-                  }
+                    }
                 }
             }
 

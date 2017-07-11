@@ -20,10 +20,13 @@ import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseFragment;
 import com.example.chenyuelun.myapp.common.AppUrl;
 import com.example.chenyuelun.myapp.modle.bean.GoodsDetailsBean;
+import com.example.chenyuelun.myapp.utils.SpUtils;
 import com.example.chenyuelun.myapp.utils.UiUtils;
 import com.example.chenyuelun.myapp.view.activity.GoodsInfoActivity;
 import com.example.chenyuelun.myapp.view.activity.MainActivity;
+import com.example.chenyuelun.myapp.view.activity.ShoppingCratActivity;
 import com.example.chenyuelun.myapp.view.adapter.GoodsDetailsAdapter;
+import com.example.chenyuelun.myapp.view.activity.LoginActivity;
 
 import java.util.List;
 
@@ -37,24 +40,16 @@ public class StoreTypeDetailsFragment extends BaseFragment {
 
 
     private final String cart_id;
-    @BindView(R.id.iv_title_search)
-    ImageView ivTitleSearch;
     @BindView(R.id.iv_title_back)
     ImageView ivTitleBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.iv_title_cart)
     ImageView ivTitleCart;
-    @BindView(R.id.iv_title_menu)
-    ImageView ivTitleMenu;
     @BindView(R.id.recyclerview)
     RecyclerView rvDetailsStore;
     @BindView(R.id.refresh)
     MaterialRefreshLayout refresh;
-    @BindView(R.id.iv_title_faver)
-    ImageView ivTitleFaver;
-    @BindView(R.id.iv_title_share)
-    ImageView ivTitleShare;
     @BindView(R.id.ll_price_select)
     LinearLayout llPriceSelect;
     @BindView(R.id.tv_price_select)
@@ -168,7 +163,15 @@ public class StoreTypeDetailsFragment extends BaseFragment {
         ivTitleCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UiUtils.showToast("购物车");
+                boolean islogin = (boolean) SpUtils.getSpUtils().get(SpUtils.IS_LOGIN, false);
+                if (islogin) {
+                    UiUtils.showToast("购物车");
+                    startActivity(new Intent(getActivity(), ShoppingCratActivity.class));
+                } else {
+                    UiUtils.showToast("请先登录");
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

@@ -10,9 +10,11 @@ import android.widget.TextView;
 
 import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseFragment;
+import com.example.chenyuelun.myapp.utils.SpUtils;
 import com.example.chenyuelun.myapp.utils.UiUtils;
 import com.example.chenyuelun.myapp.view.activity.ShoppingCratActivity;
 import com.example.chenyuelun.myapp.view.adapter.StoreFragmentVpAdapter;
+import com.example.chenyuelun.myapp.view.activity.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,14 +28,10 @@ import butterknife.BindView;
 public class StoreFragment extends BaseFragment {
     @BindView(R.id.iv_title_search)
     ImageView ivTitleSearch;
-    @BindView(R.id.iv_title_back)
-    ImageView ivTitleBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.iv_title_cart)
     ImageView ivTitleCart;
-    @BindView(R.id.iv_title_menu)
-    ImageView ivTitleMenu;
     @BindView(R.id.tabview)
     TabLayout tabview;
     @BindView(R.id.vp_main)
@@ -90,8 +88,14 @@ public class StoreFragment extends BaseFragment {
         ivTitleCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UiUtils.showToast("购物车");
-                startActivity(new Intent(getActivity(), ShoppingCratActivity.class));
+                boolean islogin = (boolean) SpUtils.getSpUtils().get(SpUtils.IS_LOGIN, false);
+                if (islogin) {
+                    UiUtils.showToast("购物车");
+                    startActivity(new Intent(getActivity(), ShoppingCratActivity.class));
+                } else {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }
