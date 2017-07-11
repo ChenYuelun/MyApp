@@ -1,5 +1,6 @@
 package com.example.chenyuelun.myapp.view.fragment.store;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseFragment;
 import com.example.chenyuelun.myapp.utils.UiUtils;
+import com.example.chenyuelun.myapp.view.activity.ShoppingCratActivity;
 import com.example.chenyuelun.myapp.view.adapter.StoreFragmentVpAdapter;
 
 import java.util.ArrayList;
@@ -89,6 +91,7 @@ public class StoreFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 UiUtils.showToast("购物车");
+                startActivity(new Intent(getActivity(), ShoppingCratActivity.class));
             }
         });
     }

@@ -40,6 +40,7 @@ public class MyApplication extends Application {
         OkHttpUtils.initClient(okHttpClient);
 
         SpUtils.getSpUtils().init(context,"liangcang");
+        Modle.getInstance().init(context);
     }
 
     public static Context getContext() {

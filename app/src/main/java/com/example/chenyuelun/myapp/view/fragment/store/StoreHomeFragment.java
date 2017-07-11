@@ -47,7 +47,8 @@ public class StoreHomeFragment extends BaseFragment {
         refresh.finishRefresh();
         HomeBean homeBean = JSON.parseObject(response, HomeBean.class);
         if(homeBean != null) {
-            List<HomeBean.DataBean.ItemsBean.ListBean> list = homeBean.getData().getItems().getList();
+            HomeBean.DataBean.ItemsBean items = homeBean.getData().getItems();
+            List<HomeBean.DataBean.ItemsBean.ListBeanX> list = items.getList();
             if(list != null && list.size() > 0) {
                 homeAdapteer.refresh(list);
             }

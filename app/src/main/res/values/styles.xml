@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:windowAnimationStyle">@style/fade</item>
     </style>
 
     <!--主界面radioubutton 共有属性抽取-->
@@ -15,14 +17,14 @@
         <item name="android:layout_weight">1</item>
         <item name="android:button">@null</item>
         <item name="android:gravity">center</item>
-        <item name="android:drawablePadding">3dp</item>
+        <item name="android:drawablePadding">2dp</item>
         <item name="android:textColor">@drawable/rb_main_textcolor_selector</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">10sp</item>
 
     </style>
 
 
-       <!--商品页面Fragment TabLayout 样式-->
+    <!--商品页面Fragment TabLayout 样式-->
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">#ffffff</item>
         <item name="tabIndicatorHeight">2dp</item>
@@ -39,27 +41,37 @@
 
 
     <!--Acityvity切换动画  左右进出-->
-    <style name="Anim_Left_right" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Anim_Left_right" parent="AppTheme">
         <item name="android:windowAnimationStyle">@style/fade</item>
     </style>
 
-    <style
-        name="fade" parent="@android:style/Animation.Activity">
+    <style name="fade" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/fragment_right_in</item>
         <item name="android:activityOpenExitAnimation">@anim/fragment_left_out</item>
-        <item name="android:activityCloseEnterAnimation">@anim/fragment_right_out</item>
-        <item name="android:activityCloseExitAnimation">@anim/fragment_left_in</item>
+        <item name="android:activityCloseEnterAnimation">@anim/fragment_left_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/fragment_right_out</item>
     </style>
 
 
     <!--MagazineActivity 进入动画-->
-    <style name="Anim_TOP" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AnimTopIn" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowAnimationStyle">@style/fade2</item>
     </style>
 
-    <style
-        name="fade2" parent="@android:style/Animation.Activity">
+    <style name="fade2" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/anim_top_in</item>
+    </style>
+
+    <!--加入购物车跳转动画-->
+    <style name="AnimDownIn" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowAnimationStyle">@style/fade3</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+
+    </style>
+
+    <style name="fade3" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_down_in</item>
     </style>
 
     <!--商品详情布局TextView 共性属性抽取-->
@@ -87,11 +99,11 @@
         <item name="android:textColor">@drawable/rb_textcolor_selector</item>
         <item name="android:background">@drawable/rb_bg_selector</item>
     </style>
+
     <style name="RadioButton_PopuWiondow2" parent="RadioButton_PopuWiondow_Base">
         <item name="android:textColor">@drawable/rb_textcolor_selector2</item>
         <item name="android:background">@drawable/rb_bg_selector2</item>
     </style>
-
 
 
     <style name="RadioButton_PopuWiondow_Base">
@@ -103,6 +115,15 @@
     </style>
 
 
+    <style name="myTransparent">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+    </style>
+
+
+    　
 
 
 

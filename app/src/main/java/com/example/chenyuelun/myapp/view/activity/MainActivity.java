@@ -2,6 +2,7 @@ package com.example.chenyuelun.myapp.view.activity;
 
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
@@ -30,6 +31,7 @@ public class MainActivity extends BaseActivity {
     private BaseFragment preFragment = null;
     private int position = 0;
     private BaseFragment currentFragment;
+    private StoreFragment storeFragment;
 
     @Override
     public void initData() {
@@ -38,7 +40,8 @@ public class MainActivity extends BaseActivity {
 
     private void initFragments() {
         fragments = new ArrayList<>();
-        fragments.add(new StoreFragment());
+        storeFragment = new StoreFragment();
+        fragments.add(storeFragment);
         fragments.add(new MagazineFragment());
         fragments.add(new DaRenFragment());
         fragments.add(new ShareFragment());
@@ -61,27 +64,24 @@ public class MainActivity extends BaseActivity {
     private BaseFragment tempFragment;
 
     public void replaceFragment(StoreTypeDetailsFragment storeTypeDetailsFragment) {
-        if (fragments.size() == 6) {
-            fragments.remove(5);
-        }
-        fragments.add(storeTypeDetailsFragment);
+
+        tempFragment = storeTypeDetailsFragment;
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.setCustomAnimations(R.anim.fragment_right_in,R.anim.fragment_left_out);
-        ft.hide(fragments.get(0));
-        ft.add(R.id.fl_main,storeTypeDetailsFragment).commit();
-        preFragment = storeTypeDetailsFragment;
-        tempFragment =preFragment;
+        ft.setCustomAnimations(R.anim.fragment_right_in, R.anim.fragment_left_out);
+        ft.hide(preFragment);
+        ft.add(R.id.fl_main, tempFragment).commit();
+
     }
 
     public void BackFragment() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.anim.fragment_left_in,R.anim.fragment_right_out);
-        ft.remove(fragments.get(5));
         ft.show(fragments.get(0));
+        ft.remove(tempFragment);
         ft.commit();
-        fragments.remove(5);
-        preFragment = fragments.get(0);
         tempFragment = null;
+        preFragment = fragments.get(0);
+
     }
 
 
@@ -105,10 +105,8 @@ public class MainActivity extends BaseActivity {
                     position = 4;
                     break;
             }
-            if(position == 0 && tempFragment != null ) {
-                position = 5;
-            }
 
+            Log.e("TAG1", "Position" + position);
             switchFragment(position);
         }
     }
@@ -116,14 +114,28 @@ public class MainActivity extends BaseActivity {
 
     private void switchFragment(int position) {
         currentFragment = fragments.get(position);
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if(tempFragment != null  && position != 0) {
+            if(tempFragment.isAdded()) {
+                ft.hide(tempFragment);
+            }
+        }
+
+        if (position == 0 && tempFragment != null) {
+            if (tempFragment.isAdded()) {
+                ft.hide(preFragment);
+                ft.show(tempFragment);
+                ft.commit();
+                return;
+            }
+        }
         if (currentFragment != preFragment) {
 
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             if (!currentFragment.isAdded()) {
                 if (preFragment != null) {
                     ft.hide(preFragment);
                 }
-
                 ft.add(R.id.fl_main, currentFragment);
             } else {
                 ft.hide(preFragment);
@@ -144,7 +156,7 @@ public class MainActivity extends BaseActivity {
                 return true;
             }
 
-            if(fragments.size() == 6) {
+            if (position == 0 && tempFragment != null) {
                 BackFragment();
                 return true;
             }

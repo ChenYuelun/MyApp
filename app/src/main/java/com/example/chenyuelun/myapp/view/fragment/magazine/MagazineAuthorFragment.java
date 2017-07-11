@@ -53,6 +53,7 @@ public class MagazineAuthorFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(),MagazineAuthorInfoActivity.class);
+
                 intent.putExtra("author_id",items.get(position).getAuthor_id());
                 intent.putExtra("author_name",items.get(position).getAuthor_name());
                 startActivity(intent);

@@ -52,6 +52,7 @@ public class MagazineAuthorInfoActivity extends BaseActivity {
     MaterialRefreshLayout refresh;
     private GridLayoutManager gridLayoutManager;
     private MagazineAdapter magazineAdapter;
+    private String url;
 
     @Override
     public void initData() {
@@ -60,11 +61,13 @@ public class MagazineAuthorInfoActivity extends BaseActivity {
         gridLayoutManager = new GridLayoutManager(this, 1);
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         recyclerview.setLayoutManager(gridLayoutManager);
+        String author_id = getIntent().getStringExtra("author_id");
+        url = AppUrl.getMgzAuthorItem(author_id);
         getDataFromNet();
     }
 
     private void getDataFromNet() {
-        HttpUtils.get(AppUrl.MGZ_AUTHOR_ITEM, new HttpUtils.OnHttpListener() {
+        HttpUtils.get(url, new HttpUtils.OnHttpListener() {
             @Override
             public void onResponse(String response, int id) {
                 List<MagazineInfoBean> magazineInfoBeen = processData(response);

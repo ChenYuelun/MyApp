@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1e2125"
+    android:orientation="vertical"
+    tools:context="com.example.chenyuelun.myapp.view.activity.ShoppingCratActivity">
+
+    <include layout="@layout/layout_title" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_goodsList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#24262a"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/tv_rea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_reach_discount"
+            android:drawablePadding="15dp"
+            android:text="满减"
+            android:textColor="#cccccc"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_reach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:drawablePadding="15dp"
+            android:textColor="#cccccc"
+            android:textSize="12sp"
+            android:text="-￥0.00" />
+
+
+        <TextView
+            android:id="@+id/tv_dis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_rea"
+            android:layout_marginTop="5dp"
+            android:drawableLeft="@drawable/ic_discount_discount"
+            android:drawablePadding="15dp"
+            android:text="折扣"
+            android:textColor="#cccccc"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_reach"
+            android:layout_marginTop="5dp"
+            android:drawablePadding="15dp"
+            android:textColor="#cccccc"
+            android:textSize="12sp"
+            android:text="-￥0.00" />
+
+
+        <TextView
+            android:id="@+id/tv_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_dis"
+            android:layout_marginTop="5dp"
+            android:drawableLeft="@drawable/ic_pack_bottom"
+            android:drawablePadding="15dp"
+            android:text="包装"
+            android:textColor="#cccccc"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_pack_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_discount"
+            android:layout_marginTop="5dp"
+            android:drawablePadding="15dp"
+            android:textColor="#cccccc"
+            android:textSize="12sp"
+            android:text=" (礼物包装费)" />
+
+        <TextView
+            android:id="@+id/tv_pack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_discount"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@id/tv_pack_no"
+            android:drawablePadding="15dp"
+            android:textColor="#cccccc"
+            android:textSize="12sp"
+            android:text="+￥0.00" />
+
+
+        <TextView
+            android:id="@+id/tv_s"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_p"
+            android:layout_marginTop="5dp"
+            android:drawableLeft="@drawable/ic_ship_bottom"
+            android:drawablePadding="15dp"
+            android:text="包邮"
+            android:textColor="#cccccc"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_ship_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_pack_no"
+            android:layout_marginTop="5dp"
+            android:drawablePadding="15dp"
+            android:textColor="#cccccc"
+            android:textSize="12sp"
+            android:text=" (限中国大陆地区)" />
+
+        <TextView
+            android:id="@+id/tv_ship"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_pack"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@id/tv_ship_no"
+            android:drawablePadding="15dp"
+            android:textColor="#cccccc"
+            android:textSize="12sp"
+            android:text="+￥0.00" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:background="#3a668c"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <CheckBox
+            android:id="@+id/cb_check_all"
+            android:layout_marginLeft="15dp"
+            android:drawableLeft="@drawable/cb_cart_selector"
+            android:text="全选"
+            android:textSize="16sp"
+            android:textColor="#fff"
+            android:button="@null"
+            android:drawablePadding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+        <TextView
+            android:textSize="12sp"
+            android:layout_marginLeft="20dp"
+            android:textColor="#fff"
+            android:text="总计: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_total_price"
+            android:text="￥0.00"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/bt_pay"
+            android:textSize="16sp"
+            android:textColor="#fff"
+            android:text="结算"
+            android:background="#6f98c3"
+            android:layout_width="120dp"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

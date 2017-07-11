@@ -79,6 +79,7 @@ public class DaRenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         public void setData(DaRenBean.DataBean.ItemsBean itemsBean) {
+
             Picasso.with(context)
                     .load(itemsBean.getUser_images()
                      .getOrig())

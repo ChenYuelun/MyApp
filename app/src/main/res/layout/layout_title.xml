@@ -12,13 +12,13 @@
     android:paddingRight="20dp">
 
     <TextView
-        android:scrollbars="vertical"
-        android:fadeScrollbars="false"
-        android:textAllCaps="false"
         android:id="@+id/tv_title_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fadeScrollbars="false"
+        android:scrollbars="vertical"
         android:text="Today"
+        android:textAllCaps="false"
         android:textColor="#6f98c3"
         android:textSize="15sp"
         android:visibility="gone" />
@@ -43,19 +43,19 @@
     <!--标题-->
 
     <LinearLayout
-        android:gravity="center"
-        android:layout_weight="1"
         android:layout_width="0dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center">
 
         <TextView
-            android:lines="1"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp"
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:gravity="center"
+            android:lines="1"
             android:textColor="#ffffff"
             android:textSize="16sp"
             tool:text="商店" />
@@ -93,5 +93,20 @@
         android:background="@drawable/ic_share_shopgood"
         android:visibility="gone" />
 
+    <ImageView
+        android:id="@+id/iv_title_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_setting"
+        android:visibility="gone" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_cart_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="编辑"
+        android:textColor="#cccccc"
+        android:textSize="14sp" />
 
 </LinearLayout>

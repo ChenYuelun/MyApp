@@ -2,7 +2,34 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.chenyuelun.myapp">
 
+    <!-- 配置所需权限 -->
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <!-- 使用shareSdk相关的权限 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <!-- 蓝牙分享所需的权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -22,20 +49,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".view.activity.GoodsInfoActivity"
-            android:theme="@style/Anim_Left_right" />
+        <activity android:name=".view.activity.GoodsInfoActivity" />
         <activity android:name=".view.activity.BrandInfoActivity" />
         <activity android:name=".view.activity.WebActivity" />
-        <activity
-            android:name=".view.activity.MainActivity"
-            android:theme="@style/Anim_Left_right" />
+        <activity android:name=".view.activity.MainActivity" />
         <activity android:name=".view.activity.GuideActivity" />
         <activity android:name=".view.activity.DaRenInfoActivity" />
         <activity
             android:name=".view.activity.MagazineListActivity"
-            android:theme="@style/Anim_TOP" />
-        <activity android:name=".view.activity.MagazineAuthorInfoActivity"></activity>
+            android:theme="@style/AnimTopIn" />
+        <activity android:name=".view.activity.MagazineAuthorInfoActivity" />
+        <activity android:name=".view.activity.ShoppingCratActivity" />
+        <activity
+            android:name=".view.activity.JoinCartActivity"
+            android:theme="@style/AnimDownIn" />
+
+
+
     </application>
 
 </manifest>

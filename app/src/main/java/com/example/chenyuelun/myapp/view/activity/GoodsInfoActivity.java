@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
@@ -260,6 +261,7 @@ public class GoodsInfoActivity extends BaseActivity {
         banner.setImages(images);
         //banner设置方法全部调用完毕时最后调用
         banner.start();
+        banner.stopAutoPlay();
     }
 
     @Override
@@ -295,6 +297,7 @@ public class GoodsInfoActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 UiUtils.showToast("购物车");
+                startActivity(new Intent(GoodsInfoActivity.this,ShoppingCratActivity.class));
             }
         });
 
@@ -317,12 +320,43 @@ public class GoodsInfoActivity extends BaseActivity {
                 UiUtils.showToast("选择商品");
             }
         });
+
+        btAddInCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InToCart(goodsinfo, 0);
+            }
+        });
+
+        btBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InToCart(goodsinfo, 1);
+            }
+        });
+
+        tvSelected.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InToCart(goodsinfo, 0);
+            }
+        });
+
     }
 
+    private void InToCart(GoodsInfosBean.DataBean.ItemsBean goodsinfo, int value) {
+        Intent intent = new Intent(GoodsInfoActivity.this, JoinCartActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("goodsInfo", goodsinfo);
+        intent.putExtras(bundle);
+        intent.putExtra("is_buy", value);
+        startActivity(intent);
+    }
+
+    //打开加入购物车或直接购买页面
     private void toBrandInfo() {
         Intent intent = new Intent(GoodsInfoActivity.this, BrandInfoActivity.class);
         GoodsInfosBean.DataBean.ItemsBean.BrandInfoBean brand_info = goodsinfo.getBrand_info();
-
         intent.putExtra("brand_id",Integer.parseInt(brand_info.getBrand_id()));
         Log.e("TAG", "brand_id");
         intent.putExtra("brand_name",brand_info.getBrand_name());

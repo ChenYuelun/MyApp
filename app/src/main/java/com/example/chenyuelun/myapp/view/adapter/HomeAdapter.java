@@ -9,6 +9,8 @@ import android.widget.ImageView;
 
 import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.modle.bean.HomeBean;
+import com.example.chenyuelun.myapp.view.activity.MainActivity;
+import com.example.chenyuelun.myapp.view.fragment.store.StoreTypeDetailsFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -25,10 +27,11 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     private final Context context;
+    @BindView(R.id.iv_hometype6)
+    ImageView ivHometype1;
 
 
-
-    private List<HomeBean.DataBean.ItemsBean.ListBean> datas = new ArrayList<>();
+    private List<HomeBean.DataBean.ItemsBean.ListBeanX> datas = new ArrayList<>();
 
     public HomeAdapter(Context context) {
         this.context = context;
@@ -36,9 +39,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        HomeBean.DataBean.ItemsBean.ListBean listBean = datas.get(position);
-        String home_type = listBean.getHome_type();
-        int type = Integer.parseInt(home_type);
+        HomeBean.DataBean.ItemsBean.ListBeanX listBean = datas.get(position);
+        int type = listBean.getHome_type();
         return type;
     }
 
@@ -55,6 +57,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             case 4:
                 viewHolder = new ViewHolder4(LayoutInflater.from(context).inflate(R.layout.item_hometype4, parent, false));
                 break;
+            case 6:
+                viewHolder = new ViewHolder6(LayoutInflater.from(context).inflate(R.layout.item_hometype6, parent, false));
+                break;
         }
         return viewHolder;
     }
@@ -70,7 +75,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return datas == null ? 0 : datas.size();
     }
 
-    public void refresh(List<HomeBean.DataBean.ItemsBean.ListBean> list) {
+    public void refresh(List<HomeBean.DataBean.ItemsBean.ListBeanX> list) {
         this.datas = list;
     }
 
@@ -81,14 +86,15 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+
         public void setData(int position) {
-            HomeBean.DataBean.ItemsBean.ListBean listBean = datas.get(position);
+            HomeBean.DataBean.ItemsBean.ListBeanX listBean = datas.get(position);
         }
     }
 
 
     class ViewHolder1 extends BaseViewHolder {
-        @BindView(R.id.iv_hometype1)
+        @BindView(R.id.iv_hometype6)
         ImageView ivHometype1;
 
         public ViewHolder1(View itemView) {
@@ -98,14 +104,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         @Override
         public void setData(int position) {
             super.setData(position);
-            final HomeBean.DataBean.ItemsBean.ListBean listBean = datas.get(position);
+            final HomeBean.DataBean.ItemsBean.ListBeanX listBean = datas.get(position);
             String pic_url = listBean.getOne().getPic_url();
             Picasso.with(context).load(pic_url).into(ivHometype1);
             ivHometype1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(listener != null) {
-                        listener.onItemClicked( listBean.getOne().getTopic_url(),listBean.getOne().getTopic_name(),listBean.getOne().getContent_id());
+                    if (listener != null) {
+                        listener.onItemClicked(listBean.getOne().getTopic_url(), listBean.getOne().getTopic_name(), listBean.getOne().getContent_id());
                     }
                 }
             });
@@ -126,7 +132,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         @Override
         public void setData(int position) {
             super.setData(position);
-            final HomeBean.DataBean.ItemsBean.ListBean listBean = datas.get(position);
+            final HomeBean.DataBean.ItemsBean.ListBeanX listBean = datas.get(position);
             Picasso.with(context).load(listBean.getOne().getPic_url()).into(iv1Hometype2);
             Picasso.with(context).load(listBean.getTwo().getPic_url()).into(iv2Hometype2);
 
@@ -134,14 +140,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             iv1Hometype2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClicked( listBean.getOne().getTopic_url(),listBean.getOne().getTopic_name(),listBean.getOne().getContent_id());
+                    listener.onItemClicked(listBean.getOne().getTopic_url(), listBean.getOne().getTopic_name(), listBean.getOne().getContent_id());
                 }
             });
 
             iv2Hometype2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClicked( listBean.getTwo().getTopic_url(),listBean.getTwo().getTopic_name(),listBean.getTwo().getContent_id());
+                    listener.onItemClicked(listBean.getTwo().getTopic_url(), listBean.getTwo().getTopic_name(), listBean.getTwo().getContent_id());
                 }
             });
 
@@ -159,6 +165,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ImageView ivRightTop;
         @BindView(R.id.iv_right_bot)
         ImageView ivRightBot;
+
         public ViewHolder4(View itemView) {
             super(itemView);
         }
@@ -166,7 +173,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         @Override
         public void setData(int position) {
             super.setData(position);
-            final HomeBean.DataBean.ItemsBean.ListBean listBean = datas.get(position);
+
+            final HomeBean.DataBean.ItemsBean.ListBeanX listBean = datas.get(position);
             Picasso.with(context).load(listBean.getOne().getPic_url()).into(ivLeftTop);
             Picasso.with(context).load(listBean.getTwo().getPic_url()).into(ivLeftBot);
             Picasso.with(context).load(listBean.getThree().getPic_url()).into(ivRightTop);
@@ -175,28 +183,28 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ivLeftTop.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClicked( listBean.getOne().getTopic_url(),listBean.getOne().getTopic_name(),listBean.getOne().getContent_id());
+                    listener.onItemClicked(listBean.getOne().getTopic_url(), listBean.getOne().getTopic_name(), listBean.getOne().getContent_id());
                 }
             });
 
             ivLeftBot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClicked( listBean.getTwo().getTopic_url(),listBean.getTwo().getTopic_name(),listBean.getTwo().getContent_id());
+                    listener.onItemClicked(listBean.getTwo().getTopic_url(), listBean.getTwo().getTopic_name(), listBean.getTwo().getContent_id());
                 }
             });
 
             ivRightTop.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClicked( listBean.getThree().getTopic_url(),listBean.getThree().getTopic_name(),listBean.getThree().getContent_id());
+                    listener.onItemClicked(listBean.getThree().getTopic_url(), listBean.getThree().getTopic_name(), listBean.getThree().getContent_id());
                 }
             });
 
             ivRightBot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClicked( listBean.getFour().getTopic_url(),listBean.getFour().getTopic_name(),listBean.getFour().getContent_id());
+                    listener.onItemClicked(listBean.getFour().getTopic_url(), listBean.getFour().getTopic_name(), listBean.getFour().getContent_id());
                 }
             });
 
@@ -206,12 +214,39 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private OnItemClickListener listener;
 
-    public void setOnItemClickListener(OnItemClickListener listener){
+    public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 
 
-    public interface OnItemClickListener{
-       void onItemClicked(String topic_url, String Topic_name,String content_id);
+    public interface OnItemClickListener {
+        void onItemClicked(String topic_url, String Topic_name, String content_id);
+    }
+
+
+    class ViewHolder6 extends BaseViewHolder {
+        @BindView(R.id.iv_hometype6)
+        ImageView ivHometype6;
+        public ViewHolder6(View itemView) {
+            super(itemView);
+        }
+
+        @Override
+        public void setData(int position) {
+            super.setData(position);
+            final HomeBean.DataBean.ItemsBean.ListBeanX listBean = datas.get(position);
+            String pic_url = listBean.getPic_url();
+            Picasso.with(context).load(pic_url).into(ivHometype6);
+            ivHometype6.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        MainActivity mainActivity = (MainActivity) context;
+                        StoreTypeDetailsFragment storeTypeDetailsFragment = new StoreTypeDetailsFragment(listBean.getHome_id()+"");
+                        mainActivity.replaceFragment(storeTypeDetailsFragment);
+                    }
+                }
+            });
+        }
     }
 }

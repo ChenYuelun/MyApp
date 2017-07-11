@@ -36,6 +36,10 @@ dependencies {
     compile 'com.youth.banner:banner:1.4.9'
     compile 'jp.wasabeef:picasso-transformations:2.1.2'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.zhy:flowlayout-lib:1.0.3'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+    compile files('libs/alipaysdk.jar')
+    compile files('libs/alipaysecsdk.jar')
+    compile files('libs/alipayutdid.jar')
 }

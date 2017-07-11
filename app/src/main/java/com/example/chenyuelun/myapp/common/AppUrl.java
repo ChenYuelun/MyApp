@@ -400,15 +400,15 @@ public class AppUrl {
     public static final String DAREN_INFO_HEAD = "http://mobile.iliangcang.com/user/masterListInfo?app_key=Android&count=10&owner_id=";
     public static final String DAREN_INFO_FOOT = "&page=1&sig=5715DFAE35D85EA29846D090DBBF8753%7C557744010558468&v=1.0";
 
-    public static String getDaRenInfoUrl(String uid,int page) {
-        return DAREN_INFO_HEAD + uid + "&page=" + page  + DAREN_INFO_FOOT;
+    public static String getDaRenInfoUrl(String uid, int page) {
+        return DAREN_INFO_HEAD + uid + "&page=" + page + DAREN_INFO_FOOT;
     }
 
     //达人 item 喜欢
     public static final String DAREN_LIKE_HEAD = "http://mobile.iliangcang.com/user/masterLike?app_key=Android&count=10&owner_id=";
     public static final String DAREN_LIKE_FOOT = "&sig=CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0";
 
-    public static String getDareLikeUrl(String uid,int page) {
+    public static String getDareLikeUrl(String uid, int page) {
         return DAREN_LIKE_HEAD + uid + "&page=" + page + DAREN_LIKE_FOOT;
     }
 
@@ -416,7 +416,7 @@ public class AppUrl {
     public static final String DAREN_RECOMMEND_HEAD = "http://mobile.iliangcang.com/user/masterListInfo?app_key=Android&count=10&owner_id=";
     public static final String DAREN_RECOMMEND_FOOT = "&sig=CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0";
 
-    public static String getDarenRecommendUrl(String uid,int page) {
+    public static String getDarenRecommendUrl(String uid, int page) {
         return DAREN_RECOMMEND_HEAD + uid + "&page=" + page + DAREN_RECOMMEND_FOOT;
     }
 
@@ -425,7 +425,7 @@ public class AppUrl {
     public static final String DAREN_ATTENTION_HEAD = "http://mobile.iliangcang.com/user/masterFollow?app_key=Android&count=12&owner_id=";
     public static final String DAREN_ATTENTION_FOOT = "&sig=CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0";
 
-    public static String getDarenAttentionUrl(String uid,int page) {
+    public static String getDarenAttentionUrl(String uid, int page) {
         return DAREN_ATTENTION_HEAD + uid + "&page=" + page + DAREN_ATTENTION_FOOT;
     }
 
@@ -433,24 +433,24 @@ public class AppUrl {
     public static final String DAREN_FANS_HEAD = "http://mobile.iliangcang.com/user/masterFollowed?app_key=Android&count=12&owner_id=";
     public static final String DAREN_FANS_FOOT = "&sig=CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0";
 
-    public static String getDarenFansUrl(String uid,int page) {
+    public static String getDarenFansUrl(String uid, int page) {
         return DAREN_FANS_HEAD + uid + "&page=" + page + DAREN_FANS_FOOT;
     }
 
-    public static final String getDarenUrlForState(int state,String uid,int page){
+    public static final String getDarenUrlForState(int state, String uid, int page) {
         String url = "";
         switch (state) {
-            case 1 :
-                url = getDareLikeUrl(uid,page);
+            case 1:
+                url = getDareLikeUrl(uid, page);
                 break;
-            case 2 :
-                url = getDarenRecommendUrl(uid,page);
+            case 2:
+                url = getDarenRecommendUrl(uid, page);
                 break;
-            case 3 :
-                url = getDarenAttentionUrl(uid,page);
+            case 3:
+                url = getDarenAttentionUrl(uid, page);
                 break;
-            case 4 :
-                url = getDarenFansUrl(uid,page);
+            case 4:
+                url = getDarenFansUrl(uid, page);
                 break;
         }
         return url;
@@ -465,6 +465,13 @@ public class AppUrl {
     public static final String MGZ_AUTHOR_LIST = "http://mobile.iliangcang.com/topic/magazineAuthorList?app_key=Android&sig=2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
 
     //杂志 作者Item
-    public static final String MGZ_AUTHOR_ITEM="http://mobile.iliangcang.com/topic/magazineList?app_key=Android&author_id=8&sig=2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
+    public static final String MGZ_AUTHOR_ITEM = "http://mobile.iliangcang.com/topic/magazineList?app_key=Android&author_id=8&sig=2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
+    public static final String MGZ_AUTHOR_HEAD = "http://mobile.iliangcang.com/topic/magazineList?app_key=Android&author_id=";
+    public static final String MGZ_AUTHOR_FOOT = "&sig=2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
+
+    public static String getMgzAuthorItem(String id) {
+        return MGZ_AUTHOR_HEAD + id + MGZ_AUTHOR_FOOT;
+    }
+
 
 }
