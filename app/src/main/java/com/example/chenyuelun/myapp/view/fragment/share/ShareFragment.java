@@ -1,11 +1,15 @@
 package com.example.chenyuelun.myapp.view.fragment.share;
 
-import android.view.View;
-import android.widget.ImageView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.widget.TextView;
 
 import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseFragment;
+import com.example.chenyuelun.myapp.view.adapter.StoreFragmentVpAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -14,16 +18,16 @@ import butterknife.BindView;
  */
 
 public class ShareFragment extends BaseFragment {
-    @BindView(R.id.iv_title_search)
-    ImageView ivTitleSearch;
-    @BindView(R.id.iv_title_back)
-    ImageView ivTitleBack;
+
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.iv_title_cart)
-    ImageView ivTitleCart;
-    @BindView(R.id.iv_title_menu)
-    ImageView ivTitleMenu;
+    @BindView(R.id.tablyout)
+    TabLayout tablyout;
+    @BindView(R.id.viewpager)
+    ViewPager viewpager;
+    private List<BaseFragment> fragments;
+    String[] titles= {"推荐","段子"};
+    private StoreFragmentVpAdapter adapter;
 
     @Override
     public int getLayoutId() {
@@ -37,14 +41,22 @@ public class ShareFragment extends BaseFragment {
 
     @Override
     public void initData() {
+        initFragment();
 
+        adapter = new StoreFragmentVpAdapter(getFragmentManager(), fragments,titles);
+        viewpager.setAdapter(adapter);
+        tablyout.setupWithViewPager(viewpager);
+    }
+
+    private void initFragment() {
+        fragments = new ArrayList<>();
+        fragments.add(new ShareRecommendFragment());
+        fragments.add(new ShareDuanziFragment());
     }
 
     @Override
     public void initTitle() {
         tvTitle.setText("分享");
-        ivTitleSearch.setVisibility(View.VISIBLE);
-        ivTitleMenu.setVisibility(View.VISIBLE);
     }
 
 }

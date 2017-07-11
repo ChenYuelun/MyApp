@@ -2,7 +2,6 @@ package com.example.chenyuelun.myapp.view.fragment.store;
 
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,9 +11,9 @@ import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseFragment;
 import com.example.chenyuelun.myapp.utils.SpUtils;
 import com.example.chenyuelun.myapp.utils.UiUtils;
+import com.example.chenyuelun.myapp.view.activity.LoginActivity;
 import com.example.chenyuelun.myapp.view.activity.ShoppingCratActivity;
 import com.example.chenyuelun.myapp.view.adapter.StoreFragmentVpAdapter;
-import com.example.chenyuelun.myapp.view.activity.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +35,9 @@ public class StoreFragment extends BaseFragment {
     TabLayout tabview;
     @BindView(R.id.vp_main)
     ViewPager vpMain;
-    private List<Fragment> fragmentPagers = null;
+    private List<BaseFragment> fragmentPagers = null;
     private StoreFragmentVpAdapter adapter;
-
+    String[] titles = {"分类", "品牌", "首页","专题", "礼物"};
 
     @Override
     public int getLayoutId() {
@@ -54,7 +53,7 @@ public class StoreFragment extends BaseFragment {
     public void initData() {
         initFragmentPagers();
         tabview.setupWithViewPager(vpMain);
-        adapter = new StoreFragmentVpAdapter(getFragmentManager(), fragmentPagers);
+        adapter = new StoreFragmentVpAdapter(getFragmentManager(), fragmentPagers,titles);
         vpMain.setAdapter(adapter);
     }
 
