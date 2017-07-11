@@ -1,5 +1,7 @@
 package com.example.chenyuelun.myapp.view.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -160,6 +162,24 @@ public class MainActivity extends BaseActivity {
                 BackFragment();
                 return true;
             }
+
+            new AlertDialog.Builder(this)
+                        .setTitle("退出软件")
+                        .setMessage("是否退出本应用？")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                onDestroy();
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        })
+                        .show();
 
 
         }

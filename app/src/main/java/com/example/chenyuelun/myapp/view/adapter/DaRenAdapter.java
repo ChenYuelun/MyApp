@@ -64,6 +64,9 @@ public class DaRenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         TextView tvUsername;
         @BindView(R.id.tv_duty)
         TextView tvDuty;
+        private final int viewWidth;
+        private final int viewHeight;
+        private final View view;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -76,9 +79,18 @@ public class DaRenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     }
                 }
             });
+            ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
+            viewWidth = layoutParams.width;
+            viewHeight = layoutParams.height;
+            view = itemView;
+
         }
 
         public void setData(DaRenBean.DataBean.ItemsBean itemsBean) {
+
+
+
+
 
             Picasso.with(context)
                     .load(itemsBean.getUser_images()
@@ -89,6 +101,9 @@ public class DaRenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             tvUsername.setText(itemsBean.getUsername());
             tvDuty.setText(itemsBean.getDuty());
+
+
+
         }
     }
     public void setOnItemClickListener(OnItemClickListener listener){
