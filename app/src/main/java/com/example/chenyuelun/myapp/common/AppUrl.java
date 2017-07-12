@@ -479,4 +479,20 @@ public class AppUrl {
     public static final String REGISTER_URl = "http://47.93.118.241:8081/P2PInvest/UserRegister";
 
 
+    //分享 推荐接口
+    public static final String SHARE_REC = "http://s.budejie.com/topic/list/jingxuan/1/budejie-android-6.6.3/0-20.json";
+
+    //分享 段子接口
+    public static final String SHARE_DZ = "http://s.budejie.com/topic/tag-topic/64/hot/budejie-android-6.6.3/0-20.json";
+
+
+    //详情界面
+    public static final String SHARE_DETAIL_HEAD = "http://c.api.budejie.com/topic/comment_list/";
+    public static final String SHARE_DETAIL_FOOT = "/0/budejie-android-6.6.3/0-20.json";
+
+    public static String getShareDetailUrl(String id) {
+        return SHARE_DETAIL_HEAD + id + SHARE_DETAIL_FOOT;
+    }
+
+
 }
