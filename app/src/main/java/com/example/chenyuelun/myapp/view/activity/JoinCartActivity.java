@@ -90,6 +90,13 @@ public class JoinCartActivity extends BaseActivity {
 
         //这个里面存放的是不同规格各个价格
         sku_inv = goodsInfo.getSku_inv();
+        if(sku_inv != null && sku_inv.size()>0) {
+            String price = sku_inv.get(0).getPrice();
+            String discount_price = sku_inv.get(0).getDiscount_price();
+            tvPrice.setText(TextUtils.isEmpty(discount_price) ? "￥" + price : "￥" + discount_price);
+        }else {
+            tvPrice.setText(TextUtils.isEmpty(goodsInfo.getDiscount_price()) ? "￥" + goodsInfo.getPrice() : "￥" + goodsInfo.getDiscount_price());
+        }
 
         //里面一般最多存在两个集合  第一个是规格属性  第二个是大小尺寸
         sku_info = goodsInfo.getSku_info();

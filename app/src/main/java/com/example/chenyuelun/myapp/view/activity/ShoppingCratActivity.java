@@ -2,6 +2,7 @@ package com.example.chenyuelun.myapp.view.activity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -21,13 +22,12 @@ import com.example.chenyuelun.myapp.modle.bean.CartBean;
 import com.example.chenyuelun.myapp.utils.UiUtils;
 import com.example.chenyuelun.myapp.view.adapter.CartRvAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
 public class ShoppingCratActivity extends BaseActivity {
-
-
 
 
     @BindView(R.id.iv_title_back)
@@ -84,13 +84,13 @@ public class ShoppingCratActivity extends BaseActivity {
             @Override
             public void run() {
                 datas = Modle.getInstance().getCartDao().getAllCartData();
-                if (datas != null  && datas.size() > 0) {
+                if (datas != null && datas.size() > 0) {
                     UiUtils.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            cartRvAdapter.refresh(datas,isEdit);
-                            tvDiscount.setText("-￥:" +getTotalDis());
-                            tvTotalPrice.setText("￥:" +getTotalPrice());
+                            cartRvAdapter.refresh(datas, isEdit);
+                            tvDiscount.setText("-￥:" + getTotalDis());
+                            tvTotalPrice.setText("￥:" + getTotalPrice());
                             isCheckedAllOrNo();
                         }
                     });
@@ -128,8 +128,8 @@ public class ShoppingCratActivity extends BaseActivity {
             public void onClick(View v) {
                 boolean checked = cbCheckAll.isChecked();
                 chckedAll(checked);
-                tvDiscount.setText("-￥:" +getTotalDis());
-                tvTotalPrice.setText("￥:" +getTotalPrice());
+                tvDiscount.setText("-￥:" + getTotalDis());
+                tvTotalPrice.setText("￥:" + getTotalPrice());
             }
         });
         cartRvAdapter.setOnItemClickListener(new CartRvAdapter.OnItemClickListener() {
@@ -138,8 +138,8 @@ public class ShoppingCratActivity extends BaseActivity {
                 //当某个Item选中状态改变的时候  重新计算总价 折扣 是否全选
                 datas.get(position).setCheck(isChecked);
                 isCheckedAllOrNo();
-                tvDiscount.setText("￥:-" +getTotalDis());
-                tvTotalPrice.setText("￥:" +getTotalPrice());
+                tvDiscount.setText("￥:-" + getTotalDis());
+                tvTotalPrice.setText("￥:" + getTotalPrice());
             }
 
             @Override
@@ -152,7 +152,7 @@ public class ShoppingCratActivity extends BaseActivity {
 
             @Override
             public void onDeleteClicked(final int position) {
-                final LinearLayout dialog = (LinearLayout) View.inflate(ShoppingCratActivity.this,R.layout.dialog,null);
+                final LinearLayout dialog = (LinearLayout) View.inflate(ShoppingCratActivity.this, R.layout.dialog, null);
                 RelativeLayout rel = (RelativeLayout) dialog.getChildAt(0);
                 ImageView close = (ImageView) rel.getChildAt(0);
                 TextView confirm = (TextView) dialog.getChildAt(3);
@@ -192,18 +192,38 @@ public class ShoppingCratActivity extends BaseActivity {
                 editAndConfirmCart();
             }
         });
+
+
+        btPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UiUtils.showToast("结算");
+                ArrayList<CartBean> list = new ArrayList<CartBean>();
+                for (int i = 0; i < datas.size(); i++) {
+                    CartBean cartBean = datas.get(i);
+                    if(cartBean.isCheck()) {
+                        list.add(cartBean);
+                    }
+                }
+                Intent intent = new Intent(ShoppingCratActivity.this, OrderDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("goods",list);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     private void editAndConfirmCart() {
-        if(!isEdit) {
+        if (!isEdit) {
             isEdit = true;
             tvCartEdit.setText("完成");
-            cartRvAdapter.refresh(datas,isEdit);
+            cartRvAdapter.refresh(datas, isEdit);
 
-        }else {
+        } else {
             isEdit = false;
             tvCartEdit.setText("编辑");
-            cartRvAdapter.refresh(datas,isEdit);
+            cartRvAdapter.refresh(datas, isEdit);
             Modle.getInstance().getThread().execute(new Runnable() {
                 @Override
                 public void run() {
@@ -224,14 +244,14 @@ public class ShoppingCratActivity extends BaseActivity {
     //获取购物车选中商品的总价
     private double getTotalPrice() {
         double totalPrice = 0.00;
-        if(datas != null  && datas.size() > 0) {
-            for(int i = 0; i < datas.size(); i++) {
+        if (datas != null && datas.size() > 0) {
+            for (int i = 0; i < datas.size(); i++) {
                 CartBean cartBean = datas.get(i);
-                if(cartBean.isCheck()) {
+                if (cartBean.isCheck()) {
                     String discount = cartBean.getDiscount();
-                    if(TextUtils.isEmpty(discount)) {
+                    if (TextUtils.isEmpty(discount)) {
                         totalPrice += cartBean.getCount() * Double.parseDouble(cartBean.getPrice());
-                    }else {
+                    } else {
                         totalPrice += cartBean.getCount() * Double.parseDouble(discount);
                     }
                 }
@@ -244,13 +264,13 @@ public class ShoppingCratActivity extends BaseActivity {
     //获取总折扣价格
     private double getTotalDis() {
         double totalDis = 0.00;
-        if(datas != null && datas.size()>0) {
-            for(int i = 0; i < datas.size(); i++) {
+        if (datas != null && datas.size() > 0) {
+            for (int i = 0; i < datas.size(); i++) {
                 CartBean cartBean = datas.get(i);
-                if(cartBean.isCheck()) {
+                if (cartBean.isCheck()) {
                     String discount = cartBean.getDiscount();
-                    if(!TextUtils.isEmpty(discount)) {
-                        totalDis += cartBean.getCount() * (Double.parseDouble(cartBean.getPrice())-Double.parseDouble(discount));
+                    if (!TextUtils.isEmpty(discount)) {
+                        totalDis += cartBean.getCount() * (Double.parseDouble(cartBean.getPrice()) - Double.parseDouble(discount));
                     }
                 }
             }
@@ -259,12 +279,12 @@ public class ShoppingCratActivity extends BaseActivity {
     }
 
 
-    public void isCheckedAllOrNo(){
-        if(datas != null && datas.size() >0) {
-            for(int i = 0; i < datas.size(); i++) {
+    public void isCheckedAllOrNo() {
+        if (datas != null && datas.size() > 0) {
+            for (int i = 0; i < datas.size(); i++) {
                 CartBean cartBean = datas.get(i);
                 //只要有一个的选中状态不是true 就取消全选的选中
-                if(!cartBean.isCheck()) {
+                if (!cartBean.isCheck()) {
                     cbCheckAll.setChecked(false);
                     return;
                 }
@@ -275,10 +295,10 @@ public class ShoppingCratActivity extends BaseActivity {
     }
 
     //点击全选的时候调用此方法 将集合内的备案对象的属性全部变为true或者fales 然后刷新适配器
-    public void chckedAll(boolean checked){
-        if(datas != null && datas.size() >0) {
-            for(int i = 0; i < datas.size(); i++) {
-              datas.get(i).setCheck(checked);
+    public void chckedAll(boolean checked) {
+        if (datas != null && datas.size() > 0) {
+            for (int i = 0; i < datas.size(); i++) {
+                datas.get(i).setCheck(checked);
             }
             cartRvAdapter.refresh(datas, isEdit);
         }
@@ -287,8 +307,8 @@ public class ShoppingCratActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK) {
-            if(isEdit) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (isEdit) {
                 editAndConfirmCart();
                 return true;
             }

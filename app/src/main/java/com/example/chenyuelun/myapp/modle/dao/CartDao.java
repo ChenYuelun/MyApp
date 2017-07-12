@@ -104,6 +104,15 @@ public class CartDao {
 
     }
 
+
+    public void deleteGoods(List<CartBean> list){
+        if(list != null && list.size() >0) {
+            for(int i = 0; i < list.size(); i++) {
+              delete(list.get(i));
+            }
+        }
+    }
+
     public CartBean getData(CartBean cartBean) {
         CartBean cartBean1 = new CartBean();
         SQLiteDatabase database = dbHelper.getWritableDatabase();

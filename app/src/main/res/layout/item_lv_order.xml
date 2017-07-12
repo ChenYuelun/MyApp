@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/ll_noEdit"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginBottom="3dp"
+    android:background="#2c2f34"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+
+
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/brand_logo_empty" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_goodsname"
+            tools:text="aaaaaaaaaaaaaaaaaaaa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="#cccccc"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/tv_type_size"
+            tools:text="aaaaaaaaaaaaaaaaaaaa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_goodsname"
+            android:layout_marginRight="40dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="#cccccc"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            tools:text="￥333.00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:textColor="#3a668c"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_old_price"
+            tools:text="￥333.00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/tv_price"
+            android:textColor="#cccccc"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/tv_count"
+            tools:text="x1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="10dp"
+            android:textColor="#cccccc" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

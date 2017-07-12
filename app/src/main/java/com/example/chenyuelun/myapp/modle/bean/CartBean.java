@@ -1,10 +1,12 @@
 package com.example.chenyuelun.myapp.modle.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by chenyuelun on 2017/7/10.
  */
 
-public class CartBean {
+public class CartBean implements Serializable{
     private String goods_id;
     private String owner_name;
     private String goods_name;
@@ -18,6 +20,7 @@ public class CartBean {
     private String size = "00";
     private int isgift;
     private boolean isCheck = true;
+    public CartBean(){}
 
     public boolean isCheck() {
         return isCheck;
@@ -140,4 +143,6 @@ public class CartBean {
                 ", isgift=" + isgift +
                 '}' ;
     }
+
+
 }
