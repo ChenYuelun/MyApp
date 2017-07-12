@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Handler;
 
 import com.example.chenyuelun.myapp.utils.SpUtils;
+import com.mob.MobSDK;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -41,6 +42,8 @@ public class MyApplication extends Application {
 
         SpUtils.getSpUtils().init(context,"liangcang");
         Modle.getInstance().init(context);
+        MobSDK.init(context);
+
     }
 
     public static Context getContext() {

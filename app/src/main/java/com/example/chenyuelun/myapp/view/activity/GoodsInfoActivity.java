@@ -10,12 +10,15 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -38,6 +41,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.sina.weibo.SinaWeibo;
+import cn.sharesdk.tencent.qq.QQ;
+import cn.sharesdk.tencent.qzone.QZone;
+import cn.sharesdk.wechat.friends.Wechat;
+import cn.sharesdk.wechat.moments.WechatMoments;
 import okhttp3.Call;
 
 public class GoodsInfoActivity extends BaseActivity {
@@ -121,6 +131,7 @@ public class GoodsInfoActivity extends BaseActivity {
     @BindView(R.id.ll_like)
     LinearLayout llLike;
     private GoodsInfosBean.DataBean.ItemsBean goodsinfo;
+    private PopupWindow popupWindow;
 
 
     @Override
@@ -344,6 +355,14 @@ public class GoodsInfoActivity extends BaseActivity {
             }
         });
 
+
+        ivShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showShare(goodsinfo.getGoods_name());
+            }
+        });
+
     }
 
     private void InToCart(GoodsInfosBean.DataBean.ItemsBean goodsinfo, int value) {
@@ -364,5 +383,124 @@ public class GoodsInfoActivity extends BaseActivity {
         intent.putExtra("brand_name",brand_info.getBrand_name());
         intent.putExtra("brand_logo",brand_info.getBrand_logo());
         startActivity(intent);
+    }
+
+
+    private void showShare(String goodsname) {
+        LinearLayout view = (LinearLayout) View.inflate(GoodsInfoActivity.this,R.layout.shared_sdk_ui,null);
+        popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+        popupWindow.setAnimationStyle(R.anim.anim_down_in);
+        popupWindow.showAtLocation(GoodsInfoActivity.this.findViewById(R.id.bt_buy), Gravity.BOTTOM,0,0);
+
+        Button bt_share_to_QQ = (Button) view.getChildAt(1);
+        Button bt_share_to_Qz = (Button) view.getChildAt(2);
+        Button bt_share_to_weixin = (Button) view.getChildAt(3);
+        Button bt_share_to_wp = (Button) view.getChildAt(4);
+        Button bt_share_to_wb = (Button) view.getChildAt(5);
+        Platform.ShareParams sp = new Platform.ShareParams();
+        bt_share_to_QQ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UiUtils.showToast("分享到QQ");
+                showShareSDK(QQ.NAME);
+            }
+        });
+
+        bt_share_to_Qz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UiUtils.showToast("分享到QQ空间");
+                showShareSDK(QZone.NAME);
+
+            }
+        });
+
+
+        bt_share_to_weixin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UiUtils.showToast("分享到微信");
+                showShareSDK(Wechat.NAME);
+            }
+        });
+
+        bt_share_to_wp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UiUtils.showToast("分享到微信朋友圈");
+                showShareSDK(WechatMoments.NAME);
+            }
+        });
+
+        bt_share_to_wb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UiUtils.showToast("分享到微博");
+                showShareSDK(SinaWeibo.NAME);
+            }
+        });
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+
+
+
+    }
+
+    private void showShareSDK(String platform){
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+        // 分享时Notification的图标和文字  2.5.9以后的版本不     调用此方法
+        //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
+        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+        //oks.setSilent(false);
+        oks.setTitle("良仓推荐");
+        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+        oks.setTitleUrl(goodsinfo.getGoods_url());
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText(goodsinfo.getGoods_name());
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        // oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+        // url仅在微信（包括好友和朋友圈）中使用
+        oks.setUrl(goodsinfo.getGoods_url());
+        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+        oks.setComment("");
+        // site是分享此内容的网站名称，仅在QQ空间使用
+        oks.setSite(getString(R.string.app_name));
+        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setSiteUrl("");
+        oks.setPlatform(platform);
+        // 启动分享GUI
+        oks.show(this);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            if(popupWindow !=null && popupWindow.isShowing()) {
+                popupWindow.dismiss();
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onDestroy() {
+        popupWindow = null;
+        super.onDestroy();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(popupWindow != null && popupWindow.isShowing()) {
+            popupWindow.dismiss();
+        }
     }
 }
