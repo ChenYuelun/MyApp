@@ -1,4 +1,4 @@
-package com.example.chenyuelun.myapp.view.fragment.share;
+package com.example.chenyuelun.myapp.view.activity;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;

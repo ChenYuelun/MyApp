@@ -65,7 +65,7 @@
             android:theme="@style/AnimDownIn" />
         <activity android:name=".view.activity.LoginActivity" />
         <activity android:name=".view.fragment.self.AccountSettingActivity" />
-        <activity android:name=".view.fragment.share.ShareDetailsActivity" />
+        <activity android:name=".view.activity.ShareDetailsActivity" />
 
         <!-- shareSDK -->
         <activity

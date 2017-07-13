@@ -12,6 +12,7 @@ import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseFragment;
 import com.example.chenyuelun.myapp.common.AppUrl;
 import com.example.chenyuelun.myapp.modle.bean.ShareRecBean;
+import com.example.chenyuelun.myapp.view.activity.ShareDetailsActivity;
 import com.example.chenyuelun.myapp.view.adapter.ShareRecRvAdapter;
 
 import java.util.List;

@@ -19,6 +19,8 @@ import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.modle.bean.ShareRecBean;
 import com.example.chenyuelun.myapp.utils.UiUtils;
 import com.example.chenyuelun.myapp.view.view.ExpandTextView;
+import com.example.chenyuelun.myapp.view.view.MyTransformation2;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -198,9 +200,10 @@ public class ShareRecRvAdapter extends RecyclerView.Adapter {
                 rlBigImage.setVisibility(View.VISIBLE);
                 ivGift.setVisibility(View.GONE);
 
-                UiUtils.loadImage(context, listBean.getImage().getThumbnail_small().get(0), ivImage, 0);
+//                UiUtils.loadImage(context, listBean.getImage().getThumbnail_small().get(0), ivImage, 0);
+                List<String> big = listBean.getImage().getBig();
+                Picasso.with(context).load(big.get(1)).transform(new MyTransformation2()).into(ivImage);
             }
-
 
             if (itemType == TEXT) {
                 videoplayer.setVisibility(View.GONE);
@@ -209,21 +212,21 @@ public class ShareRecRvAdapter extends RecyclerView.Adapter {
             }
 
 
-            if (itemType == GIF || itemType == HTML) {
+            if (itemType == GIF ) {
                 videoplayer.setVisibility(View.GONE);
                 rlBigImage.setVisibility(View.GONE);
                 ivGift.setVisibility(View.VISIBLE);
                 Glide.with(context).load(listBean.getGif().getImages().get(0)).into(ivGift);
-
-
-                if (itemType == HTML) {
-                    //如果是Html 这是地址
-                    String source_url = listBean.getHtml().getSource_url();
-                }
-
             }
-
-
+            if (itemType == HTML) {
+                //如果是Html 这是地址
+                String source_url = listBean.getHtml().getSource_url();
+                videoplayer.setVisibility(View.GONE);
+                rlBigImage.setVisibility(View.GONE);
+                ivGift.setVisibility(View.VISIBLE);
+                String s = listBean.getHtml().getThumbnail().get(0);
+                Glide.with(context).load(s).into(ivGift);
+            }
             tvCommend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -267,7 +270,6 @@ public class ShareRecRvAdapter extends RecyclerView.Adapter {
                     }
                 }
             });
-
         }
     }
 

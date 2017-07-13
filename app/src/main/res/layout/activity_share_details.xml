@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ffffff"
-    tools:context="com.example.chenyuelun.myapp.view.fragment.share.ShareDetailsActivity">
+    tools:context="com.example.chenyuelun.myapp.view.activity.ShareDetailsActivity">
 
 
    <include layout="@layout/fresh_recyclerview"/>

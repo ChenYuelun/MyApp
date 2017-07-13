@@ -13,6 +13,8 @@ import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseFragment;
 import com.example.chenyuelun.myapp.common.AppUrl;
 import com.example.chenyuelun.myapp.modle.bean.ShareRecBean;
+import com.example.chenyuelun.myapp.utils.UiUtils;
+import com.example.chenyuelun.myapp.view.activity.ShareDetailsActivity;
 import com.example.chenyuelun.myapp.view.adapter.ShareRecRvAdapter;
 
 import java.util.List;
@@ -77,12 +79,17 @@ public class ShareRecommendFragment extends BaseFragment {
         shareRecRvAdapter.setOnItemDetailClickListener(new ShareRecRvAdapter.OnItemDetailClickListener() {
             @Override
             public void onItemDetailClicked(int position, ShareRecBean.ListBean listBean) {
-                Intent intent = new Intent(getActivity(),ShareDetailsActivity.class);
-                String id = list.get(position).getId();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("bean", listBean);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                if(listBean.getType().equals("html")) {
+                    UiUtils.showToast("这是html");
+                }else {
+                    Intent intent = new Intent(getActivity(),ShareDetailsActivity.class);
+                    String id = list.get(position).getId();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("bean", listBean);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+
             }
         });
     }
