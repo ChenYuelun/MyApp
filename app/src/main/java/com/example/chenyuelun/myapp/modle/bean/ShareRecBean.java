@@ -1,5 +1,6 @@
 package com.example.chenyuelun.myapp.modle.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -58,7 +59,7 @@ public class ShareRecBean {
         }
     }
 
-    public static class ListBean {
+    public static class ListBean implements Serializable {
         /**
          * status : 4
          * comment : 70
@@ -253,7 +254,7 @@ public class ShareRecBean {
             this.top_comments = top_comments;
         }
 
-        public static class GifBean {
+        public static class GifBean implements Serializable {
             /**
              * images : ["http://wimg.spriteapp.cn/ugc/2017/07/10/596332df9fe22.gif","http://dimg.spriteapp.cn/ugc/2017/07/10/596332df9fe22.gif"]
              * width : 435
@@ -309,7 +310,7 @@ public class ShareRecBean {
             }
         }
 
-        public static class UBean {
+        public static class UBean implements Serializable{
             /**
              * header : ["http://wimg.spriteapp.cn/profile/large/2016/06/27/577119b7d372e_mini.jpg","http://dimg.spriteapp.cn/profile/large/2016/06/27/577119b7d372e_mini.jpg"]
              * uid : 18682920
@@ -405,7 +406,7 @@ public class ShareRecBean {
             }
         }
 
-        public static class VideoBean {
+        public static class VideoBean implements Serializable {
             /**
              * playfcount : 313
              * height : 600
@@ -501,7 +502,7 @@ public class ShareRecBean {
             }
         }
 
-        public static class ImageBean {
+        public static class ImageBean  implements Serializable{
             /**
              * medium : []
              * big : ["http://wimg.spriteapp.cn/ugc/2017/07/10/596315517e623_1.jpg","http://dimg.spriteapp.cn/ugc/2017/07/10/596315517e623_1.jpg"]
@@ -577,7 +578,7 @@ public class ShareRecBean {
             }
         }
 
-        public static class TopCommentBean {
+        public static class TopCommentBean implements Serializable {
             /**
              * voicetime : 0
              * status : 0
@@ -702,7 +703,7 @@ public class ShareRecBean {
                 this.id = id;
             }
 
-            public static class UBeanX {
+            public static class UBeanX implements Serializable {
                 /**
                  * header : ["http://wx.qlogo.cn/mmopen/ZeuSZYeUCFKfGe1ufic7YAbibVHycDSofDruyHm9mDtlWo0semkCwwO3IadM0h7eZIuQibicBxcU4ofkq7y2r2QjQFuuETQjvuuc/0","http://wx.qlogo.cn/mmopen/ZeuSZYeUCFKfGe1ufic7YAbibVHycDSofDruyHm9mDtlWo0semkCwwO3IadM0h7eZIuQibicBxcU4ofkq7y2r2QjQFuuETQjvuuc/0"]
                  * uid : 20815187
@@ -799,7 +800,7 @@ public class ShareRecBean {
             }
         }
 
-        public static class HtmlBean {
+        public static class HtmlBean implements Serializable {
             /**
              * body :
              * title : 你的思考方式是东方式还是西方式? (23)
@@ -884,7 +885,7 @@ public class ShareRecBean {
                 this.thumbnail = thumbnail;
             }
 
-            public static class ViewBean {
+            public static class ViewBean implements Serializable {
                 /**
                  * playcount : 0
                  * playfcount : 23
@@ -911,7 +912,7 @@ public class ShareRecBean {
             }
         }
 
-        public static class TagsBean {
+        public static class TagsBean implements Serializable {
             /**
              * id : 55163
              * name : 主版块
@@ -937,7 +938,7 @@ public class ShareRecBean {
             }
         }
 
-        public static class TopCommentsBean {
+        public static class TopCommentsBean implements Serializable {
             /**
              * voicetime : 0
              * status : 0
@@ -1062,7 +1063,7 @@ public class ShareRecBean {
                 this.id = id;
             }
 
-            public static class UBeanXX {
+            public static class UBeanXX implements Serializable {
                 /**
                  * header : ["http://tp2.sinaimg.cn/1691665733/50/5605790424/1","http://tp2.sinaimg.cn/1691665733/50/5605790424/1"]
                  * uid : 7662144

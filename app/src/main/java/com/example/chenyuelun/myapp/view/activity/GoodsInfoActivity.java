@@ -52,6 +52,8 @@ import cn.sharesdk.wechat.friends.Wechat;
 import cn.sharesdk.wechat.moments.WechatMoments;
 import okhttp3.Call;
 
+import static com.example.chenyuelun.myapp.utils.SpUtils.getSpUtils;
+
 public class GoodsInfoActivity extends BaseActivity {
 
 
@@ -225,7 +227,7 @@ public class GoodsInfoActivity extends BaseActivity {
             }
         }
 
-        //如果商品详情界面的图片集合部位空 就往商品详情页面填充这些图片
+        //如果商品详情界面的图片集合不为空 就往商品详情页面填充这些图片
         if (imageUrls != null && imageUrls.size() > 0) {
             for (int i = 0; i < imageUrls.size(); i++) {
                 ImageView imageView = new ImageView(this);
@@ -317,7 +319,7 @@ public class GoodsInfoActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                boolean islogin = (boolean) SpUtils.getSpUtils().get(SpUtils.IS_LOGIN, false);
+                boolean islogin = (boolean) getSpUtils().get(SpUtils.IS_LOGIN, false);
                 if (islogin) {
                     UiUtils.showToast("购物车");
                     startActivity(new Intent(GoodsInfoActivity.this, ShoppingCratActivity.class));
@@ -515,10 +517,15 @@ public class GoodsInfoActivity extends BaseActivity {
     }
 
     private void getCartCount() {
-        List<CartBean> allCartData = Modle.getInstance().getCartDao().getAllCartData();
-        if(allCartData != null  && allCartData.size()>0) {
-             rlCartCount.setVisibility(View.VISIBLE);
-            tvCatrCount.setText(allCartData.size()+"");
+        boolean isLogin = (boolean) SpUtils.getSpUtils().get(SpUtils.IS_LOGIN,false);
+        if(isLogin) {
+            List<CartBean> allCartData = Modle.getInstance().getCartDao().getAllCartData();
+            if(allCartData != null  && allCartData.size()>0) {
+                rlCartCount.setVisibility(View.VISIBLE);
+                tvCatrCount.setText(allCartData.size()+"");
+            }else {
+                rlCartCount.setVisibility(View.GONE);
+            }
         }else {
             rlCartCount.setVisibility(View.GONE);
         }

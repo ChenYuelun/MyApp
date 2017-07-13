@@ -141,6 +141,7 @@ public class MainActivity extends BaseActivity {
                 ft.hide(preFragment);
                 ft.show(tempFragment);
                 ft.commit();
+                preFragment = tempFragment;
                 return;
             }
         }

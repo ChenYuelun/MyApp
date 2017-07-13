@@ -1,11 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:gravity="center_vertical"
-    android:text="热门评论"
-    android:textSize="16sp"
-    android:id="@+id/header"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    >
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
 
-</TextView>
+    <include layout="@layout/share_header" />
+
+    <TextView
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:id="@+id/tv_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
+
+    <!--//是视频就显示这个-->
+    <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+        android:id="@+id/videoplayer_d"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"
+        android:background="#ffffff"
+        android:minHeight="200dp"
+        android:visibility="gone" />
+
+
+    <!--是图片就显示这个-->
+    <RelativeLayout
+        android:id="@+id/rl_bigImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop" />
+
+
+
+    </RelativeLayout>
+
+    <!--是文本中间部分隐藏-->
+
+
+    <!--是gif或者html就显示这个-->
+    <ImageView
+        android:id="@+id/iv_gift"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
+
+    <include layout="@layout/share_foot" />
+</LinearLayout>

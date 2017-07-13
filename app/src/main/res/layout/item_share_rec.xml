@@ -8,6 +8,12 @@
 
     <include layout="@layout/share_header" />
 
+    <com.example.chenyuelun.myapp.view.view.ExpandTextView
+        android:id="@+id/tv_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
+
     <!--//是视频就显示这个-->
     <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
         android:visibility="gone"

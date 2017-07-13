@@ -11,6 +11,7 @@ import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseActivity;
 import com.example.chenyuelun.myapp.common.AppUrl;
 import com.example.chenyuelun.myapp.modle.bean.ShareDetailBean;
+import com.example.chenyuelun.myapp.modle.bean.ShareRecBean;
 import com.example.chenyuelun.myapp.utils.HttpUtils;
 import com.example.chenyuelun.myapp.view.adapter.ShareDetailRvAdapter;
 
@@ -29,8 +30,12 @@ public class ShareDetailsActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        id = getIntent().getStringExtra("id");
-        shareDetailRvAdapter = new ShareDetailRvAdapter(this);
+
+        ShareRecBean.ListBean headData = (ShareRecBean.ListBean) getIntent().getSerializableExtra("bean");
+        id = headData.getId();
+        String type = headData.getType();
+        Log.e("TAG", "type==" + type);
+        shareDetailRvAdapter = new ShareDetailRvAdapter(this,headData);
         recyclerview.setAdapter(shareDetailRvAdapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1);
         recyclerview.setLayoutManager(gridLayoutManager);
@@ -69,7 +74,6 @@ public class ShareDetailsActivity extends BaseActivity {
             @Override
             public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
                 getDataFromNet();
-
             }
         });
     }

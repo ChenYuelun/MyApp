@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.modle.bean.ShareRecBean;
 import com.example.chenyuelun.myapp.utils.UiUtils;
+import com.example.chenyuelun.myapp.view.view.ExpandTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +106,7 @@ public class ShareRecRvAdapter extends RecyclerView.Adapter {
         @BindView(R.id.tv_passtime)
         TextView tvPasstime;
         @BindView(R.id.tv_text)
-        TextView tvText;
+        ExpandTextView  tvText;
         @BindView(R.id.videoplayer)
         JCVideoPlayerStandard videoplayer;
         @BindView(R.id.iv_image)
@@ -227,7 +228,7 @@ public class ShareRecRvAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     if(listener != null) {
-                        listener.onItemDetailClicked(getLayoutPosition());
+                        listener.onItemDetailClicked(getLayoutPosition(), datas.get(getLayoutPosition()));
                     }
                 }
             });
@@ -236,7 +237,7 @@ public class ShareRecRvAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     if(listener != null) {
-                        listener.onItemDetailClicked(getLayoutPosition());
+                        listener.onItemDetailClicked(getLayoutPosition(), datas.get(getLayoutPosition()));
                     }
                 }
             });
@@ -245,7 +246,7 @@ public class ShareRecRvAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     if(listener != null) {
-                        listener.onItemDetailClicked(getLayoutPosition());
+                        listener.onItemDetailClicked(getLayoutPosition(), datas.get(getLayoutPosition()));
                     }
                 }
             });
@@ -253,7 +254,7 @@ public class ShareRecRvAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     if(listener != null) {
-                        listener.onItemDetailClicked(getLayoutPosition());
+                        listener.onItemDetailClicked(getLayoutPosition(), datas.get(getLayoutPosition()));
                     }
                 }
             });
@@ -262,7 +263,7 @@ public class ShareRecRvAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     if(listener != null) {
-                        listener.onItemDetailClicked(getLayoutPosition());
+                        listener.onItemDetailClicked(getLayoutPosition(),datas.get(getLayoutPosition()));
                     }
                 }
             });
@@ -275,6 +276,6 @@ public class ShareRecRvAdapter extends RecyclerView.Adapter {
     }
 
     public interface OnItemDetailClickListener{
-        void onItemDetailClicked(int position);
+        void onItemDetailClicked(int position, ShareRecBean.ListBean listBean);
     }
 }

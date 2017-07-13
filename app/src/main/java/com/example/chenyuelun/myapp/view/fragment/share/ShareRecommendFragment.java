@@ -1,6 +1,7 @@
 package com.example.chenyuelun.myapp.view.fragment.share;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -75,10 +76,12 @@ public class ShareRecommendFragment extends BaseFragment {
 
         shareRecRvAdapter.setOnItemDetailClickListener(new ShareRecRvAdapter.OnItemDetailClickListener() {
             @Override
-            public void onItemDetailClicked(int position) {
+            public void onItemDetailClicked(int position, ShareRecBean.ListBean listBean) {
                 Intent intent = new Intent(getActivity(),ShareDetailsActivity.class);
                 String id = list.get(position).getId();
-                intent.putExtra("id",id);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("bean", listBean);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

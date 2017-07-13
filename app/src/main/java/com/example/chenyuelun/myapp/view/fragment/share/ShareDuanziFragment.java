@@ -1,6 +1,7 @@
 package com.example.chenyuelun.myapp.view.fragment.share;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -10,8 +11,8 @@ import com.cjj.MaterialRefreshListener;
 import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseFragment;
 import com.example.chenyuelun.myapp.common.AppUrl;
-import com.example.chenyuelun.myapp.modle.bean.ShareDzBean;
-import com.example.chenyuelun.myapp.view.adapter.ShareDzRvAdapter;
+import com.example.chenyuelun.myapp.modle.bean.ShareRecBean;
+import com.example.chenyuelun.myapp.view.adapter.ShareRecRvAdapter;
 
 import java.util.List;
 
@@ -27,16 +28,18 @@ public class ShareDuanziFragment extends BaseFragment {
     RecyclerView recyclerview;
     @BindView(R.id.refresh)
     MaterialRefreshLayout refresh;
-    private ShareDzRvAdapter shareDzRvAdapter;
-    private List<ShareDzBean.ListBean> list;
+
+    private List<ShareRecBean.ListBean> list;
+    private ShareRecRvAdapter shareDzRvAdapter;
+
 
     @Override
     protected void setData(String response) {
-        ShareDzBean shareDzBean = JSON.parseObject(response, ShareDzBean.class);
-        if(shareDzBean != null) {
-            list = shareDzBean.getList();
-            if(list != null && list.size() > 0) {
-                shareDzRvAdapter.refresh(list);
+        ShareRecBean shareRecBean = JSON.parseObject(response, ShareRecBean.class);
+        if(shareRecBean != null) {
+            list = shareRecBean.getList();
+            if(list != null && this.list.size() > 0) {
+                shareDzRvAdapter.refresh(this.list);
             }
         }
         refresh.finishRefresh();
@@ -44,7 +47,7 @@ public class ShareDuanziFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        shareDzRvAdapter = new ShareDzRvAdapter(getActivity());
+        shareDzRvAdapter = new ShareRecRvAdapter(getActivity());
         recyclerview.setAdapter(shareDzRvAdapter);
         recyclerview.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
     }
@@ -64,16 +67,20 @@ public class ShareDuanziFragment extends BaseFragment {
             }
         });
 
-
-        shareDzRvAdapter.setOnItemTextClickListener(new ShareDzRvAdapter.OnItemTextClickListener() {
+        shareDzRvAdapter.setOnItemDetailClickListener(new ShareRecRvAdapter.OnItemDetailClickListener() {
             @Override
-            public void onTextClicked(int position) {
+            public void onItemDetailClicked(int position, ShareRecBean.ListBean listBean) {
                 Intent intent = new Intent(getActivity(),ShareDetailsActivity.class);
                 String id = list.get(position).getId();
-                intent.putExtra("id",id);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("bean", listBean);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
+
+
+
     }
 
     @Override
