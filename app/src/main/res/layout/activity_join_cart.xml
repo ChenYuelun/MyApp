@@ -75,13 +75,13 @@
 
             <TextView
                 android:id="@+id/tv_type"
-                android:textSize="12sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/line"
                 android:layout_marginTop="12dp"
-                tools:text="数量"
-                android:textColor="#cccccc" />
+                android:textColor="#cccccc"
+                android:textSize="12sp"
+                tools:text="数量" />
 
             <com.zhy.view.flowlayout.TagFlowLayout
                 android:id="@+id/flowlayout"
@@ -93,29 +93,26 @@
             </com.zhy.view.flowlayout.TagFlowLayout>
 
 
-
-
             <TextView
-                tools:text="尺寸"
-                android:textSize="12sp"
-                android:visibility="gone"
                 android:id="@+id/tv_size"
-                android:layout_marginTop="10dp"
-                android:layout_below="@id/flowlayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/flowlayout"
+                android:layout_marginTop="10dp"
                 android:textColor="#cccccc"
+                android:textSize="12sp"
+                android:visibility="gone"
+                tools:text="尺寸"
 
                 />
 
             <com.zhy.view.flowlayout.TagFlowLayout
-                android:visibility="gone"
                 android:id="@+id/flowlayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_size"
-                app:max_select="1">
-            </com.zhy.view.flowlayout.TagFlowLayout>
+                android:visibility="gone"
+                app:max_select="1"></com.zhy.view.flowlayout.TagFlowLayout>
 
 
             <TextView
@@ -128,13 +125,13 @@
                 android:textColor="#cccccc" />
 
             <com.example.chenyuelun.myapp.view.view.AddSubView
+                android:id="@+id/add_sub_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_count"
                 android:layout_marginTop="10dp"
                 app:maxValue="99"
                 app:minValue="1"
-                android:id="@+id/add_sub_view"
                 app:numberAddBackground="@drawable/addnum"
                 app:numberSubBackground="@drawable/subnum"
                 app:textBackground="#424950"
@@ -145,26 +142,54 @@
         </RelativeLayout>
 
 
-        <Button
-            android:id="@+id/bt_confirm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ll_goodsinfo"
-            android:background="#6f98c3"
-            android:text="确认"
-            android:textColor="#fff"
-            android:textSize="16sp" />
-
     </LinearLayout>
 
 
     <ImageView
-        android:background="#ffffff"
         android:id="@+id/iv_goodsImage"
-        android:layout_marginTop="60dp"
-        android:layout_centerHorizontal="true"
         android:layout_width="120dp"
-        android:layout_height="120dp" />
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:background="#ffffff" />
+
+    <Button
+        android:id="@+id/bt_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#6f98c3"
+        android:text="确认"
+        android:textColor="#fff"
+        android:textSize="16sp" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_add_buy"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/bt_add_in_cart"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#3a668e"
+            android:text="加入购物车" />
+
+        <Button
+            android:id="@+id/bt_buy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#6f98c3"
+            android:text="直接购买" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>

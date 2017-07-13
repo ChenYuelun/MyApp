@@ -124,6 +124,9 @@
         <!-- alipay sdk end -->
 
         <activity android:name=".view.activity.OrderDetailActivity"></activity>
+
+
+
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.example.chenyuelun.myapp.view.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.chenyuelun.myapp.R;
@@ -57,8 +59,14 @@ public class JoinCartActivity extends BaseActivity {
     Button btConfirm;
     @BindView(R.id.iv_goodsImage)
     ImageView ivGoodsImage;
+    @BindView(R.id.bt_add_in_cart)
+    Button btAddInCart;
+    @BindView(R.id.bt_buy)
+    Button btBuy;
+    @BindView(R.id.ll_add_buy)
+    LinearLayout llAddBuy;
     private GoodsInfosBean.DataBean.ItemsBean goodsInfo;
-    private int is_buy;
+    private boolean is_buy;
     private MyTagAdapter myTagAdapter;
     private List<String> goodsTypes;
     private List<GoodsInfosBean.DataBean.ItemsBean.SkuInvBean> sku_inv;
@@ -78,22 +86,29 @@ public class JoinCartActivity extends BaseActivity {
     public void initData() {
         Intent intent = getIntent();
         goodsInfo = (GoodsInfosBean.DataBean.ItemsBean) intent.getSerializableExtra("goodsInfo");
+        boolean select = intent.getBooleanExtra("select", false);
+        if (select) {
+            llAddBuy.setVisibility(View.VISIBLE);
+            btConfirm.setVisibility(View.GONE);
+        }else {
+            llAddBuy.setVisibility(View.GONE);
+            btConfirm.setVisibility(View.VISIBLE);
+        }
         //0 表示加入购物车  1 表示直接购买
-        is_buy = intent.getIntExtra("is_buy", 0);
+        is_buy = intent.getBooleanExtra("is_buy", false);
         //进入页面 加载一些信息
         tvOwnername.setText(goodsInfo.getOwner_name());
         tvGoodsname.setText(goodsInfo.getGoods_name());
         tvPrice.setText(TextUtils.isEmpty(goodsInfo.getDiscount_price()) ? "￥" + goodsInfo.getPrice() : "￥" + goodsInfo.getDiscount_price());
 
 
-
         //这个里面存放的是不同规格各个价格
         sku_inv = goodsInfo.getSku_inv();
-        if(sku_inv != null && sku_inv.size()>0) {
+        if (sku_inv != null && sku_inv.size() > 0) {
             String price = sku_inv.get(0).getPrice();
             String discount_price = sku_inv.get(0).getDiscount_price();
             tvPrice.setText(TextUtils.isEmpty(discount_price) ? "￥" + price : "￥" + discount_price);
-        }else {
+        } else {
             tvPrice.setText(TextUtils.isEmpty(goodsInfo.getDiscount_price()) ? "￥" + goodsInfo.getPrice() : "￥" + goodsInfo.getDiscount_price());
         }
 
@@ -107,9 +122,9 @@ public class JoinCartActivity extends BaseActivity {
         attrList_type = skuInfoBean_type.getAttrList();
 
         //默认显示第一个的图片
-        if(!TextUtils.isEmpty(attrList_type.get(0).getImg_path())) {
+        if (!TextUtils.isEmpty(attrList_type.get(0).getImg_path())) {
             UiUtils.loadImage(JoinCartActivity.this, attrList_type.get(0).getImg_path(), ivGoodsImage, 0);
-        }else {
+        } else {
             UiUtils.loadImage(this, goodsInfo.getGoods_image(), ivGoodsImage, 0);
         }
 
@@ -157,8 +172,8 @@ public class JoinCartActivity extends BaseActivity {
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 GoodsInfosBean.DataBean.ItemsBean.SkuInvBean skuInvBean = sku_inv.get(position);
-                typeSelectedPos =position;
-                if(!TextUtils.isEmpty(attrList_type.get(position).getImg_path())) {
+                typeSelectedPos = position;
+                if (!TextUtils.isEmpty(attrList_type.get(position).getImg_path())) {
                     UiUtils.loadImage(JoinCartActivity.this, attrList_type.get(position).getImg_path(), ivGoodsImage, 0);
                 }
 
@@ -167,7 +182,6 @@ public class JoinCartActivity extends BaseActivity {
                 return true;
             }
         });
-
 
 
         flowlayout2.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
@@ -188,42 +202,77 @@ public class JoinCartActivity extends BaseActivity {
             }
         });
 
+        btAddInCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //加入购物车
+                is_buy = false;
+                addOrBuy();
+            }
+        });
+
+        btBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //直接购买
+                is_buy = true;
+                addOrBuy();
+            }
+        });
+
         btConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean islogin = (boolean) SpUtils.getSpUtils().get(SpUtils.IS_LOGIN, false);
-                if (!islogin) {
-                    UiUtils.showToast("请先登录");
-                    Intent intent = new Intent(JoinCartActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                } else {
-
-                    CartBean cartBean = new CartBean();
-                    cartBean.setGoods_id(goodsInfo.getGoods_id());
-                    cartBean.setCount(addSubView.getValue());
-                    cartBean.setGoods_name(goodsInfo.getGoods_name());
-                    cartBean.setOwner_name(goodsInfo.getOwner_name());
-                    cartBean.setPrice(goodsInfo.getPrice());
-                    cartBean.setDiscount(goodsInfo.getDiscount_price());
-                    cartBean.setImage(TextUtils.isEmpty(attrList_type.get(typeSelectedPos).getImg_path()) ? goodsInfo.getGoods_image() : attrList_type.get(typeSelectedPos).getImg_path());
-                    cartBean.setType_name(sku_info.get(0).getType_name());
-                    cartBean.setType(attrList_type.get(typeSelectedPos).getAttr_name());
-                    if (sku_info.size() > 1) {
-                        cartBean.setSize_name(sku_info.get(1).getType_name());
-                        cartBean.setSize(sizes.get(sizeSlectedPos).getAttr_name());
-                    }
-                    cartBean.setIsgift(Integer.parseInt(goodsInfo.getIs_gift()));
-
-                    Log.e("TAG", "cartBean" + cartBean.toString());
-                    Modle.getInstance().getCartDao().add(cartBean);
-                    UiUtils.showToast("已加入购物车");
-                    finish();
-                    overridePendingTransition(0, R.anim.anim_down_out);
-                }
+                addOrBuy();
             }
         });
 
 
+    }
+
+    private void addOrBuy() {
+        boolean islogin = (boolean) SpUtils.getSpUtils().get(SpUtils.IS_LOGIN, false);
+        if (!islogin) {
+            UiUtils.showToast("请先登录");
+            Intent intent = new Intent(JoinCartActivity.this, LoginActivity.class);
+            startActivity(intent);
+        } else {
+
+            CartBean cartBean = new CartBean();
+            cartBean.setGoods_id(goodsInfo.getGoods_id());
+            cartBean.setCount(addSubView.getValue());
+            cartBean.setGoods_name(goodsInfo.getGoods_name());
+            cartBean.setOwner_name(goodsInfo.getOwner_name());
+            cartBean.setPrice(goodsInfo.getPrice());
+            cartBean.setDiscount(goodsInfo.getDiscount_price());
+            cartBean.setImage(TextUtils.isEmpty(attrList_type.get(typeSelectedPos).getImg_path()) ? goodsInfo.getGoods_image() : attrList_type.get(typeSelectedPos).getImg_path());
+            cartBean.setType_name(sku_info.get(0).getType_name());
+            cartBean.setType(attrList_type.get(typeSelectedPos).getAttr_name());
+            if (sku_info.size() > 1) {
+                cartBean.setSize_name(sku_info.get(1).getType_name());
+                cartBean.setSize(sizes.get(sizeSlectedPos).getAttr_name());
+            }
+            cartBean.setIsgift(Integer.parseInt(goodsInfo.getIs_gift()));
+            Log.e("TAG", "cartBean" + cartBean.toString());
+            if (!is_buy) {
+
+                Modle.getInstance().getCartDao().add(cartBean);
+                UiUtils.showToast("已加入购物车");
+                finish();
+                overridePendingTransition(0, R.anim.anim_down_out);
+            } else {
+                ArrayList<CartBean> list = new ArrayList<>();
+                list.add(cartBean);
+                Intent intent = new Intent(JoinCartActivity.this, OrderDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("goods", list);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                finish();
+            }
+
+
+        }
     }
 
     private class MyTagAdapter extends TagAdapter<String> {

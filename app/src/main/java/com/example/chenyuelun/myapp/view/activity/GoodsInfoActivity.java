@@ -30,6 +30,8 @@ import com.bumptech.glide.Glide;
 import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseActivity;
 import com.example.chenyuelun.myapp.common.AppUrl;
+import com.example.chenyuelun.myapp.common.Modle;
+import com.example.chenyuelun.myapp.modle.bean.CartBean;
 import com.example.chenyuelun.myapp.modle.bean.GoodsInfosBean;
 import com.example.chenyuelun.myapp.utils.HttpUtils;
 import com.example.chenyuelun.myapp.utils.SpUtils;
@@ -130,6 +132,12 @@ public class GoodsInfoActivity extends BaseActivity {
     TextView tvRecommend;
     @BindView(R.id.ll_like)
     LinearLayout llLike;
+    @BindView(R.id.iv_cart_count)
+    ImageView ivCartCount;
+    @BindView(R.id.tv_catr_count)
+    TextView tvCatrCount;
+    @BindView(R.id.rl_cart_count)
+    RelativeLayout rlCartCount;
     private GoodsInfosBean.DataBean.ItemsBean goodsinfo;
     private PopupWindow popupWindow;
 
@@ -337,21 +345,21 @@ public class GoodsInfoActivity extends BaseActivity {
         btAddInCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InToCart(goodsinfo, 0);
+                InToCart(goodsinfo, false, false);
             }
         });
 
         btBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InToCart(goodsinfo, 1);
+                InToCart(goodsinfo, true, false);
             }
         });
 
         tvSelected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InToCart(goodsinfo, 0);
+                InToCart(goodsinfo, false, true);
             }
         });
 
@@ -365,12 +373,13 @@ public class GoodsInfoActivity extends BaseActivity {
 
     }
 
-    private void InToCart(GoodsInfosBean.DataBean.ItemsBean goodsinfo, int value) {
+    private void InToCart(GoodsInfosBean.DataBean.ItemsBean goodsinfo, boolean value, boolean select) {
         Intent intent = new Intent(GoodsInfoActivity.this, JoinCartActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("goodsInfo", goodsinfo);
         intent.putExtras(bundle);
         intent.putExtra("is_buy", value);
+        intent.putExtra("select", select);
         startActivity(intent);
     }
 
@@ -378,19 +387,19 @@ public class GoodsInfoActivity extends BaseActivity {
     private void toBrandInfo() {
         Intent intent = new Intent(GoodsInfoActivity.this, BrandInfoActivity.class);
         GoodsInfosBean.DataBean.ItemsBean.BrandInfoBean brand_info = goodsinfo.getBrand_info();
-        intent.putExtra("brand_id",Integer.parseInt(brand_info.getBrand_id()));
+        intent.putExtra("brand_id", Integer.parseInt(brand_info.getBrand_id()));
         Log.e("TAG", "brand_id");
-        intent.putExtra("brand_name",brand_info.getBrand_name());
-        intent.putExtra("brand_logo",brand_info.getBrand_logo());
+        intent.putExtra("brand_name", brand_info.getBrand_name());
+        intent.putExtra("brand_logo", brand_info.getBrand_logo());
         startActivity(intent);
     }
 
 
     private void showShare(String goodsname) {
-        LinearLayout view = (LinearLayout) View.inflate(GoodsInfoActivity.this,R.layout.shared_sdk_ui,null);
-        popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+        LinearLayout view = (LinearLayout) View.inflate(GoodsInfoActivity.this, R.layout.shared_sdk_ui, null);
+        popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         popupWindow.setAnimationStyle(R.anim.anim_down_in);
-        popupWindow.showAtLocation(GoodsInfoActivity.this.findViewById(R.id.bt_buy), Gravity.BOTTOM,0,0);
+        popupWindow.showAtLocation(GoodsInfoActivity.this.findViewById(R.id.bt_buy), Gravity.BOTTOM, 0, 0);
 
         Button bt_share_to_QQ = (Button) view.getChildAt(1);
         Button bt_share_to_Qz = (Button) view.getChildAt(2);
@@ -448,10 +457,9 @@ public class GoodsInfoActivity extends BaseActivity {
         });
 
 
-
     }
 
-    private void showShareSDK(String platform){
+    private void showShareSDK(String platform) {
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
@@ -481,8 +489,8 @@ public class GoodsInfoActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK) {
-            if(popupWindow !=null && popupWindow.isShowing()) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (popupWindow != null && popupWindow.isShowing()) {
                 popupWindow.dismiss();
             }
         }
@@ -499,8 +507,20 @@ public class GoodsInfoActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(popupWindow != null && popupWindow.isShowing()) {
+        if (popupWindow != null && popupWindow.isShowing()) {
             popupWindow.dismiss();
+        }
+
+        getCartCount();
+    }
+
+    private void getCartCount() {
+        List<CartBean> allCartData = Modle.getInstance().getCartDao().getAllCartData();
+        if(allCartData != null  && allCartData.size()>0) {
+             rlCartCount.setVisibility(View.VISIBLE);
+            tvCatrCount.setText(allCartData.size()+"");
+        }else {
+            rlCartCount.setVisibility(View.GONE);
         }
     }
 }
