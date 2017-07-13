@@ -44,6 +44,7 @@ public class MyApplication extends Application {
         Modle.getInstance().init(context);
         MobSDK.init(context);
 
+
     }
 
     public static Context getContext() {

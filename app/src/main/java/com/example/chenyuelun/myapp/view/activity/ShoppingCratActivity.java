@@ -218,6 +218,7 @@ public class ShoppingCratActivity extends BaseActivity {
         if (!isEdit) {
             isEdit = true;
             tvCartEdit.setText("完成");
+            readDataFromDB();
             cartRvAdapter.refresh(datas, isEdit);
 
         } else {
@@ -237,7 +238,9 @@ public class ShoppingCratActivity extends BaseActivity {
     //从购物车删除商品
     private void deleteGoods(int position) {
         Modle.getInstance().getCartDao().delete(datas.get(position));
-        readDataFromDB();
+        datas.remove(position);
+        cartRvAdapter.refresh(datas,isEdit);
+//        readDataFromDB();
     }
 
 
@@ -278,7 +281,7 @@ public class ShoppingCratActivity extends BaseActivity {
         return totalDis;
     }
 
-
+    //验证是否全选
     public void isCheckedAllOrNo() {
         if (datas != null && datas.size() > 0) {
             for (int i = 0; i < datas.size(); i++) {
@@ -305,6 +308,7 @@ public class ShoppingCratActivity extends BaseActivity {
     }
 
 
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -314,5 +318,11 @@ public class ShoppingCratActivity extends BaseActivity {
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        readDataFromDB();
     }
 }

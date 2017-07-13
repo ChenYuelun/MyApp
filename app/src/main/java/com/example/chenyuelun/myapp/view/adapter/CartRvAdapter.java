@@ -59,7 +59,9 @@ public class CartRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public void refresh(List<CartBean> allCartData, boolean isEdit) {
         this.datas.clear();
-        this.datas.addAll(allCartData);
+        if(allCartData != null) {
+            this.datas.addAll(allCartData);
+        }
         this.isEdit = isEdit;
         notifyDataSetChanged();
 

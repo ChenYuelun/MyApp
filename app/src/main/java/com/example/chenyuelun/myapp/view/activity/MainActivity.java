@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import cn.smssdk.EventHandler;
 
 public class MainActivity extends BaseActivity {
 
@@ -34,6 +35,9 @@ public class MainActivity extends BaseActivity {
     private int position = 0;
     private BaseFragment currentFragment;
     private StoreFragment storeFragment;
+    private EventHandler eventHandler;
+
+
 
     @Override
     public void initData() {
@@ -186,6 +190,5 @@ public class MainActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
 
     }
-
 
 }

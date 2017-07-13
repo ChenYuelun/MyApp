@@ -29,7 +29,6 @@ import butterknife.BindView;
 
 public class JoinCartActivity extends BaseActivity {
 
-
     @BindView(R.id.covor)
     ImageView covor;
     @BindView(R.id.iv_close)
