@@ -8,12 +8,18 @@
     tools:context="com.example.chenyuelun.myapp.view.activity.WebActivity">
 
     <include layout="@layout/layout_title"/>
+    <ProgressBar
+        android:id="@+id/pb_progress"
+        android:progressDrawable="@drawable/bar_style"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dp" />
 
-    <com.example.chenyuelun.myapp.view.view.ProgressWebView
+    <WebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"/>
 
-    </com.example.chenyuelun.myapp.view.view.ProgressWebView>
+
 
 </LinearLayout>

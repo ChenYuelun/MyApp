@@ -1,11 +1,14 @@
 package com.example.chenyuelun.myapp.view.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.chenyuelun.myapp.R;
@@ -13,26 +16,24 @@ import com.example.chenyuelun.myapp.base.BaseActivity;
 import com.example.chenyuelun.myapp.utils.UiUtils;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
 public class WebActivity extends BaseActivity {
 
-    @BindView(R.id.iv_title_search)
-    ImageView ivTitleSearch;
+
     @BindView(R.id.iv_title_back)
     ImageView ivTitleBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.iv_title_cart)
-    ImageView ivTitleCart;
-    @BindView(R.id.iv_title_menu)
-    ImageView ivTitleMenu;
     @BindView(R.id.iv_title_faver)
     ImageView ivTitleFaver;
     @BindView(R.id.iv_title_share)
     ImageView ivTitleShare;
     @BindView(R.id.webview)
     WebView webview;
+    @BindView(R.id.pb_progress)
+    ProgressBar pbProgress;
     private String topic_url;
     private String topic_name;
 
@@ -53,10 +54,27 @@ public class WebActivity extends BaseActivity {
         webSettings.setBuiltInZoomControls(true); //设置内置的缩放控件。若为false，则该WebView不可缩放
 
 
-        webview.setWebViewClient(new WebViewClient(){
+        webview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                return false;
+                return true;
+            }
+        });
+
+
+        webview.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                if(newProgress == 100) {
+                    pbProgress.setVisibility(View.GONE);
+                } else {
+                    if (View.GONE == pbProgress.getVisibility()) {
+                        pbProgress.setVisibility(View.VISIBLE);
+                    }
+                    pbProgress.setProgress(newProgress);
+                }
+
+                super.onProgressChanged(view, newProgress);
             }
         });
 
@@ -90,7 +108,7 @@ public class WebActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 UiUtils.showToast("分享");
-                showShare(topic_name,"不能连接就发文字");
+                showShare(topic_name, "不能连接就发文字");
             }
         });
 
@@ -103,8 +121,7 @@ public class WebActivity extends BaseActivity {
     }
 
 
-
-    private void showShare(String title,String text) {
+    private void showShare(String title, String text) {
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
@@ -130,5 +147,12 @@ public class WebActivity extends BaseActivity {
 
         // 启动分享GUI
         oks.show(this);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

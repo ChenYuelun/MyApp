@@ -15,6 +15,7 @@ import com.example.chenyuelun.myapp.common.AppUrl;
 import com.example.chenyuelun.myapp.modle.bean.ShareRecBean;
 import com.example.chenyuelun.myapp.utils.UiUtils;
 import com.example.chenyuelun.myapp.view.activity.ShareDetailsActivity;
+import com.example.chenyuelun.myapp.view.activity.WebActivity;
 import com.example.chenyuelun.myapp.view.adapter.ShareRecRvAdapter;
 
 import java.util.List;
@@ -81,6 +82,11 @@ public class ShareRecommendFragment extends BaseFragment {
             public void onItemDetailClicked(int position, ShareRecBean.ListBean listBean) {
                 if(listBean.getType().equals("html")) {
                     UiUtils.showToast("这是html");
+                    Intent intent = new Intent(getActivity(),WebActivity.class);
+                    intent.putExtra("topic_url",listBean.getHtml().getSource_url());
+                    intent.putExtra("Topic_name",listBean.getHtml().getTitle());
+
+                    startActivity(intent);
                 }else {
                     Intent intent = new Intent(getActivity(),ShareDetailsActivity.class);
                     String id = list.get(position).getId();

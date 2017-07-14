@@ -39,6 +39,7 @@ public class ShareDetailRvAdapter extends RecyclerView.Adapter<RecyclerView.View
     private ShareDetailBean shareDetailBean;
     private List<ShareDetailBean.HotBean.ListBean> hotlist = new ArrayList<>();
     private List<ShareDetailBean.NormalBean.ListBeanX> normalList = new ArrayList<>();
+    private OnImageClickListener listener;
 
     public ShareDetailRvAdapter(Context context, ShareRecBean.ListBean headData) {
         this.context = context;
@@ -155,10 +156,10 @@ public class ShareDetailRvAdapter extends RecyclerView.Adapter<RecyclerView.View
                 String sex = user.getSex();
                 //根据性别设置名字
                 if (sex.equals("m")) {
-                    String str= "<font color='#80bfea'>♂</font>" +user.getUsername();
+                    String str = "<font color='#80bfea'>♂</font>" + user.getUsername();
                     tvUsername.setText(Html.fromHtml(str));
                 } else {
-                    String str= "<font color='#ee7aa3'>♀</font>" +user.getUsername();
+                    String str = "<font color='#ee7aa3'>♀</font>" + user.getUsername();
                     tvUsername.setText(Html.fromHtml(str));
                 }
                 llZhuiping.setVisibility(View.GONE);
@@ -194,10 +195,10 @@ public class ShareDetailRvAdapter extends RecyclerView.Adapter<RecyclerView.View
                 //根据性别设置名字
                 String sex = user.getSex();
                 if (sex.equals("m")) {
-                    String str= "<font color='#80bfea'>♂</font>" +user.getUsername();
+                    String str = "<font color='#80bfea'>♂</font>" + user.getUsername();
                     tvUsername.setText(Html.fromHtml(str));
                 } else {
-                    String str= "<font color='#ee7aa3'>♀</font>" +user.getUsername();
+                    String str = "<font color='#ee7aa3'>♀</font>" + user.getUsername();
                     tvUsername.setText(Html.fromHtml(str));
                 }
                 tvZan.setText(listBeanX.getLike_count() + "");
@@ -280,6 +281,7 @@ public class ShareDetailRvAdapter extends RecyclerView.Adapter<RecyclerView.View
         TextView tvCommend;
         @BindView(R.id.ll_commend)
         LinearLayout llCommend;
+
         public HeaderHolder(View itemView) {
             super(itemView);
 
@@ -325,12 +327,20 @@ public class ShareDetailRvAdapter extends RecyclerView.Adapter<RecyclerView.View
                 videoplayer.setVisibility(View.GONE);
                 rlBigImage.setVisibility(View.VISIBLE);
                 ivGift.setVisibility(View.GONE);
-
-                UiUtils.loadImage(context, headData.getImage().getBig().get(0), ivImage, 0);
+                final String image = headData.getImage().getBig().get(0);
+                UiUtils.loadImage(context, image, ivImage, 0);
+                ivImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (listener != null) {
+                            listener.onImageClicked(image);
+                        }
+                    }
+                });
             }
 
 
-            if (itemType .equals("text")) {
+            if (itemType.equals("text")) {
                 videoplayer.setVisibility(View.GONE);
                 rlBigImage.setVisibility(View.GONE);
                 ivGift.setVisibility(View.GONE);
@@ -341,13 +351,19 @@ public class ShareDetailRvAdapter extends RecyclerView.Adapter<RecyclerView.View
                 videoplayer.setVisibility(View.GONE);
                 rlBigImage.setVisibility(View.GONE);
                 ivGift.setVisibility(View.VISIBLE);
-                Glide.with(context).load(headData.getGif().getImages().get(0)).into(ivGift);
+                final String gif = headData.getGif().getImages().get(0);
+                Glide.with(context).load(gif).into(ivGift);
 
+                ivGift.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(listener!=null) {
+                            listener.onImageClicked(gif);
+                        }
 
-                if (itemType.equals("html")) {
-                    //如果是Html 这是地址
-                    String source_url = headData.getHtml().getSource_url();
-                }
+                    }
+                });
+
             }
         }
     }
@@ -367,15 +383,26 @@ public class ShareDetailRvAdapter extends RecyclerView.Adapter<RecyclerView.View
                     header.setText("热门评论");
                 }
             }
-            if (position == hotlist.size()+1) {
+            if (position == hotlist.size() + 1) {
                 header.setText("最新评论");
             }
-            if(hotlist.size() == 0) {
-                if(position == 1) {
+            if (hotlist.size() == 0) {
+                if (position == 1) {
                     header.setText("最新评论");
                 }
             }
 
         }
     }
+
+
+    public void setOnImageClickListener(OnImageClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnImageClickListener {
+        void onImageClicked(String url);
+    }
+
+
 }

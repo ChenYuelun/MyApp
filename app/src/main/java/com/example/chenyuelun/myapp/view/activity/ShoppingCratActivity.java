@@ -67,7 +67,7 @@ public class ShoppingCratActivity extends BaseActivity {
     private CartRvAdapter cartRvAdapter;
     private List<CartBean> datas;
     private boolean isEdit = false;
-    private AlertDialog show;
+    private AlertDialog delteDialog;
 
     @Override
     public void initData() {
@@ -152,19 +152,19 @@ public class ShoppingCratActivity extends BaseActivity {
 
             @Override
             public void onDeleteClicked(final int position) {
-                final LinearLayout dialog = (LinearLayout) View.inflate(ShoppingCratActivity.this, R.layout.dialog, null);
+                final LinearLayout dialog = (LinearLayout) View.inflate(ShoppingCratActivity.this, R.layout.delete_dialog, null);
                 RelativeLayout rel = (RelativeLayout) dialog.getChildAt(0);
                 ImageView close = (ImageView) rel.getChildAt(0);
                 TextView confirm = (TextView) dialog.getChildAt(3);
-                show = new AlertDialog.Builder(ShoppingCratActivity.this)
+                delteDialog = new AlertDialog.Builder(ShoppingCratActivity.this)
                         .setView(dialog)
                         .show();
 
                 close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        show.dismiss();
-                        show = null;
+                        delteDialog.dismiss();
+                        delteDialog = null;
                     }
                 });
 
@@ -172,8 +172,8 @@ public class ShoppingCratActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         deleteGoods(position);
-                        show.dismiss();
-                        show = null;
+                        delteDialog.dismiss();
+                        delteDialog = null;
                     }
                 });
             }
@@ -316,6 +316,10 @@ public class ShoppingCratActivity extends BaseActivity {
                 editAndConfirmCart();
                 return true;
             }
+            if(delteDialog != null && delteDialog.isShowing()) {
+                delteDialog.dismiss();
+                delteDialog= null;
+            }
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -324,5 +328,15 @@ public class ShoppingCratActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         readDataFromDB();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(delteDialog!= null) {
+            delteDialog.dismiss();
+            delteDialog = null;
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 package com.example.chenyuelun.myapp.view.activity;
 
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -74,6 +75,18 @@ public class ShareDetailsActivity extends BaseActivity {
             @Override
             public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
                 getDataFromNet();
+            }
+        });
+
+
+        shareDetailRvAdapter.setOnImageClickListener(new ShareDetailRvAdapter.OnImageClickListener() {
+            @Override
+            public void onImageClicked(String url) {
+                Intent intent = new Intent(ShareDetailsActivity.this, PhotoActivity.class);
+
+                intent.putExtra("iamge",url);
+                startActivity(intent);
+
             }
         });
     }

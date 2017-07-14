@@ -1,13 +1,15 @@
 package com.example.chenyuelun.myapp.view.activity;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 
@@ -39,6 +41,7 @@ public class MainActivity extends BaseActivity {
     private BaseFragment currentFragment;
     private StoreFragment storeFragment;
     private EventHandler eventHandler;
+    private AlertDialog exitDialog;
 
 
     @Override
@@ -176,27 +179,47 @@ public class MainActivity extends BaseActivity {
                 return true;
             }
 
-            new AlertDialog.Builder(this)
-                        .setTitle("退出软件")
-                        .setMessage("是否退出本应用？")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                onDestroy();
-                                finish();
-                            }
-                        })
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                return;
-                            }
-                        })
-                        .show();
+            if(exitDialog != null && exitDialog.isShowing()) {
+                exitDialog.dismiss();
+                exitDialog = null;
+                return true;
+            }
+            showExitDialog();
+            return true;
 
 
         }
         return super.onKeyDown(keyCode, event);
+
+    }
+
+    private void showExitDialog() {
+        if(exitDialog == null) {
+            LinearLayout view  = (LinearLayout) View.inflate(this, R.layout.exit_dialog,null);
+            LinearLayout view2 = (LinearLayout) view.findViewById(R.id.ll_view2);
+            Button confirm = (Button) view2.findViewById(R.id.bt_comfirm);
+            Button cancel = (Button) view2.findViewById(R.id.bt_cancel);
+            exitDialog = new AlertDialog.Builder(this)
+                    .setView(view)
+                    .show();
+            confirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onDestroy();
+                    finish();
+                }
+            });
+
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    exitDialog.dismiss();
+                    exitDialog = null;
+                }
+            });
+        }
+
+
 
     }
 
