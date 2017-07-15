@@ -13,5 +13,6 @@
     <color name="bg0_999">#b5c7dd</color>
     <color name="bg1k_10k">#cec5f2</color>
     <color name="bg10k_0">#ffbabc</color>
+    <color name="fresh_pb">#ffffff</color>
 
 </resources>

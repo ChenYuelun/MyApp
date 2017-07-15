@@ -10,6 +10,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.concurrent.TimeUnit;
 
+import cn.jpush.android.api.JPushInterface;
 import okhttp3.OkHttpClient;
 
 /**
@@ -43,6 +44,8 @@ public class MyApplication extends Application {
         SpUtils.getSpUtils().init(context,"liangcang");
         Modle.getInstance().init(context);
         MobSDK.init(context);
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
 
 
     }

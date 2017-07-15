@@ -181,7 +181,6 @@ public class MainActivity extends BaseActivity {
 
             if(exitDialog != null && exitDialog.isShowing()) {
                 exitDialog.dismiss();
-                exitDialog = null;
                 return true;
             }
             showExitDialog();
@@ -205,7 +204,6 @@ public class MainActivity extends BaseActivity {
             confirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onDestroy();
                     finish();
                 }
             });
@@ -214,9 +212,10 @@ public class MainActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     exitDialog.dismiss();
-                    exitDialog = null;
                 }
             });
+        }else {
+            exitDialog.show();
         }
 
 
@@ -225,7 +224,11 @@ public class MainActivity extends BaseActivity {
 
 
     protected void onDestroy() {
+        if(exitDialog != null) {
+            exitDialog = null;
+        }
         super.onDestroy();
         SMSSDK.unregisterEventHandler(eventHandler);
+
     }
 }

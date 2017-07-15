@@ -60,6 +60,7 @@
                         android:textColor="#cccccc"
                         android:textSize="12sp" />
 
+
                 </LinearLayout>
 
 
@@ -80,6 +81,17 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
                     android:background="@drawable/country_right_arrow" />
+
+
+                <TextView
+                    android:id="@+id/tv_choice_addr"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#292d32"
+                    android:gravity="center"
+                    android:text="选择收货地址"
+                    android:textColor="#cccccc" />
+
 
             </FrameLayout>
 
@@ -230,9 +242,9 @@
                         android:id="@+id/tv_djq"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="-￥:0.00"
                         android:textColor="#cccccc"
-                        android:textSize="12sp"
-                        android:text="-￥:0.00" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
@@ -255,9 +267,9 @@
                         android:id="@+id/tv_pack"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="-￥:0.00"
                         android:textColor="#cccccc"
-                        android:textSize="12sp"
-                        android:text="-￥:0.00" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
