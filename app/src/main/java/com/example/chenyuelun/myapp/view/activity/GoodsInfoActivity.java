@@ -1,6 +1,8 @@
 package com.example.chenyuelun.myapp.view.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Build;
@@ -408,6 +410,7 @@ public class GoodsInfoActivity extends BaseActivity {
         Button bt_share_to_weixin = (Button) view.getChildAt(3);
         Button bt_share_to_wp = (Button) view.getChildAt(4);
         Button bt_share_to_wb = (Button) view.getChildAt(5);
+        Button bt_share_to_eq = (Button) view.getChildAt(6);
         Platform.ShareParams sp = new Platform.ShareParams();
         bt_share_to_QQ.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -451,6 +454,16 @@ public class GoodsInfoActivity extends BaseActivity {
             }
         });
 
+        bt_share_to_eq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UiUtils.showToast("生成二维码");
+                showQRCode();
+                popupWindow.dismiss();
+
+            }
+        });
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -459,6 +472,21 @@ public class GoodsInfoActivity extends BaseActivity {
         });
 
 
+    }
+
+    //生成二维码时弹出此框
+    private void showQRCode() {
+        new AlertDialog.Builder(this)
+                    .setTitle("商品二维码")
+                    .setMessage("这是商品的二维码")
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .setNegativeButton("取消", null)
+                    .show();
     }
 
     private void showShareSDK(String platform) {

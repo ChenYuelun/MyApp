@@ -70,7 +70,7 @@ public class JoinCartActivity extends BaseActivity {
     private MyTagAdapter myTagAdapter;
     private List<String> goodsTypes;
     private List<GoodsInfosBean.DataBean.ItemsBean.SkuInvBean> sku_inv;
-    private int typeSelectedPos;
+
     private List<GoodsInfosBean.DataBean.ItemsBean.SkuInfoBean> sku_info;
 
     //存放商品尺寸大小等信息（衣服、鞋子大小等）
@@ -80,6 +80,7 @@ public class JoinCartActivity extends BaseActivity {
     private List<GoodsInfosBean.DataBean.ItemsBean.SkuInfoBean.AttrListBean> attrList_type;
     private GoodsInfosBean.DataBean.ItemsBean.SkuInfoBean skuInfoBean_type;
     private int sizeSlectedPos;
+    private int typeSelectedPos;
     private MyTagAdapter myTagAdapter2;
 
     @Override
@@ -177,7 +178,28 @@ public class JoinCartActivity extends BaseActivity {
                     UiUtils.loadImage(JoinCartActivity.this, attrList_type.get(position).getImg_path(), ivGoodsImage, 0);
                 }
 
-                tvPrice.setText(TextUtils.isEmpty(skuInvBean.getDiscount_price()) ? "￥" + skuInvBean.getPrice() : "￥" + skuInvBean.getDiscount_price());
+//                tvPrice.setText(TextUtils.isEmpty(skuInvBean.getDiscount_price()) ? "￥" + skuInvBean.getPrice() : "￥" + skuInvBean.getDiscount_price());
+                String attr_id = attrList_type.get(typeSelectedPos).getAttr_id();
+                String attr_id1="";
+                if(sizes != null  && sizes.size()>0) {
+                    GoodsInfosBean.DataBean.ItemsBean.SkuInfoBean.AttrListBean attrListBean = sizes.get(sizeSlectedPos);
+                    attr_id1= attrListBean.getAttr_id();
+                }
+
+                String currentPrice = "";
+
+                for(int i = 0; i < sku_inv.size(); i++) {
+                    GoodsInfosBean.DataBean.ItemsBean.SkuInvBean skuInvBean1 = sku_inv.get(i);
+                    String attr_keys = skuInvBean1.getAttr_keys();
+                    if(attr_keys.contains(attr_id)  && attr_keys.contains(attr_id1)) {
+                        currentPrice = skuInvBean1.getPrice();
+                        break;
+                    }
+                }
+                tvPrice.setText("￥" +currentPrice);
+
+
+
 //                UiUtils.showToast(goodsTypes.get(position));
                 return true;
             }
@@ -189,6 +211,20 @@ public class JoinCartActivity extends BaseActivity {
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 sizeSlectedPos = position;
                 UiUtils.showToast(sizes.get(position).getAttr_name());
+                String attr_id = attrList_type.get(typeSelectedPos).getAttr_id();
+                String attr_id1="";
+                    GoodsInfosBean.DataBean.ItemsBean.SkuInfoBean.AttrListBean attrListBean = sizes.get(sizeSlectedPos);
+                    attr_id1= attrListBean.getAttr_id();
+                String currentPrice = "";
+                for(int i = 0; i < sku_inv.size(); i++) {
+                    GoodsInfosBean.DataBean.ItemsBean.SkuInvBean skuInvBean1 = sku_inv.get(i);
+                    String attr_keys = skuInvBean1.getAttr_keys();
+                    if(attr_keys.contains(attr_id)  && attr_keys.contains(attr_id1)) {
+                        currentPrice = skuInvBean1.getPrice();
+                        break;
+                    }
+                }
+                tvPrice.setText("￥" +currentPrice);
                 return true;
             }
         });
@@ -243,7 +279,20 @@ public class JoinCartActivity extends BaseActivity {
             cartBean.setCount(addSubView.getValue());
             cartBean.setGoods_name(goodsInfo.getGoods_name());
             cartBean.setOwner_name(goodsInfo.getOwner_name());
-            cartBean.setPrice(goodsInfo.getPrice());
+            String attr_id = attrList_type.get(typeSelectedPos).getAttr_id();
+            String attr_id1="";
+            GoodsInfosBean.DataBean.ItemsBean.SkuInfoBean.AttrListBean attrListBean = sizes.get(sizeSlectedPos);
+            attr_id1= attrListBean.getAttr_id();
+            String currentPrice = "";
+            for(int i = 0; i < sku_inv.size(); i++) {
+                GoodsInfosBean.DataBean.ItemsBean.SkuInvBean skuInvBean1 = sku_inv.get(i);
+                String attr_keys = skuInvBean1.getAttr_keys();
+                if(attr_keys.contains(attr_id)  && attr_keys.contains(attr_id1)) {
+                    currentPrice = skuInvBean1.getPrice();
+                    break;
+                }
+            }
+            cartBean.setPrice(currentPrice);
             cartBean.setDiscount(goodsInfo.getDiscount_price());
             cartBean.setImage(TextUtils.isEmpty(attrList_type.get(typeSelectedPos).getImg_path()) ? goodsInfo.getGoods_image() : attrList_type.get(typeSelectedPos).getImg_path());
             cartBean.setType_name(sku_info.get(0).getType_name());

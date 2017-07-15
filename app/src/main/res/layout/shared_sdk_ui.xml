@@ -56,6 +56,15 @@
         android:layout_height="wrap_content" />
 
 
+    <Button
+        android:layout_marginTop="3dp"
+        android:id="@+id/bt_share_to_eq"
+        android:textColor="#ffffff"
+        android:background="#444950"
+        android:text="分享二维码"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
 
 </LinearLayout>
