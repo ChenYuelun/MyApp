@@ -281,8 +281,10 @@ public class JoinCartActivity extends BaseActivity {
             cartBean.setOwner_name(goodsInfo.getOwner_name());
             String attr_id = attrList_type.get(typeSelectedPos).getAttr_id();
             String attr_id1="";
-            GoodsInfosBean.DataBean.ItemsBean.SkuInfoBean.AttrListBean attrListBean = sizes.get(sizeSlectedPos);
-            attr_id1= attrListBean.getAttr_id();
+            if(sizes != null  && sizes.size()>0) {
+                GoodsInfosBean.DataBean.ItemsBean.SkuInfoBean.AttrListBean attrListBean = sizes.get(sizeSlectedPos);
+                attr_id1= attrListBean.getAttr_id();
+            }
             String currentPrice = "";
             for(int i = 0; i < sku_inv.size(); i++) {
                 GoodsInfosBean.DataBean.ItemsBean.SkuInvBean skuInvBean1 = sku_inv.get(i);

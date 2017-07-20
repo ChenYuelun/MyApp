@@ -1,6 +1,7 @@
 package com.example.chenyuelun.myapp.view.activity;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -16,12 +17,15 @@ import android.widget.RadioGroup;
 import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseActivity;
 import com.example.chenyuelun.myapp.base.BaseFragment;
+import com.example.chenyuelun.myapp.utils.UiUtils;
 import com.example.chenyuelun.myapp.view.fragment.daren.DaRenFragment;
 import com.example.chenyuelun.myapp.view.fragment.magazine.MagazineFragment;
 import com.example.chenyuelun.myapp.view.fragment.self.SelfFragment;
 import com.example.chenyuelun.myapp.view.fragment.share.ShareFragment;
 import com.example.chenyuelun.myapp.view.fragment.store.StoreFragment;
 import com.example.chenyuelun.myapp.view.fragment.store.StoreTypeDetailsFragment;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -230,5 +234,25 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
         SMSSDK.unregisterEventHandler(eventHandler);
 
+    }
+
+
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (intentResult != null) {
+            if (intentResult.getContents() == null) {
+                UiUtils.showToast("内容为空！");
+            } else {
+                UiUtils.showToast("扫描成功");
+                // ScanResult 为 获取到的字符串
+                String ScanResult = intentResult.getContents();
+                Intent intent = new Intent(this, GoodsInfoActivity.class);
+                intent.putExtra("goodsId", ScanResult);
+                startActivity(intent);
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

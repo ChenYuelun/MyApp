@@ -14,6 +14,7 @@ import com.example.chenyuelun.myapp.utils.UiUtils;
 import com.example.chenyuelun.myapp.view.activity.LoginActivity;
 import com.example.chenyuelun.myapp.view.activity.ShoppingCratActivity;
 import com.example.chenyuelun.myapp.view.adapter.StoreFragmentVpAdapter;
+import com.google.zxing.integration.android.IntentIntegrator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +82,8 @@ public class StoreFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 UiUtils.showToast("搜索商品");
+                customScan();
+
             }
         });
 
@@ -98,4 +101,15 @@ public class StoreFragment extends BaseFragment {
             }
         });
     }
+
+
+    public void customScan() {
+        new IntentIntegrator(getActivity())
+                .setOrientationLocked(false)
+                .setCaptureActivity(CustomScanActivity.class) // 设置自定义的activity是CustomActivity
+                .initiateScan(); // 初始化扫描
+    }
+
+
+
 }

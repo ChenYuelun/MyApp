@@ -1,14 +1,15 @@
 package com.example.chenyuelun.myapp.view.activity;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -142,7 +143,7 @@ public class GoodsInfoActivity extends BaseActivity {
     TextView tvCatrCount;
     @BindView(R.id.rl_cart_count)
     RelativeLayout rlCartCount;
-    private GoodsInfosBean.DataBean.ItemsBean goodsinfo;
+    private GoodsInfosBean.DataBean.ItemsBean goodsInfo;
     private PopupWindow popupWindow;
 
 
@@ -176,32 +177,32 @@ public class GoodsInfoActivity extends BaseActivity {
     private void processData(String response) {
         GoodsInfosBean goodsInfosBean = JSON.parseObject(response, GoodsInfosBean.class);
         //banner图片集合
-        goodsinfo = goodsInfosBean.getData().getItems();
-        List<String> images_item = goodsinfo.getImages_item();
+        goodsInfo = goodsInfosBean.getData().getItems();
+        List<String> images_item = goodsInfo.getImages_item();
         //设置banner
         initBanner(images_item);
 
         //商品信息
         //商品名称
-        tvGoodsname.setText(goodsinfo.getGoods_name());
+        tvGoodsname.setText(goodsInfo.getGoods_name());
         //收藏数量
-        tvLikeCount.setText(goodsinfo.getLike_count());
+        tvLikeCount.setText(goodsInfo.getLike_count());
         //折扣价格 如果有 就设置
-        String discount_price = goodsinfo.getDiscount_price();
+        String discount_price = goodsInfo.getDiscount_price();
         if (!TextUtils.isEmpty(discount_price)) {
             tvGoodsprice.setText("￥" + discount_price);
-            tvOldprice.setText("￥" + goodsinfo.getPrice());
+            tvOldprice.setText("￥" + goodsInfo.getPrice());
             tvOldprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         } else {
-            tvGoodsprice.setText("￥" + goodsinfo.getPrice());
+            tvGoodsprice.setText("￥" + goodsInfo.getPrice());
             tvOldprice.setVisibility(View.GONE);
         }
         //广告语
-        tvPromotionNote.setText(goodsinfo.getPromotion_note());
+        tvPromotionNote.setText(goodsInfo.getPromotion_note());
         //发货时间
-        tvPreslod.setText(goodsinfo.getShipping_str());
+        tvPreslod.setText(goodsInfo.getShipping_str());
 
-        List<GoodsInfosBean.DataBean.ItemsBean.GoodsInfoBean> goods_info = goodsinfo.getGoods_info();
+        List<GoodsInfosBean.DataBean.ItemsBean.GoodsInfoBean> goods_info = goodsInfo.getGoods_info();
 
         //商品详情的图片
         List<String> imageUrls = new ArrayList<>();
@@ -242,13 +243,13 @@ public class GoodsInfoActivity extends BaseActivity {
                 Glide.with(this).load(imageUrls.get(i)).into(imageView);
             }
         }
-        textInfo = textInfo + "\n\n" + goodsinfo.getGoods_desc();
+        textInfo = textInfo + "\n\n" + goodsInfo.getGoods_desc();
         //文本介绍
         tvTextInfo.setText(textInfo);
 
 
         //品牌信息
-        GoodsInfosBean.DataBean.ItemsBean.BrandInfoBean brand_info = goodsinfo.getBrand_info();
+        GoodsInfosBean.DataBean.ItemsBean.BrandInfoBean brand_info = goodsInfo.getBrand_info();
         tvBrandname1.setText(brand_info.getBrand_name());
         tvOwnername.setText(brand_info.getBrand_name());
         tvBrandname2.setText(brand_info.getBrand_name());
@@ -256,10 +257,10 @@ public class GoodsInfoActivity extends BaseActivity {
         Glide.with(this).load(brand_info.getBrand_logo()).into(ivHeading);
 
         //购买须知
-        tvGoodsnotice.setText(goodsinfo.getGood_guide().getContent());
+        tvGoodsnotice.setText(goodsInfo.getGood_guide().getContent());
 
         //良仓推荐
-        tvRecommend.setText(goodsinfo.getRec_reason());
+        tvRecommend.setText(goodsInfo.getRec_reason());
 
 
     }
@@ -349,21 +350,21 @@ public class GoodsInfoActivity extends BaseActivity {
         btAddInCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InToCart(goodsinfo, false, false);
+                InToCart(goodsInfo, false, false);
             }
         });
 
         btBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InToCart(goodsinfo, true, false);
+                InToCart(goodsInfo, true, false);
             }
         });
 
         tvSelected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InToCart(goodsinfo, false, true);
+                InToCart(goodsInfo, false, true);
             }
         });
 
@@ -371,7 +372,7 @@ public class GoodsInfoActivity extends BaseActivity {
         ivShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showShare(goodsinfo.getGoods_name());
+                showShare(goodsInfo.getGoods_name());
             }
         });
 
@@ -390,7 +391,7 @@ public class GoodsInfoActivity extends BaseActivity {
     //打开品牌详情页面
     private void toBrandInfo() {
         Intent intent = new Intent(GoodsInfoActivity.this, BrandInfoActivity.class);
-        GoodsInfosBean.DataBean.ItemsBean.BrandInfoBean brand_info = goodsinfo.getBrand_info();
+        GoodsInfosBean.DataBean.ItemsBean.BrandInfoBean brand_info = goodsInfo.getBrand_info();
         intent.putExtra("brand_id", Integer.parseInt(brand_info.getBrand_id()));
         Log.e("TAG", "brand_id");
         intent.putExtra("brand_name", brand_info.getBrand_name());
@@ -476,17 +477,20 @@ public class GoodsInfoActivity extends BaseActivity {
 
     //生成二维码时弹出此框
     private void showQRCode() {
-        new AlertDialog.Builder(this)
-                    .setTitle("商品二维码")
-                    .setMessage("这是商品的二维码")
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
 
-                        }
-                    })
-                    .setNegativeButton("取消", null)
-                    .show();
+
+        View view = View.inflate(this, R.layout.ercode, null);
+        ImageView imageView = (ImageView) view.findViewById(R.id.iv_ercode);
+//        String jsonString = JSON.toJSONString(goodsInfo);
+        String goods_id = goodsInfo.getGoods_id();
+        Bitmap bitmap = UiUtils.getEncodeAsBitmap(goods_id, 300, 300);
+        Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.world_globe);
+        Bitmap bitmap2 = UiUtils.addLogo(bitmap, bitmap1);
+        imageView.setImageBitmap(bitmap2);
+        new AlertDialog.Builder(this)
+                .setView(view)
+                .show();
+
     }
 
     private void showShareSDK(String platform) {
@@ -499,13 +503,13 @@ public class GoodsInfoActivity extends BaseActivity {
         //oks.setSilent(false);
         oks.setTitle("良仓推荐");
         // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
-        oks.setTitleUrl(goodsinfo.getGoods_url());
+        oks.setTitleUrl(goodsInfo.getGoods_url());
         // text是分享文本，所有平台都需要这个字段
-        oks.setText(goodsinfo.getGoods_name());
+        oks.setText(goodsInfo.getGoods_name());
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
         // oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
         // url仅在微信（包括好友和朋友圈）中使用
-        oks.setUrl(goodsinfo.getGoods_url());
+        oks.setUrl(goodsInfo.getGoods_url());
         // comment是我对这条分享的评论，仅在人人网和QQ空间使用
         oks.setComment("");
         // site是分享此内容的网站名称，仅在QQ空间使用
@@ -545,16 +549,16 @@ public class GoodsInfoActivity extends BaseActivity {
     }
 
     private void getCartCount() {
-        boolean isLogin = (boolean) SpUtils.getSpUtils().get(SpUtils.IS_LOGIN,false);
-        if(isLogin) {
+        boolean isLogin = (boolean) SpUtils.getSpUtils().get(SpUtils.IS_LOGIN, false);
+        if (isLogin) {
             List<CartBean> allCartData = Modle.getInstance().getCartDao().getAllCartData();
-            if(allCartData != null  && allCartData.size()>0) {
+            if (allCartData != null && allCartData.size() > 0) {
                 rlCartCount.setVisibility(View.VISIBLE);
-                tvCatrCount.setText(allCartData.size()+"");
-            }else {
+                tvCatrCount.setText(allCartData.size() + "");
+            } else {
                 rlCartCount.setVisibility(View.GONE);
             }
-        }else {
+        } else {
             rlCartCount.setVisibility(View.GONE);
         }
     }
