@@ -52,39 +52,19 @@ public class OrderLvAdapter extends BaseAdapter {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.item_lv_order, null);
-            viewHolder = new ViewHolder(convertView);
+            viewHolder = new ViewHolder(context,convertView);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         CartBean cartBean = datas.get(position);
-        viewHolder.tvCount.setText("x" + cartBean.getCount());
-        viewHolder.tvGoodsname.setText(cartBean.getGoods_name());
-        UiUtils.loadImage(context, cartBean.getImage(), viewHolder.ivImage, 0);
-        String type_name = cartBean.getType_name();
-        String type = cartBean.getType();
-        String size_name = cartBean.getSize_name();
-        String size = cartBean.getSize();
-        if (TextUtils.isEmpty(size_name)) {
-            viewHolder.tvTypeSize.setText(type_name + ":" + type);
-        } else {
-            viewHolder.tvTypeSize.setText(type_name + ":" + type + ";" + size_name + ":" + size);
-        }
-
-        String discount = cartBean.getDiscount();
-        if (TextUtils.isEmpty(discount)) {
-            viewHolder.tvPrice.setText("￥" + cartBean.getPrice());
-            viewHolder.tvOldPrice.setVisibility(View.GONE);
-        } else {
-            viewHolder.tvPrice.setText("￥" + cartBean.getDiscount());
-            viewHolder.tvOldPrice.setText("￥" + cartBean.getPrice());
-            viewHolder.tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        }
+        viewHolder.setData(cartBean);
 
         return convertView;
     }
 
     static class ViewHolder {
+        private final Context context;
         @BindView(R.id.iv_image)
         ImageView ivImage;
         @BindView(R.id.tv_goodsname)
@@ -100,8 +80,33 @@ public class OrderLvAdapter extends BaseAdapter {
         @BindView(R.id.ll_noEdit)
         LinearLayout llNoEdit;
 
-        ViewHolder(View view) {
+        ViewHolder(Context context,View view) {
+            this.context = context;
             ButterKnife.bind(this, view);
+        }
+        public void setData(CartBean cartBean){
+            tvCount.setText("x" + cartBean.getCount());
+            tvGoodsname.setText(cartBean.getGoods_name());
+            UiUtils.loadImage(context, cartBean.getImage(), ivImage, 0);
+            String type_name = cartBean.getType_name();
+            String type = cartBean.getType();
+            String size_name = cartBean.getSize_name();
+            String size = cartBean.getSize();
+            if (TextUtils.isEmpty(size_name)) {
+                tvTypeSize.setText(type_name + ":" + type);
+            } else {
+                tvTypeSize.setText(type_name + ":" + type + ";" + size_name + ":" + size);
+            }
+
+            String discount = cartBean.getDiscount();
+            if (TextUtils.isEmpty(discount)) {
+                tvPrice.setText("￥" + cartBean.getPrice());
+                tvOldPrice.setVisibility(View.GONE);
+            } else {
+                tvPrice.setText("￥" + cartBean.getDiscount());
+                tvOldPrice.setText("￥" + cartBean.getPrice());
+                tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            }
         }
     }
 }

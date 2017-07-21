@@ -227,7 +227,9 @@ public class LoginActivity extends BaseActivity {
                 UiUtils.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        tvGetCode.setText(((millisUntilFinished) / 1000) + "");
+                        if(timer != null) {
+                            tvGetCode.setText(((millisUntilFinished) / 1000) + "");
+                        }
                     }
                 });
             }
@@ -237,8 +239,10 @@ public class LoginActivity extends BaseActivity {
                 UiUtils.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        tvGetCode.setEnabled(true);
-                        tvGetCode.setText("获取验证码");
+                        if(timer != null) {
+                            tvGetCode.setEnabled(true);
+                            tvGetCode.setText("获取验证码");
+                        }
                     }
                 });
 
@@ -285,8 +289,11 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        timer.cancel();
-        timer = null;
+        if(timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+
         super.onDestroy();
         SMSSDK.unregisterEventHandler(this.handler);
 

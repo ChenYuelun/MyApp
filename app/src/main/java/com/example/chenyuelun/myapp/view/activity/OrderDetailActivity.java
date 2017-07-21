@@ -2,36 +2,38 @@ package com.example.chenyuelun.myapp.view.activity;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
+import com.chaychan.library.ExpandableLinearLayout;
 import com.example.chenyuelun.myapp.R;
 import com.example.chenyuelun.myapp.base.BaseActivity;
 import com.example.chenyuelun.myapp.common.Modle;
 import com.example.chenyuelun.myapp.modle.bean.CartBean;
+import com.example.chenyuelun.myapp.utils.UiUtils;
 import com.example.chenyuelun.myapp.utils.pay.AuthResult;
 import com.example.chenyuelun.myapp.utils.pay.OrderInfoUtil2_0;
 import com.example.chenyuelun.myapp.utils.pay.PayKeys;
 import com.example.chenyuelun.myapp.utils.pay.PayResult;
-import com.example.chenyuelun.myapp.view.adapter.OrderLvAdapter;
 
 import java.util.ArrayList;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class OrderDetailActivity extends BaseActivity {
 
@@ -47,8 +49,6 @@ public class OrderDetailActivity extends BaseActivity {
     TextView tvAddress;
     @BindView(R.id.imageView)
     ImageView imageView;
-    @BindView(R.id.lv_order)
-    ListView lvOrder;
     @BindView(R.id.tv_price)
     TextView tvPrice;
     @BindView(R.id.tv_discount)
@@ -65,16 +65,18 @@ public class OrderDetailActivity extends BaseActivity {
     Button btPay;
     @BindView(R.id.tv_choice_addr)
     TextView tvChoiceAddr;
+    @BindView(R.id.ell_product)
+    ExpandableLinearLayout ellProduct;
     private ArrayList<CartBean> goods;
 
     @Override
     public void initData() {
         goods = (ArrayList<CartBean>) getIntent().getSerializableExtra("goods");
         if (goods != null && goods.size() > 0) {
-            lvOrder.setAdapter(new OrderLvAdapter(this, goods));
-            setListViewHeightBasedOnChildren(lvOrder);
+            ellProduct.setVisibility(View.VISIBLE);
+            ListData();
         } else {
-            lvOrder.setVisibility(View.GONE);
+            ellProduct.setVisibility(View.GONE);
         }
 
 
@@ -84,6 +86,15 @@ public class OrderDetailActivity extends BaseActivity {
         tvDiscount.setText("-￥:" + totalDis);
         tvTotalPrice.setText("总计:￥" + (totalPrice - totalDis));
         tvJiesheng.setText("已节省:￥" + totalDis);
+    }
+
+    private void ListData() {
+        for (int i = 0; i < goods.size(); i++) {
+            View view = View.inflate(this, R.layout.item_lv_order, null);
+            ViewHolder viewHolder = new ViewHolder(this,view);
+            viewHolder.setData(goods.get(i));
+            ellProduct.addItem(view);
+        }
     }
 
     @Override
@@ -121,7 +132,7 @@ public class OrderDetailActivity extends BaseActivity {
         tvChoiceAddr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(OrderDetailActivity.this,EditAddressActivity.class));
+                startActivity(new Intent(OrderDetailActivity.this, EditAddressActivity.class));
             }
         });
 
@@ -161,24 +172,72 @@ public class OrderDetailActivity extends BaseActivity {
     }
 
 
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            // pre-condition
-            return;
-        }
+//    public static void setListViewHeightBasedOnChildren(ListView listView) {
+//        ListAdapter listAdapter = listView.getAdapter();
+//        if (listAdapter == null) {
+//            // pre-condition
+//            return;
+//        }
+//
+//        int totalHeight = 0;
+//        for (int i = 0; i < listAdapter.getCount(); i++) {
+//            View listItem = listAdapter.getView(i, null, listView);
+//            listItem.measure(0, View.MeasureSpec.makeMeasureSpec(0,
+//                    View.MeasureSpec.UNSPECIFIED));
+//            totalHeight += listItem.getMeasuredHeight();
+//        }
+//
+//        ViewGroup.LayoutParams params = listView.getLayoutParams();
+//        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+//        listView.setLayoutParams(params);
+//    }
 
-        int totalHeight = 0;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            View listItem = listAdapter.getView(i, null, listView);
-            listItem.measure(0, View.MeasureSpec.makeMeasureSpec(0,
-                    View.MeasureSpec.UNSPECIFIED));
-            totalHeight += listItem.getMeasuredHeight();
-        }
 
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
+    static class ViewHolder {
+        private final Context context;
+        @BindView(R.id.iv_image)
+        ImageView ivImage;
+        @BindView(R.id.tv_goodsname)
+        TextView tvGoodsname;
+        @BindView(R.id.tv_type_size)
+        TextView tvTypeSize;
+        @BindView(R.id.tv_price)
+        TextView tvPrice;
+        @BindView(R.id.tv_old_price)
+        TextView tvOldPrice;
+        @BindView(R.id.tv_count)
+        TextView tvCount;
+        @BindView(R.id.ll_noEdit)
+        LinearLayout llNoEdit;
+
+        ViewHolder(Context context, View view) {
+            this.context = context;
+            ButterKnife.bind(this, view);
+        }
+        public void setData(CartBean cartBean){
+            tvCount.setText("x" + cartBean.getCount());
+            tvGoodsname.setText(cartBean.getGoods_name());
+            UiUtils.loadImage(context, cartBean.getImage(), ivImage, 0);
+            String type_name = cartBean.getType_name();
+            String type = cartBean.getType();
+            String size_name = cartBean.getSize_name();
+            String size = cartBean.getSize();
+            if (TextUtils.isEmpty(size_name)) {
+                tvTypeSize.setText(type_name + ":" + type);
+            } else {
+                tvTypeSize.setText(type_name + ":" + type + ";" + size_name + ":" + size);
+            }
+
+            String discount = cartBean.getDiscount();
+            if (TextUtils.isEmpty(discount)) {
+                tvPrice.setText("￥" + cartBean.getPrice());
+                tvOldPrice.setVisibility(View.GONE);
+            } else {
+                tvPrice.setText("￥" + cartBean.getDiscount());
+                tvOldPrice.setText("￥" + cartBean.getPrice());
+                tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            }
+        }
     }
 
 
