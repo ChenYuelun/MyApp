@@ -55,13 +55,10 @@
                         android:text="13472297118"
                         android:textColor="#cccccc"
                         android:textSize="12sp" />
-
-
                 </LinearLayout>
 
 
                 <TextView
-
                     android:id="@+id/tv_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -70,7 +67,6 @@
                     android:text="北七家镇白庙西街"
                     android:textColor="#cccccc"
                     android:textSize="12sp" />
-
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="wrap_content"
